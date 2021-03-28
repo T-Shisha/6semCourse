@@ -22,4 +22,8 @@ public class Maintenance {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "type_id", nullable = false)
     private TypeServices type;
+
+    public double getPrice() {
+        return this.price;
+    }
 }
