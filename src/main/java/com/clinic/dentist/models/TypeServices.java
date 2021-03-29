@@ -10,4 +10,8 @@ public class TypeServices {
     private String name;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "type", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private Set<Maintenance> maintenances;
+
+    public Set<Maintenance> getMaintenances() {
+        return maintenances;
+    }
 }
