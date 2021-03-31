@@ -3,7 +3,7 @@ package com.clinic.dentist.models;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
-
+@Entity
 public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

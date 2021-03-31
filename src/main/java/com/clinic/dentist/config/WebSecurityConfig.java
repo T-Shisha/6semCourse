@@ -27,12 +27,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
+   /* @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**").hasAuthority("USER")
+                .antMatchers("/user/**").hasAuthority("PATIENT")
                 .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()
@@ -58,5 +58,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery("select username, password, active from patient where username=?")
                 .authoritiesByUsernameQuery("select u.username, ur.roles from patient u inner join patient_role ur on u.id = ur.patient_id where u.username=?")
         ;
-    }
+    }*/
 }

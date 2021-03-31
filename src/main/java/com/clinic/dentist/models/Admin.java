@@ -3,9 +3,9 @@ package com.clinic.dentist.models;
 import javax.persistence.*;
 import java.util.Set;
 
-
+@Entity
 public class Admin {
-
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String password;
