@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="login-page">
+    <div class="form">
+        <h2 class="name">Регистрация</h2>
+        <form class="registr" action="#" th:action="@{/registration}" method="post">
+            <p> Введите имя: <input type="text" name="firstName" required/></p>
+
+            <p> Введите фамилию: <input type="text" name="lastName" required/></p>
+
+            <p>Введите номер телефона <input type="tel" name="username" pattern="+375([0-9]{2})[0-9]{7}"
+                                             required/></p>
+            <p>Придумайте пароль: <input type="password" name="password" required/></p>
+
+            <p>Повторите пароль: <input type="password" name="passwordConfirm" required/></p>
+
+
+            <button>Зарегистрировать</button>
+            <p class="message"><a href="/login">Назад</a></p>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
