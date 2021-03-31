@@ -12,6 +12,7 @@ public class Patient {
     private String lastName;
     private String username;
     private String password;
+    private boolean active;
     @Transient
     private String passwordConfirm;
     @SuppressWarnings("JpaAttributeTypeInspection")
@@ -20,9 +21,28 @@ public class Patient {
     @SuppressWarnings("JpaAttributeTypeInspection")
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private Set<Review> reviews;
-    private boolean active;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "patient_role", joinColumns = @JoinColumn(name = "patient_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }

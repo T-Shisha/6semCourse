@@ -10,6 +10,7 @@ public class Admin {
     private Long id;
     private String password;
     private String login;
+    private boolean active;
     @Transient
     private String passwordConfirm;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
