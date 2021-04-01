@@ -1,4 +1,5 @@
 package com.clinic.dentist.config;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**").hasAuthority("USER")
+                .antMatchers("/user/**").hasAuthority("PATIENT")
                 .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()

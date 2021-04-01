@@ -1,7 +1,7 @@
 package com.clinic.dentist.models;
 
 import javax.persistence.*;
-
+@Entity
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

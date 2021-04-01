@@ -3,7 +3,7 @@ package com.clinic.dentist.models;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
-
+@Entity
 public class Dentist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,4 +26,24 @@ public class Dentist {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "dentist_id", nullable = false)
     private Clinic clinic;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 }
