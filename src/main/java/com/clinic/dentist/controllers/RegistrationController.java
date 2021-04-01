@@ -51,7 +51,16 @@ public class RegistrationController {
             return "registration";
 
         }
+        if (patient.getPassword().equals("")) {
+            model.addAttribute("passwordError", "Пароль не введен");
+            return "registration";
 
+        }
+        if (patient.getPasswordConfirm().equals("")) {
+            model.addAttribute("passwordConfirmError", "Повторно пароль не введен");
+            return "registration";
+
+        }
         if (!patient.getPassword().equals(patient.getPasswordConfirm())) {
             model.addAttribute("passwordConfirmError", "Пароли не совпадают");
             return "registration";
