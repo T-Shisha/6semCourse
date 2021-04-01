@@ -26,4 +26,24 @@ public class Dentist {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "dentist_id", nullable = false)
     private Clinic clinic;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 }

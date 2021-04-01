@@ -4,6 +4,7 @@ import com.clinic.dentist.models.Patient;
 import com.clinic.dentist.models.Role;
 import com.clinic.dentist.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +16,14 @@ public class PatientService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private PatientRepository patientRepository;
-    public  void addPatient(Patient patient){
+
+    public void addPatient(Patient patient) {
         patient.setActive(true);
         patient.setRoles(Collections.singleton(Role.UNREGISTERED));
         patient.setPassword(bCryptPasswordEncoder.encode(patient.getPassword()));
         patientRepository.save(patient);
     }
+
     public boolean checkPatient(Patient patient) {
 
         if (patientRepository.findByUsername(patient.getUsername()).isPresent()) {
@@ -28,5 +31,12 @@ public class PatientService {
         }
         return false;
 
+    }
+
+    public Patient correctData(Patient patient) {
+        patient.setFirstName(patient.getFirstName().trim());
+        patient.setLastName(patient.getLastName().trim());
+        patient.setUsername(patient.getUsername().trim());
+        return patient;
     }
 }
