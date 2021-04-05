@@ -1,12 +1,13 @@
 package com.clinic.dentist.models;
 
 import javax.persistence.*;
+
 @Entity
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String Time;
+    private String time;
     private String date;
     @Transient
     private boolean active;
@@ -32,6 +33,18 @@ public class Appointment {
     }
 
     public String getTime() {
-        return Time;
+        return time;
+    }
+
+    public Appointment() {
+    }
+
+    public Appointment(Clinic clinic, Maintenance maintenance, Dentist dentist, Patient patient, String date, String time) {
+        this.dentist = dentist;
+        this.maintenance = maintenance;
+        this.date = date;
+        this.time = time;
+        this.clinic = clinic;
+        this.patient = patient;
     }
 }
