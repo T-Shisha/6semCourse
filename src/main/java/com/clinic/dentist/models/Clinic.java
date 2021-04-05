@@ -26,6 +26,10 @@ public class Clinic {
         return id;
     }
 
+    public Set<Maintenance> getMaintenances() {
+        return maintenances;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
