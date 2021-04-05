@@ -2,6 +2,7 @@ package com.clinic.dentist.models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -20,4 +21,29 @@ public class Clinic {
     private List<Dentist> dentists;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "clinic", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private Set<Appointment> orders;
+
+    public Long getId() {
+        return id;
+    }
+
+    public Set<Maintenance> getMaintenances() {
+        return maintenances;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Clinic clinic = (Clinic) o;
+        return Objects.equals(id, clinic.id) &&
+                Objects.equals(address, clinic.address) &&
+                Objects.equals(maintenances, clinic.maintenances) &&
+                Objects.equals(dentists, clinic.dentists) &&
+                Objects.equals(orders, clinic.orders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, address, maintenances, dentists, orders);
+    }
 }

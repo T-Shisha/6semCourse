@@ -39,4 +39,15 @@ public class PatientService {
         patient.setUsername(patient.getUsername().trim());
         return patient;
     }
+
+    public Patient findUser(String login, String password) {
+        password = bCryptPasswordEncoder.encode(password);
+        Patient patient = patientRepository.findByUsername(login).orElseThrow(RuntimeException::new);
+       patient.getPassword();
+         if (patient.getPassword().equals(password)) {
+            return patient;
+        } else {
+            throw new RuntimeException("Invalid password");
+        }
+    }
 }

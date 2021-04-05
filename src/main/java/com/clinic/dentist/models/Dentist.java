@@ -3,6 +3,7 @@ package com.clinic.dentist.models;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
+
 @Entity
 public class Dentist {
     @Id
@@ -39,11 +40,19 @@ public class Dentist {
         this.lastName = lastName;
     }
 
+    public Clinic getClinic() {
+        return clinic;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

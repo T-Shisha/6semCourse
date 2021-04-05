@@ -3,6 +3,7 @@ package com.clinic.dentist.models;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
+
 @Entity
 public class Maintenance {
     @Id
@@ -22,6 +23,14 @@ public class Maintenance {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "type_id", nullable = false)
     private TypeServices type;
+
+    public List<Dentist> getDentists() {
+        return dentists;
+    }
+
+    public int getTime() {
+        return time;
+    }
 
     public double getPrice() {
         return this.price;
