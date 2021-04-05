@@ -144,7 +144,7 @@ public class DateSystem {
         return false;
     }
 
-   /* public boolean checkFreeDay(String date, Long id_dentist)////проверка на наличие в этот день записей
+    public boolean checkFreeDay(String date, Long id_dentist)////проверка на наличие в этот день записей
     {
         Dentist dentist = dentistRepository.findById(id_dentist).orElseThrow(RuntimeException::new);
         List<Appointment> orders = orderRepository.findAllByDentistAndDate(dentist, date);
@@ -158,6 +158,6 @@ public class DateSystem {
 
             if (o.getDate().trim() == date.trim() ) { return false; }
         }*/
-    // return true;
-    //}
+    return true;
+     }
 }

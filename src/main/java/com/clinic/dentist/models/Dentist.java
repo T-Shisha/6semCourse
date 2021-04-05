@@ -51,4 +51,8 @@ public class Dentist {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

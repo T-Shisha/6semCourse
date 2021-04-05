@@ -26,4 +26,12 @@ public class Appointment {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
+
+    public Maintenance getMaintenance() {
+        return maintenance;
+    }
+
+    public String getTime() {
+        return Time;
+    }
 }
