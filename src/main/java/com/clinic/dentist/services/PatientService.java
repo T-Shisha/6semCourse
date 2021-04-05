@@ -41,9 +41,10 @@ public class PatientService {
     }
 
     public Patient findUser(String login, String password) {
-        password=bCryptPasswordEncoder.encode(password);
+        password = bCryptPasswordEncoder.encode(password);
         Patient patient = patientRepository.findByUsername(login).orElseThrow(RuntimeException::new);
-        if (patient.getPassword().equals(password)) {
+       patient.getPassword();
+         if (patient.getPassword().equals(password)) {
             return patient;
         } else {
             throw new RuntimeException("Invalid password");

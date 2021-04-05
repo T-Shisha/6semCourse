@@ -23,6 +23,10 @@ public class Maintenance {
     @JoinColumn(name = "type_id", nullable = false)
     private TypeServices type;
 
+    public List<Dentist> getDentists() {
+        return dentists;
+    }
+
     public double getPrice() {
         return this.price;
     }
