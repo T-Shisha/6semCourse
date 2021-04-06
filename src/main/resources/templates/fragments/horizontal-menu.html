@@ -2,21 +2,25 @@
     <div class="menu">
 
         <ul>
-            <li> <label class="name_clinik">Happy smile</label></li>
+            <li><label class="name_clinik">Happy smile</label></li>
 
-            <li class="funct"> <a  th:href="'/service'">Услуги</a></li>
-            <li class="funct"> <a  th:href="'/service'">Про нас</a></li>
-            <li class="funct"> <a  th:href="'/service'">Отзывы</a></li>
-            <li sec:authorize="hasAuthority('PATIENT')"  class="funct"> <a  th:href="'/user'">Профиль</a></li>
-            <li sec:authorize="hasAuthority('ADMIN')" class="funct"> <a  th:href="'/admin'">Администрирование</a></li>
-            <li sec:authorize="isAuthenticated()" class="funct"> <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
-            </form></li>
-            <li sec:authorize="!isAuthenticated()" class="funct"> <form th:action="@{/login}" method="post">
-                <input type="submit" value="Sign in"/>
-            </form></li>
+            <li class="funct"><a th:href="'/service'">Услуги</a></li>
+            <li class="funct"><a th:href="'/service'">Про нас</a></li>
+            <li class="funct"><a th:href="'/service'">Отзывы</a></li>
+            <li sec:authorize="hasAuthority('PATIENT')" class="funct"><a th:href="'/user'">Профиль</a></li>
+            <li sec:authorize="hasAuthority('ADMIN')" class="funct"><a th:href="'/admin'">Администрирование</a></li>
+            <li sec:authorize="isAuthenticated()" class="funct">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+                </form>
+            </li>
+            <li sec:authorize="!isAuthenticated()" class="funct">
+                <form th:action="@{/login}" method="post">
+                    <input type="submit" value="Sign in"/>
+                </form>
+            </li>
 
-            <li class="funct"><a  th:href="'/'">Главная</a></li>
+            <li class="funct"><a th:href="'/'">Главная</a></li>
         </ul>
     </div>
 </div>
