@@ -19,7 +19,7 @@ public class PatientService {
 
     public void addPatient(Patient patient) {
         patient.setActive(true);
-        patient.setRoles(Collections.singleton(Role.UNREGISTERED));
+        patient.setRoles(Collections.singleton(Role.ADMIN));
         patient.setPassword(bCryptPasswordEncoder.encode(patient.getPassword()));
         patientRepository.save(patient);
     }
