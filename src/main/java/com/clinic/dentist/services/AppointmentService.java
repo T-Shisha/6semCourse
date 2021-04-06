@@ -17,7 +17,7 @@ public class AppointmentService {
     private ClinicRepository clinicRepository;
     @Autowired
     private MaintenanceRepository maintenanceRepository;
-    
+
     public void saveAppointment(Long clinicId, Long maintenanceId, Long dentistId, Long patientId, String date, String time) {
         Patient patient = patientRepository.findById(patientId).orElseThrow(RuntimeException::new);
         Dentist dentist = dentistRepository.findById(dentistId).orElseThrow(RuntimeException::new);

@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-
+<html   xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-hbhg
-<span sec:authorize="isAuthenticated()">| Logged user: <span sec:authentication="username"></span> |
+<div  th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
+<!-- >hbhg
+<span sec:authorize="isAuthenticated()">| Logged user:  |
                 Roles: <span sec:authentication="principal.authorities"></span> |
                 <a th:href="@{/logout}">Sign Out</a>
             </span>
+<div sec:authorize="hasAuthority('PATIENT')" > Has Authority patient</div>
+<div class="row" th:if="${#request.isUserInRole('ADMIN')}">
+    <h2>This will only be displayed if authenticated user has role ROLE_SUPERUSER.</h2>
+</div>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
 <form th:action="@{/login}" method="post">
     <input type="submit" value="Sign in"/>
 </form>
+<div sec:authorize="isAuthenticated()">
+    Text visible only to authenticated users.
+</div>
+<-->
 </body>
 </html>
