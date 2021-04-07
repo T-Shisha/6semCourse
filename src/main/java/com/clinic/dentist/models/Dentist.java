@@ -55,4 +55,8 @@ public class Dentist {
     public Long getId() {
         return id;
     }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
 }

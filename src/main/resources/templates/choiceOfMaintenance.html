@@ -22,11 +22,11 @@ PATIENTTT
                     <div class="container">
                         <div class="title-order"><h2>Записаться к врачу</h2><br>
                             <h3>Шаг 2</h3></div>
-                        <p><select class="choice" onchange='this.form.submit()' name="service">
+                        <p><select class="choice" onchange='this.form.submit()' name="serviceId">
 
 
                             <option disabled selected="selected">Выберите service</option>
-                            <option th:each="t:${maintenances}" th:value="${t.getName()}"
+                            <option th:each="t:${maintenances}" th:value="${t.getId()}"
                                     th:text="${t.getName()}"></option>
 
                         </select></p>

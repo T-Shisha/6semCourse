@@ -1,6 +1,7 @@
 package com.clinic.dentist.controllers;
 
 import com.clinic.dentist.models.Clinic;
+import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.services.ClinicService;
 import com.clinic.dentist.services.MaintenanceService;
@@ -30,10 +31,8 @@ public class PatientController {
     }
 
     @PostMapping("/user")
-    public String chooseClinic(@RequestParam String address, Model model) {
-        Clinic necessaryClinic = clinicService.findClinicByAddress(address);
-
-        return "redirect:/user/" + necessaryClinic.getId() + "/clinic";
+    public String chooseClinic(@RequestParam String clinicId, Model model) {
+        return "redirect:/user/" + clinicId + "/clinic";
     }
 
     @GetMapping("/user/{id}/clinic")
@@ -44,9 +43,14 @@ public class PatientController {
     }
 
     @PostMapping("/user/{id}/clinic")
-    public String chooseService(@PathVariable(value = "id") long id, @RequestParam String maintenance, Model model) {
-        Maintenance necessaryMaintenance = maintenanceService.findByName(maintenance);
+    public String chooseService(@PathVariable(value = "id") long id, @RequestParam String maintenanceId, Model model) {
 
-        return "redirect:/user/" + id + "/clinic/"+necessaryMaintenance.getId()+"/maintenance";
+        return "redirect:/user/" + id + "/clinic/"+maintenanceId+"/maintenance";
+    }
+    @GetMapping("/user/{id}/clinic/{id1}/maintenance")
+    public String showDentists(@PathVariable(value = "id") long id,@PathVariable(value = "id1") long id1, Model model) {
+        List<Dentist> dentists = maintenanceService.findDentistsByMaintenanceAndClinic(id1,id);
+        model.addAttribute("dentists", dentists);
+        return "choiceOfDentist";
     }
 }
