@@ -21,13 +21,13 @@ PATIENTTT
                 <form action="#" th:action="@{'/user'}" method="post">
                     <div class="container">
                         <div class="title-order"><h2>Записаться к врачу</h2><br>
-                            <h3>Шаг 1</h3></div>
-                        <p><select class="choice" onchange='this.form.submit()' name="clinicId">
+                            <h3>Шаг 2</h3></div>
+                        <p><select class="choice" onchange='this.form.submit()' name="dentistId">
 
 
-                            <option disabled selected="selected">Выберите клинику</option>
-                            <option th:each="t:${clinics}" th:value="${t.getId()}"
-                                    th:text="${t.getAddress()}"></option>
+                            <option disabled selected="selected">Выберите врача</option>
+                            <option th:each="t:${dentists}" th:value="${t.getId()}"    th:text="${t.getLastName()}+'   '+${t.getFirstName()}+'  '+${t.getPatronymic()}" ></option>
+
 
                         </select></p>
 

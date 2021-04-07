@@ -30,6 +30,10 @@ public class Clinic {
         return maintenances;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

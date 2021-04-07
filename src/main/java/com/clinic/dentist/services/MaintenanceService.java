@@ -2,6 +2,7 @@ package com.clinic.dentist.services;
 
 import com.clinic.dentist.models.Clinic;
 import com.clinic.dentist.models.Dentist;
+import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.repositories.ClinicRepository;
 import com.clinic.dentist.repositories.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class MaintenanceService {
     private MaintenanceRepository maintenanceRepository;
     @Autowired
     private ClinicRepository clinicRepository;
+
+    public Maintenance findByName(String name) {
+        return maintenanceRepository.findByName(name).orElseThrow(RuntimeException::new);
+    }
 
     public List<Dentist> findDentistsByMaintenance(Long Id) {
         List<Dentist> dentists = maintenanceRepository.findById(Id).orElseThrow().getDentists();

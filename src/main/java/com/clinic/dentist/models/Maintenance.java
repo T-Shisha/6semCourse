@@ -24,12 +24,20 @@ public class Maintenance {
     @JoinColumn(name = "type_id", nullable = false)
     private TypeServices type;
 
+    public String getName() {
+        return name;
+    }
+
     public List<Dentist> getDentists() {
         return dentists;
     }
 
     public int getTime() {
         return time;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public double getPrice() {
