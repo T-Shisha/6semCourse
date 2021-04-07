@@ -17,7 +17,7 @@ public class Dentist {
 
     @OneToMany(mappedBy = "dentist", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<Appointment> orders;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+     @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "dentist_maintenance",
             joinColumns = @JoinColumn(name = "Dentist"),
             inverseJoinColumns = @JoinColumn(name = "Maintenance")
