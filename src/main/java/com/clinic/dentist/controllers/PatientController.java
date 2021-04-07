@@ -39,18 +39,24 @@ public class PatientController {
     public String showService(@PathVariable(value = "id") long id, Model model) {
         Iterable<Maintenance> maintenances = clinicService.findMaintenancesByClinic(id);
         model.addAttribute("maintenances", maintenances);
+        model.addAttribute("clinicId", id);
+
         return "choiceOfMaintenance";
     }
 
     @PostMapping("/user/{id}/clinic")
     public String chooseService(@PathVariable(value = "id") long id, @RequestParam String maintenanceId, Model model) {
 
-        return "redirect:/user/" + id + "/clinic/"+maintenanceId+"/maintenance";
+        return "redirect:/user/" + id + "/clinic/" + maintenanceId + "/maintenance";
     }
+
     @GetMapping("/user/{id}/clinic/{id1}/maintenance")
-    public String showDentists(@PathVariable(value = "id") long id,@PathVariable(value = "id1") long id1, Model model) {
-        List<Dentist> dentists = maintenanceService.findDentistsByMaintenanceAndClinic(id1,id);
+    public String showDentists(@PathVariable(value = "id") long id, @PathVariable(value = "id1") long id1, Model model) {
+        List<Dentist> dentists = maintenanceService.findDentistsByMaintenanceAndClinic(id1, id);
         model.addAttribute("dentists", dentists);
+        model.addAttribute("clinicId", id);
+        model.addAttribute("serviceId", id1);
+
         return "choiceOfDentist";
     }
 }

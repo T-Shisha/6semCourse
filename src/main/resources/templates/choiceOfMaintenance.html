@@ -18,11 +18,11 @@ PATIENTTT
         <td width="65%">
 
             <div class="bg-img">
-                <form action="#" th:action="@{'/user'}" method="post">
+                <form action="#" th:action="@{'/user/'+${clinicId}+'/clinic'}" method="post">
                     <div class="container">
                         <div class="title-order"><h2>Записаться к врачу</h2><br>
                             <h3>Шаг 2</h3></div>
-                        <p><select class="choice" onchange='this.form.submit()' name="serviceId">
+                        <p><select class="choice" onchange='this.form.submit()' name="maintenanceId">
 
 
                             <option disabled selected="selected">Выберите service</option>
