@@ -5,6 +5,8 @@ import com.clinic.dentist.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppointmentService {
     @Autowired
@@ -17,6 +19,11 @@ public class AppointmentService {
     private ClinicRepository clinicRepository;
     @Autowired
     private MaintenanceRepository maintenanceRepository;
+
+    public List<Appointment> findByDentistAndDate(Dentist dentist, String date) {
+        return appointmentRepository.findAllByDentistAndDate(dentist, date);
+
+    }
 
     public void saveAppointment(Long clinicId, Long maintenanceId, Long dentistId, Long patientId, String date, String time) {
         Patient patient = patientRepository.findById(patientId).orElseThrow(RuntimeException::new);

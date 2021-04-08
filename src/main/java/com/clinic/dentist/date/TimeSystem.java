@@ -26,7 +26,7 @@ public class TimeSystem {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public boolean checkFreeTime(String date, Long id_dentist)////не занят ли весь день у доктора
+    public   boolean checkFreeTime(String date, Long id_dentist)////не занят ли весь день у доктора
     {
         Dentist dentist = dentistRepository.findById(id_dentist).orElseThrow(RuntimeException::new);
         ArrayList<String> time = getFreeTimesDentistWithPatients(date, dentist);
@@ -37,7 +37,7 @@ public class TimeSystem {
         return true;
     }
 
-    public ArrayList<String> getFreeTimesDentistWithPatients(String date, Dentist dentist)/////свободное время доктора, учитывая записи
+    public   ArrayList<String> getFreeTimesDentistWithPatients(String date, Dentist dentist)/////свободное время доктора, учитывая записи
     {
 
         int kol_min_priem;
