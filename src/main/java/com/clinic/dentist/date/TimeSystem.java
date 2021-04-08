@@ -8,6 +8,7 @@ import com.clinic.dentist.repositories.DentistRepository;
 import com.clinic.dentist.repositories.MaintenanceRepository;
 import com.clinic.dentist.services.AppointmentService;
 import com.clinic.dentist.services.ClinicService;
+import com.clinic.dentist.services.DentistService;
 import com.clinic.dentist.services.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,8 +26,12 @@ public class TimeSystem {
     private DateSystem dateSystem;
     @Autowired
     private AppointmentRepository appointmentRepository;
+    @Autowired
+    private DentistService dentistService;
+    @Autowired
+    private MaintenanceService maintenanceService;
 
-    public   boolean checkFreeTime(String date, Long id_dentist)////не занят ли весь день у доктора
+    public boolean checkFreeTime(String date, Long id_dentist)////не занят ли весь день у доктора
     {
         Dentist dentist = dentistRepository.findById(id_dentist).orElseThrow(RuntimeException::new);
         ArrayList<String> time = getFreeTimesDentistWithPatients(date, dentist);
@@ -37,7 +42,7 @@ public class TimeSystem {
         return true;
     }
 
-    public   ArrayList<String> getFreeTimesDentistWithPatients(String date, Dentist dentist)/////свободное время доктора, учитывая записи
+    public ArrayList<String> getFreeTimesDentistWithPatients(String date, Dentist dentist)/////свободное время доктора, учитывая записи
     {
 
         int kol_min_priem;
@@ -101,18 +106,18 @@ public class TimeSystem {
     }
 
     public boolean checkFreeTimeForService(String date, Long id_dentist, Long id_service) {
-        Dentist dentist = dentistRepository.findById(id_dentist).orElseThrow(RuntimeException::new);
-        Maintenance service = maintenanceRepository.findById(id_service).orElseThrow(RuntimeException::new);
 
-        ArrayList<String> list = getFreeTimeForService(date, dentist, service);
+        ArrayList<String> list = getFreeTimeForService(date, id_dentist, id_service);
         if (list.size() == 0) {
             return false;
         }
         return true;
     } //////влезает ли услуга в расписание врача
 
-    public ArrayList<String> getFreeTimeForService(String date, Dentist dentist, Maintenance service)////время для записи определенной услуги
+    public ArrayList<String> getFreeTimeForService(String date, Long dentistId, Long maintenanceId)////время для записи определенной услуги
     {
+        Dentist dentist = dentistService.findById(dentistId);
+        Maintenance maintenance = maintenanceService.findById(maintenanceId);
         ArrayList<String> time = new ArrayList<String>();
         if (!dateSystem.checkFreeDay(date, dentist.getId())) {
             time = getFreeTimesDentistWithPatients(date, dentist);
@@ -121,9 +126,9 @@ public class TimeSystem {
         }
         ArrayList<String> list = new ArrayList<String>();
 
-        int kol_min_priem = service.getTime() / 10;
+        int kol_min_priem = maintenance.getTime() / 10;
 
-        if (service.getTime() - 10 * kol_min_priem != 0) {
+        if (maintenance.getTime() - 10 * kol_min_priem != 0) {
             kol_min_priem++;
         }
         ;
@@ -148,23 +153,12 @@ public class TimeSystem {
                                 if (Integer.parseInt(stroka[0]) - Integer.parseInt(prev_stroka[0]) != 1) {
                                     l = false;
                                     break;
-                                }
-                                //if (stroka[1] == "00" && prev_stroka[1] != "50")
-                                //if (stroka[1] == "00" && prev_stroka[1] == "50")
-                                //{
-                                //    l =  true;
-                                //    break;
-                                else if (Integer.parseInt(stroka[0]) - Integer.parseInt(prev_stroka[0]) == 1) {
+                                } else if (Integer.parseInt(stroka[0]) - Integer.parseInt(prev_stroka[0]) == 1) {
                                     if (!stroka[1].equals("00") || !prev_stroka[1].equals("50")) {
                                         l = false;
                                         break;
                                     }
-                                }  //}
-                                //else if (stroka[1] != "00" || prev_stroka[1] != "50")
-                                //  {
-                                //      l = false;
-                                //      break;
-                                //  }
+                                }
                             }
 
                         }

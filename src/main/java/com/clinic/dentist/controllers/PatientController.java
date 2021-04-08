@@ -115,4 +115,15 @@ public class PatientController {
 
 
     }
+
+    @GetMapping("/user/{id}/clinic/{id1}/maintenance/{id2}/dentist/{date}")
+    public String ShowTime(@PathVariable(value = "id") long id, @PathVariable(value = "id1") long id1, @PathVariable(value = "id2") long id2,
+                           @PathVariable(value = "date") String date, Model model) {
+        model.addAttribute("clinicId", id);
+        model.addAttribute("serviceId", id1);
+        model.addAttribute("dentistId", id2);
+        model.addAttribute("Date", date);
+        model.addAttribute("time", timeSystem.getFreeTimeForService(date, id2, id1));
+        return ("choiceOfTime");
+    }
 }
