@@ -39,4 +39,8 @@ public class MaintenanceService {
         return necessaryDentists;
     }
 
+    public Maintenance findById(Long id) {
+        return maintenanceRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
 }

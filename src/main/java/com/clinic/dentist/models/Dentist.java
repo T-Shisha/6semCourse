@@ -25,7 +25,7 @@ public class Dentist {
     private Set<Maintenance> maintenances;
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "dentist_id", nullable = false)
+    @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
 
     public String getFirstName() {

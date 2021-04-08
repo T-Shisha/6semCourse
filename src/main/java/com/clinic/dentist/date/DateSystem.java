@@ -4,7 +4,10 @@ import com.clinic.dentist.models.Appointment;
 import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.repositories.AppointmentRepository;
 import com.clinic.dentist.repositories.DentistRepository;
+import com.clinic.dentist.services.AppointmentService;
+import com.clinic.dentist.services.DentistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,8 +20,12 @@ public class DateSystem {
     private DentistRepository dentistRepository;
     @Autowired
     private AppointmentRepository orderRepository;
+    @Autowired
+    private DentistService dentistService;
+    @Autowired
+    private AppointmentService appointmentService;
 
-    public String NextDay() {
+    public static String NextDay() {
         Date thisDay = new Date();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd/MM/yyyy");
         String dat = formatForDateNow.format(thisDay);
@@ -46,13 +53,13 @@ public class DateSystem {
         return now;
     }
 
-    public boolean visoc(int year) {
+    private static boolean visoc(int year) {
         if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
             return true;
         return false;
     }
 
-    public boolean last_day(String[] date) {
+    private static boolean last_day(String[] date) {
         int year = Integer.parseInt(date[2]);
         int month = Integer.parseInt(date[1]);
         int day = Integer.parseInt(date[0]);
@@ -72,7 +79,7 @@ public class DateSystem {
         return false;
     }
 
-    public String[] next_day(String[] date) {
+    private static String[] next_day(String[] date) {
         int year = Integer.parseInt(date[2]);
         int month = Integer.parseInt(date[1]);
         int day = Integer.parseInt(date[0]);
@@ -116,7 +123,7 @@ public class DateSystem {
         return date;
     }
 
-    public Date getDateFromString(String dateInString) {
+    private static Date getDateFromString(String dateInString) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         // String dateInString = NextDay();
@@ -133,7 +140,7 @@ public class DateSystem {
         return date;
     }
 
-    public boolean checkWeekend(String date) {
+    public static boolean checkWeekend(String date) {
         Calendar c = Calendar.getInstance();
         c.setTime(getDateFromString(date));
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
@@ -144,20 +151,14 @@ public class DateSystem {
         return false;
     }
 
-    public boolean checkFreeDay(String date, Long id_dentist)////проверка на наличие в этот день записей
+    public   boolean checkFreeDay(String date, Long id_dentist)////проверка на наличие в этот день записей
     {
-        Dentist dentist = dentistRepository.findById(id_dentist).orElseThrow(RuntimeException::new);
-        List<Appointment> orders = orderRepository.findAllByDentistAndDate(dentist, date);
+        Dentist dentist = dentistService.findById(id_dentist);
+        List<Appointment> orders = appointmentService.findByDentistAndDate(dentist, date);
         if (orders.size() != 0) {
             return false;
         }
-     /*   List<Appointment> orders=dentist.getOrders();
 
-        for (Appointment o:orders)
-        {
-
-            if (o.getDate().trim() == date.trim() ) { return false; }
-        }*/
-    return true;
-     }
+        return true;
+    }
 }

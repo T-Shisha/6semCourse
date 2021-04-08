@@ -18,19 +18,21 @@ PATIENTTT
         <td width="65%">
 
             <div class="bg-img">
-                <form action="#" th:action="@{'/user/'+${clinicId}+'/clinic/'+${serviceId}+'/maintenance'}" method="post">
+                <form action="#" th:action="@{'/user/'+${clinicId}+'/clinic/'+${serviceId}+'/maintenance/'+${dentistId}+'/dentist/'+${date}}"
+                      method="post">
                     <div class="container">
                         <div class="title-order"><h2>Записаться к врачу</h2><br>
-                            <h3>Шаг 2</h3></div>
-                        <p><select class="choice" onchange='this.form.submit()' name="dentistId">
+                            <h3>Шаг 4</h3></div>
 
 
-                            <option disabled selected="selected">Выберите врача</option>
-                            <option th:each="t:${dentists}" th:value="${t.getId()}"    th:text="${t.getLastName()}+'   '+${t.getFirstName()}+'  '+${t.getPatronymic()}" ></option>
+                        <p><select  class="choice" onchange='this.form.submit()'  name="time">
+
+
+                            <option disabled selected="selected" >Выберите время</option>
+                            <option th:each="t:${time}" th:value="${t}"    th:text="${t}" ></option>
 
 
                         </select></p>
-
 
                     </div>
 
