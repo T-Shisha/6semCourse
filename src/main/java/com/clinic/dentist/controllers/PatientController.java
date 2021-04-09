@@ -6,6 +6,7 @@ import com.clinic.dentist.models.Clinic;
 import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.services.ClinicService;
+import com.clinic.dentist.services.DentistService;
 import com.clinic.dentist.services.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,9 @@ public class PatientController {
     @Autowired
     private ClinicService clinicService;
     @Autowired
+    private DentistService dentistService;
+    @Autowired
     private MaintenanceService maintenanceService;
-    private TimeSystem timeSystem = new TimeSystem();
 
     @GetMapping("/user")
     public String greeting(Model model) {
@@ -94,15 +96,15 @@ public class PatientController {
             return ("choiceOfDate");
 
 
-        } else if (!new DateSystem().checkFreeDay(Date, id2)) {
+        } else if (dentistService.checkFreeDay(Date, id2)) {
 
 
-            if (!timeSystem.checkFreeTime(Date, id2)) {
+            if (!dentistService.checkFreeTime(Date, id2)) {
 
                 model.addAttribute("dates", DateSystem.NextDay());
                 return ("choiceOfDate");
 
-            } else if (!timeSystem.checkFreeTimeForService(Date, id2, id1)) {
+            } else if (!dentistService.checkFreeTimeForService(Date, id2, id1)) {
 
                 model.addAttribute("dates", DateSystem.NextDay());
                 return ("choiceOfDate");
@@ -111,7 +113,7 @@ public class PatientController {
         }
 
 
-        return "redirect:/user/" + id + "/clinic/" + id1 + "/maintenance/" + id2 + "/dentist";
+        return "redirect:/user/" + id + "/clinic/" + id1 + "/maintenance/" + id2 + "/dentist/" + Date;
 
 
     }
@@ -123,7 +125,27 @@ public class PatientController {
         model.addAttribute("serviceId", id1);
         model.addAttribute("dentistId", id2);
         model.addAttribute("Date", date);
-        model.addAttribute("time", timeSystem.getFreeTimeForService(date, id2, id1));
+        model.addAttribute("time", dentistService.getFreeTimeForService(date, id2, id1));
         return ("choiceOfTime");
+    }
+
+    @PostMapping("/user/{id}/clinic/{id1}/maintenance/{id2}/dentist/{date}")
+    public String ShowTime(@PathVariable(value = "id") long id, @PathVariable(value = "id1") long id1, @PathVariable(value = "id2") long id2,
+                           @PathVariable(value = "date") String date, @RequestParam String time, Model model) {
+        return "redirect:/user/" + id + "/clinic/" + id1 + "/maintenance/" + id2 + "/dentist/" + date + "/" + time;
+
+    }
+
+    @GetMapping("/user/{id}/clinic/{id1}/maintenance/{id2}/dentist/{date}/{time}")
+    public String ShowOrder(@PathVariable(value = "id") long id, @PathVariable(value = "id1") long id1, @PathVariable(value = "id2") long id2,
+                            @PathVariable(value = "date") String date, @PathVariable(value = "time") String time, Model model) {
+
+        model.addAttribute("clinic", clinicService.findById(id));
+        model.addAttribute("service", maintenanceService.findById(id1));
+        model.addAttribute("dentist", dentistService.findById(id2));
+        model.addAttribute("date", date);
+        model.addAttribute("time", time);
+        return ("orderPatient");
+
     }
 }

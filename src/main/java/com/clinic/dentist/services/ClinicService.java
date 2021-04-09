@@ -25,4 +25,8 @@ public class ClinicService {
     public Iterable<Maintenance> findMaintenancesByClinic(Long ClinicId) {
         return clinicRepository.findById(ClinicId).orElseThrow().getMaintenances();
     }
+
+    public Clinic findById(Long id) {
+        return clinicRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
 }

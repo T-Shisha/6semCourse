@@ -8,14 +8,15 @@ import com.clinic.dentist.services.AppointmentService;
 import com.clinic.dentist.services.DentistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-public class DateSystem {
+  public class DateSystem {
     @Autowired
     private DentistRepository dentistRepository;
     @Autowired
@@ -151,8 +152,8 @@ public class DateSystem {
         return false;
     }
 
-    public   boolean checkFreeDay(String date, Long id_dentist)////проверка на наличие в этот день записей
-    {
+   /* public   boolean checkFreeDay(String date, Long id_dentist)////проверка на наличие в этот день записей
+    {   int h=2;
         Dentist dentist = dentistService.findById(id_dentist);
         List<Appointment> orders = appointmentService.findByDentistAndDate(dentist, date);
         if (orders.size() != 0) {
@@ -160,5 +161,5 @@ public class DateSystem {
         }
 
         return true;
-    }
+    }*/
 }
