@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
+
+<form action="#"
+      th:action="@{'/user/'+${clinic.getId()}+'/clinic/'+${service.getId()}+'/maintenance/'+${dentist.getId()}+'/dentist/'+${date}+'/'+${time}}"
+      method="post">
+    <div class="container-1">
+        <div class="title-order"><h2>Записаться к врачу</h2><br>
+            <h3>Шаг 5</h3></div>
+        <div class="choice">
+            <div class="texx">
+                <div th:text="'Клиника : '+${clinic.getAddress()}"></div>
+                <div th:text="'Услуга : '+${service.getName()}"></div>
+                <div th:text="'Врач : ' +${dentist.getLastName()}+' '+${dentist.getFirstName()}+' '+${dentist.getPatronymic()}"></div>
+                <div th:text="'Дата : '+${date}"></div>
+                <div th:text="'Время : ' +${time}"></div>
+            </div>
+        </div>
+
+        <a class="previous"
+           th:href="@{'/user/'+${clinic.getId()}+'/clinic/'+${service.getId()}+'/maintenance/'+${dentist.getId()}+'/dentist/'+${date}+'/'+${time}}">Назад</a>
+        <input class="next-zap" type="submit" value="OK"/>
+
+     </div>
+
+
+</form>
+</body>
+</html>
