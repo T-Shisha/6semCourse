@@ -5,10 +5,12 @@ import com.clinic.dentist.date.TimeSystem;
 import com.clinic.dentist.models.Clinic;
 import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
-import com.clinic.dentist.services.ClinicService;
-import com.clinic.dentist.services.DentistService;
-import com.clinic.dentist.services.MaintenanceService;
+import com.clinic.dentist.models.Patient;
+import com.clinic.dentist.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,10 @@ public class PatientController {
     private DentistService dentistService;
     @Autowired
     private MaintenanceService maintenanceService;
-
+    @Autowired
+    private PatientService patientService;
+    @Autowired
+    private AppointmentService appointmentService;
     @GetMapping("/user")
     public String greeting(Model model) {
         List<Clinic> clinics = clinicService.findAll();
@@ -146,6 +151,18 @@ public class PatientController {
         model.addAttribute("date", date);
         model.addAttribute("time", time);
         return ("orderPatient");
+
+    }
+
+    @PostMapping("/user/{id}/clinic/{id1}/maintenance/{id2}/dentist/{date}/{time}")
+    public String chooseOrder(@PathVariable(value = "id") long id, @PathVariable(value = "id1") long id1, @PathVariable(value = "id2") long id2,
+                              @PathVariable(value = "date") String date, @PathVariable(value = "time") String time, Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        appointmentService.saveAppointment(id,id1,id2, patient.getId(), date, time);
+        return "redirect:/user";
 
     }
 }

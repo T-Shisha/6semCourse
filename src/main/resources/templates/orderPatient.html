@@ -26,8 +26,9 @@
         </div>
 
         <a class="previous"
-           th:href="@{'/user/'+${clinic.getId()}+'/clinic/'+${service.getId()}+'/maintenance/'+${dentist.getId()}+'/dentist/'+${date}+'/'+${time}}">Назад</a>
+           th:href="@{'/user/'+${clinic.getId()}+'/clinic/'+${service.getId()}+'/maintenance/'+${dentist.getId()}+'/dentist/'+${date}}">Назад</a>
         <input class="next-zap" type="submit" value="OK"/>
+        <a class="previous-otmena" th:href="'/user'">Отмена</a>
 
      </div>
 

@@ -32,7 +32,8 @@ public class MaintenanceService {
         List<Dentist> necessaryDentists = new ArrayList<>();
         Clinic clinic = clinicRepository.findById(ClinicId).orElseThrow();
         for (Dentist dentist : dentistsByMaintenance) {
-            if (dentist.getClinic().equals(clinic)) {
+            Long i=dentist.getClinic().getId();
+            if (i.equals(ClinicId)) {
                 necessaryDentists.add(dentist);
             }
         }

@@ -33,6 +33,10 @@ public class PatientService {
 
     }
 
+    public Patient findUserByUsername(String name) {
+        return patientRepository.findByUsername(name).orElseThrow(RuntimeException::new);
+    }
+
     public Patient correctData(Patient patient) {
         patient.setFirstName(patient.getFirstName().trim());
         patient.setLastName(patient.getLastName().trim());
@@ -43,11 +47,12 @@ public class PatientService {
     public Patient findUser(String login, String password) {
         password = bCryptPasswordEncoder.encode(password);
         Patient patient = patientRepository.findByUsername(login).orElseThrow(RuntimeException::new);
-       patient.getPassword();
-         if (patient.getPassword().equals(password)) {
+        patient.getPassword();
+        if (patient.getPassword().equals(password)) {
             return patient;
         } else {
             throw new RuntimeException("Invalid password");
         }
     }
+
 }
