@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PatientService {
@@ -19,7 +21,7 @@ public class PatientService {
 
     public void addPatient(Patient patient) {
         patient.setActive(true);
-        patient.setRoles(Collections.singleton(Role.ADMIN));
+        patient.setRoles(Collections.singleton(Role.UNREGISTERED));
         patient.setPassword(bCryptPasswordEncoder.encode(patient.getPassword()));
         patientRepository.save(patient);
     }
@@ -55,4 +57,19 @@ public class PatientService {
         }
     }
 
+    public List<Patient> getAll() {
+        return patientRepository.findAll();
+    }
+    public List<Patient> getRegisteredPatients(){
+        List<Patient> patients = getAll();
+        return patients.stream().
+                filter(patient -> patient.getRoles().contains(Role.PATIENT))
+                .collect(Collectors.toList());
+    }
+    public List<Patient> getUnregisteredPatients(){
+        List<Patient> patients = getAll();
+        return patients.stream().
+                filter(patient -> patient.getRoles().equals(Role.UNREGISTERED))
+                .collect(Collectors.toList());
+    }
 }
