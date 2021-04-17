@@ -75,4 +75,14 @@ public class AppointmentService {
         Appointment appointment = new Appointment(clinic, maintenance, dentist, patient, date, time);
         appointmentRepository.save(appointment);
     }
+
+    public Appointment findById(Long id) {
+        return appointmentRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    public void deleteAppointment(Long id) {
+        Appointment appointment = findById(id);
+        appointmentRepository.delete(appointment);
+
+    }
 }

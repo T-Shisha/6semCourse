@@ -31,7 +31,7 @@
                 <td th:text="${t.getFirstName()}"></td>
                 <td th:text="${t.getLastName()} "></td>
                 <td th:text="${t.getUsername()}"></td>
-                <td >  <a th:href="'/admin/patients/orders'+${t.getId()}" >Посмотреть</a></td>
+                <td >  <a th:href="'/admin/patients/'+${t.getId()}+'/orders'" >Посмотреть</a></td>
             </tr>
 
             </tbody>
