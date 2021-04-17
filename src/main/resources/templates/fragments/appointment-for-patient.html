@@ -22,7 +22,7 @@
                 <td th:text="${t.getDentist().getLastName()} +'  '+${t.getDentist().getFirstName()} +'   '+${t.getDentist().getPatronymic()}"></td>
                 <td th:text="${t.getDate()}"></td>
                 <td th:text="${t.getTime()}"></td>
-                <td th:if="${t.isActive()}">  <a th:href="'/client'" >Отменить</a></td>
+                <td th:if="${t.isActive()}">  <a th:href="'/client/orders/'+${t.getId()}+'/remove'" >Отменить</a></td>
             </tr>
 
             </tbody>

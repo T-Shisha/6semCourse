@@ -199,4 +199,19 @@ public class PatientController {
         return "redirect:/user";
 
     }
+    @GetMapping("/client/orders/{id}/remove")
+    public String getUnregisteredPatientView(@PathVariable(value = "id") long id, Model model) {
+
+        appointmentService.deleteAppointment(id);
+        List<Clinic> clinics = clinicService.findAll();
+        model.addAttribute("clinics", clinics);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        Collections.reverse(appointments);
+        model.addAttribute("orders", appointments);
+        return "user";
+
+    }
 }
