@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"><head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -21,24 +20,23 @@
                 <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
                 <th scope="col">Номер телефона</th>
-                <th scope="col">История записей</th>
+                <th scope="col"></th>
 
             </tr>
             </thead>
-            <tbody   th:each="t:${patients}">
+            <tbody th:each="t:${patients}">
             <tr>
 
                 <td th:text="${t.getFirstName()}"></td>
                 <td th:text="${t.getLastName()} "></td>
                 <td th:text="${t.getUsername()}"></td>
-                <td >  <a th:href="'/admin/patients/orders'+${t.getId()}" >Посмотреть</a></td>
+                <td><a th:href="'/admin/patients/register/'+${t.getId()}">Зарегистрировать</a></td>
             </tr>
 
             </tbody>
         </table>
     </div>
 </div>
-<a th:href="'/admin/patients/register'" >Незарегистрированные пользователи</a>
-
+<a th:href="'/admin/patients/'">Назад</a>
 </body>
 </html>

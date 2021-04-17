@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,16 +63,32 @@ public class PatientService {
     public List<Patient> getAll() {
         return patientRepository.findAll();
     }
-    public List<Patient> getRegisteredPatients(){
+
+    public List<Patient> getRegisteredPatients() {
         List<Patient> patients = getAll();
         return patients.stream().
                 filter(patient -> patient.getRoles().contains(Role.PATIENT))
                 .collect(Collectors.toList());
     }
-    public List<Patient> getUnregisteredPatients(){
+
+    public List<Patient> getUnregisteredPatients() {
         List<Patient> patients = getAll();
         return patients.stream().
-                filter(patient -> patient.getRoles().equals(Role.UNREGISTERED))
+                filter(patient -> patient.getRoles().contains(Role.UNREGISTERED))
                 .collect(Collectors.toList());
+    }
+
+    public Patient findById(Long id) {
+        return patientRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    public void registeredPatient(Long id) {
+        Patient patient = findById(id);
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.PATIENT);
+        patient.setRoles(roles);
+
+        patientRepository.save(patient);
+
     }
 }
