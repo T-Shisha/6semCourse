@@ -2,6 +2,7 @@ package com.clinic.dentist.models;
 
 import javax.persistence.*;
 import java.util.Set;
+
 @Entity
 public class TypeServices {
     @Id
@@ -13,5 +14,13 @@ public class TypeServices {
 
     public Set<Maintenance> getMaintenances() {
         return maintenances;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -2,13 +2,12 @@ package com.clinic.dentist.controllers;
 
 import com.clinic.dentist.date.DateSystem;
 import com.clinic.dentist.date.TimeSystem;
-import com.clinic.dentist.models.Clinic;
-import com.clinic.dentist.models.Dentist;
-import com.clinic.dentist.models.Maintenance;
-import com.clinic.dentist.services.ClinicService;
-import com.clinic.dentist.services.DentistService;
-import com.clinic.dentist.services.MaintenanceService;
+import com.clinic.dentist.models.*;
+import com.clinic.dentist.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -27,16 +27,27 @@ public class PatientController {
     private DentistService dentistService;
     @Autowired
     private MaintenanceService maintenanceService;
+    @Autowired
+    private PatientService patientService;
+    @Autowired
+    private AppointmentService appointmentService;
 
     @GetMapping("/user")
     public String greeting(Model model) {
         List<Clinic> clinics = clinicService.findAll();
         model.addAttribute("clinics", clinics);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        Collections.reverse(appointments);
+        model.addAttribute("orders", appointments);
         return "user";
     }
 
     @PostMapping("/user")
     public String chooseClinic(@RequestParam String clinicId, Model model) {
+
         return "redirect:/user/" + clinicId + "/clinic";
     }
 
@@ -45,7 +56,12 @@ public class PatientController {
         Iterable<Maintenance> maintenances = clinicService.findMaintenancesByClinic(id);
         model.addAttribute("maintenances", maintenances);
         model.addAttribute("clinicId", id);
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        Collections.reverse(appointments);
+        model.addAttribute("orders", appointments);
         return "choiceOfMaintenance";
     }
 
@@ -61,7 +77,12 @@ public class PatientController {
         model.addAttribute("dentists", dentists);
         model.addAttribute("clinicId", id);
         model.addAttribute("serviceId", id1);
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        Collections.reverse(appointments);
+        model.addAttribute("orders", appointments);
         return "choiceOfDentist";
     }
 
@@ -79,6 +100,12 @@ public class PatientController {
         model.addAttribute("serviceId", id1);
         model.addAttribute("dentistId", id2);
         model.addAttribute("dates", DateSystem.NextDay());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        Collections.reverse(appointments);
+        model.addAttribute("orders", appointments);
         return "choiceOfDate";
 
     }
@@ -126,6 +153,12 @@ public class PatientController {
         model.addAttribute("dentistId", id2);
         model.addAttribute("Date", date);
         model.addAttribute("time", dentistService.getFreeTimeForService(date, id2, id1));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        Collections.reverse(appointments);
+        model.addAttribute("orders", appointments);
         return ("choiceOfTime");
     }
 
@@ -145,7 +178,40 @@ public class PatientController {
         model.addAttribute("dentist", dentistService.findById(id2));
         model.addAttribute("date", date);
         model.addAttribute("time", time);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        Collections.reverse(appointments);
+        model.addAttribute("orders", appointments);
         return ("orderPatient");
+
+    }
+
+    @PostMapping("/user/{id}/clinic/{id1}/maintenance/{id2}/dentist/{date}/{time}")
+    public String chooseOrder(@PathVariable(value = "id") long id, @PathVariable(value = "id1") long id1, @PathVariable(value = "id2") long id2,
+                              @PathVariable(value = "date") String date, @PathVariable(value = "time") String time, Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        appointmentService.saveAppointment(id, id1, id2, patient.getId(), date, time);
+        return "redirect:/user";
+
+    }
+    @GetMapping("/client/orders/{id}/remove")
+    public String getUnregisteredPatientView(@PathVariable(value = "id") long id, Model model) {
+
+        appointmentService.deleteAppointment(id);
+        List<Clinic> clinics = clinicService.findAll();
+        model.addAttribute("clinics", clinics);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        Collections.reverse(appointments);
+        model.addAttribute("orders", appointments);
+        return "user";
 
     }
 }

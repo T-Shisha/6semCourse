@@ -21,6 +21,10 @@ public class TypeServicesService {
         return typeServicesRepository.findAll();
     }
 
+    public TypeServices findById(Long id) {
+        return typeServicesRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
     public List<Maintenance> getSortedAscendingMaintenancesByPrice(TypeServices typeServices) {
         List<Maintenance> maintenancesByTypeServices = typeServices.getMaintenances().stream().collect(Collectors.toList());
         return maintenancesByTypeServices

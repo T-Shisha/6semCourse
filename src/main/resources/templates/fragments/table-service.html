@@ -1,0 +1,24 @@
+<div class="table-service">
+    <div class="block-table">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Время проведения</th>
+                <th scope="col">Цена</th>
+
+            </tr>
+            </thead>
+            <tbody   th:each="t:${services}">
+            <tr>
+
+                <td th:text="${t.getName()}"></td>
+                <td th:text="${t.getTime()}+' мин'"></td>
+                <td th:text="${t.getPrice()}+' BYN'"></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

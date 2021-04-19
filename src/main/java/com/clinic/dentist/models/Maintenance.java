@@ -28,6 +28,10 @@ public class Maintenance {
         return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public List<Dentist> getDentists() {
         return dentists;
     }

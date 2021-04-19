@@ -30,6 +30,8 @@ PATIENTTT
                                     th:text="${t.getName()}"></option>
 
                         </select></p>
+                        <a class="previous"
+                           th:href="@{'/user'}">Назад</a>
 
 
                     </div>
@@ -43,6 +45,7 @@ PATIENTTT
         </td>
     </tr>
 </table>
+<div  th:replace="fragments/appointment-for-patient :: div.table-client"></div>
 
 </body>
 </html>

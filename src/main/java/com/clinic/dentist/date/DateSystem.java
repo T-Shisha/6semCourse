@@ -16,15 +16,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-  public class DateSystem {
-    @Autowired
-    private DentistRepository dentistRepository;
-    @Autowired
-    private AppointmentRepository orderRepository;
-    @Autowired
-    private DentistService dentistService;
-    @Autowired
-    private AppointmentService appointmentService;
+
+public class DateSystem {
+
 
     public static String NextDay() {
         Date thisDay = new Date();
@@ -124,7 +118,7 @@ import java.util.List;
         return date;
     }
 
-    private static Date getDateFromString(String dateInString) {
+    public static Date getDateFromString(String dateInString) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         // String dateInString = NextDay();

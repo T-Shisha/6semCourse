@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
+
+<div class="table-client">
+
+
+    <div class="name-table">Посещения клиники</div>
+    <div class="block-table">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Услуга</th>
+                <th scope="col">Врач</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Время</th>
+                <th scope="col"></th>
+
+            </tr>
+            </thead>
+            <tbody th:each="t:${orders}">
+            <tr>
+
+                <td th:text="${t.getMaintenance().getName()}"></td>
+                <td th:text="${t.getDentist().getLastName()} +'  '+${t.getDentist().getFirstName()} +'   '+${t.getDentist().getPatronymic()}"></td>
+                <td th:text="${t.getDate()}"></td>
+                <td th:text="${t.getTime()}"></td>
+                <td th:if="${t.isActive()}"><a th:href="'/admin/patients/'+${patient.getId()}+'/orders/remove/'+${t.getId()}">Отменить</a></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a th:href="'/admin/patients/'">Назад</a>
+
+</body>
+</html>

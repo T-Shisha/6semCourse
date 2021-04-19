@@ -33,6 +33,8 @@ PATIENTTT
 
 
                         </select></p>
+                        <a class="previous"
+                           th:href="@{'/user/'+${clinicId}+'/clinic/'+${serviceId}+'/maintenance/'+${dentistId}+'/dentist'}">Назад</a>
 
                     </div>
 
@@ -45,6 +47,7 @@ PATIENTTT
         </td>
     </tr>
 </table>
+<div  th:replace="fragments/appointment-for-patient :: div.table-client"></div>
 
 </body>
 </html>
