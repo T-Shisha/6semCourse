@@ -1,6 +1,8 @@
 package com.clinic.dentist.services;
 
 
+import com.clinic.dentist.comparators.dentists.DentistAlphabetComparator;
+import com.clinic.dentist.comparators.maintenances.MaintenanceAlphabetComparator;
 import com.clinic.dentist.date.TimeSystem;
 import com.clinic.dentist.models.Appointment;
 import com.clinic.dentist.models.Maintenance;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DentistService {
@@ -23,6 +26,18 @@ public class DentistService {
     private AppointmentRepository appointmentRepository;
     @Autowired
     private MaintenanceService maintenanceService;
+
+    public List<Dentist> getAll() {
+        return dentistRepository.findAll();
+    }
+
+    public List<Dentist> sortbyAlphabet() {
+        List<Dentist> dentists = getAll();
+        return dentists
+                .stream()
+                .sorted(new DentistAlphabetComparator())
+                .collect(Collectors.toList());
+    }
 
     public Dentist findById(Long id) {
         Dentist dentist = dentistRepository.findById(id).orElseThrow(RuntimeException::new);

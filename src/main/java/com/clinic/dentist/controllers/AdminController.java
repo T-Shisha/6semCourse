@@ -1,9 +1,11 @@
 package com.clinic.dentist.controllers;
 
 import com.clinic.dentist.models.Appointment;
+import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.models.Patient;
 import com.clinic.dentist.services.AppointmentService;
+import com.clinic.dentist.services.DentistService;
 import com.clinic.dentist.services.MaintenanceService;
 import com.clinic.dentist.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class AdminController {
     private AppointmentService appointmentService;
     @Autowired
     private MaintenanceService maintenanceService;
+    @Autowired
+    private DentistService dentistService;
 
     @GetMapping("/admin")
     public String greeting(Model model) {
@@ -78,9 +82,17 @@ public class AdminController {
 
     @GetMapping("/admin/services")
     public String getService(Model model) {
-        List<Maintenance> maintenances=maintenanceService.sortByName();
-         model.addAttribute("services", maintenances);
+        List<Maintenance> maintenances = maintenanceService.sortByName();
+        model.addAttribute("services", maintenances);
         return ("servicesAdmin");
 
     }
+
+    @GetMapping("/admin/dentists")
+    public String showDentists(Model model) {
+        List<Dentist> dentists = dentistService.sortbyAlphabet();
+        model.addAttribute("dentists", dentists);
+        return ("doctors");
+    }
+
 }

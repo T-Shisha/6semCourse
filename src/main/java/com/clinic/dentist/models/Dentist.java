@@ -52,6 +52,10 @@ public class Dentist {
         return phoneNumber;
     }
 
+    public Set<Maintenance> getMaintenances() {
+        return maintenances;
+    }
+
     public Long getId() {
         return id;
     }
