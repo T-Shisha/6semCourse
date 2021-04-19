@@ -1,5 +1,7 @@
 package com.clinic.dentist.services;
 
+import com.clinic.dentist.comparators.maintenances.MaintenanceAlphabetComparator;
+import com.clinic.dentist.comparators.maintenances.MaintenancePriceComparator;
 import com.clinic.dentist.models.Clinic;
 import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MaintenanceService {
@@ -42,6 +45,16 @@ public class MaintenanceService {
 
     public Maintenance findById(Long id) {
         return maintenanceRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+    public List<Maintenance> findAll(){
+        return maintenanceRepository.findAll();
+    }
+    public List<Maintenance> sortByName(){
+        List<Maintenance> maintenances=findAll();
+        return maintenances
+                .stream()
+                .sorted(new MaintenanceAlphabetComparator())
+                .collect(Collectors.toList());
     }
 
 }
