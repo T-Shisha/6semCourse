@@ -7,6 +7,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th scope="col">Клиника</th>
                 <th scope="col">Услуга</th>
                 <th scope="col">Врач</th>
                 <th scope="col">Дата</th>
@@ -15,14 +16,19 @@
 
             </tr>
             </thead>
-            <tbody   th:each="t:${orders}">
+            <tbody th:each="t:${orders}">
             <tr>
-
+                <td th:text="${t.getClinic().getAddress()}"></td>
                 <td th:text="${t.getMaintenance().getName()}"></td>
-                <td th:text="${t.getDentist().getLastName()} +'  '+${t.getDentist().getFirstName()} +'   '+${t.getDentist().getPatronymic()}"></td>
+                <td th:if="${t.getDentist().getFirstName==null}"
+                    th:text="Врач не принимает пациентов"
+                >
+                <td th:if="${t.getDentist().getFirstName!=null}"
+                    th:text="${t.getDentist().getLastName()} +'  '+${t.getDentist().getFirstName()} +'   '+${t.getDentist().getPatronymic()}"></td>
+
                 <td th:text="${t.getDate()}"></td>
                 <td th:text="${t.getTime()}"></td>
-                <td th:if="${t.isActive()}">  <a th:href="'/client/orders/'+${t.getId()}+'/remove'" >Отменить</a></td>
+                <td th:if="${t.isActive()}"><a th:href="'/client/orders/'+${t.getId()}+'/remove'">Отменить</a></td>
             </tr>
 
             </tbody>

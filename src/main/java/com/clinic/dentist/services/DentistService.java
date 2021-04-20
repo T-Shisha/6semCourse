@@ -15,10 +15,7 @@ import com.clinic.dentist.models.Dentist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -199,12 +196,11 @@ public class DentistService {
         if (dentist.getOrders() != null) {
             List<Appointment> list = ListConverter.getList(dentist.getOrders());
             for (Appointment appointment : list) {
-
-                appointmentService.deleteAppointment(appointment.getId());
+                appointmentService.changeDentistStatusInAppointment(appointment.getId());
+                // appointmentService.deleteAppointment(appointment.getId());
 
             }
         }
-
         Set<Maintenance> serviceSet = SetConverter.getSet(dentist.getMaintenances());
         Iterator<Maintenance> iterator = serviceSet.iterator();
         while (iterator.hasNext()) {
@@ -215,10 +211,17 @@ public class DentistService {
         dentistRepository.delete(dentist);
         Clinic clinic = dentist.getClinic();
         clinic.getDentists().remove(dentist);
-        if (appointmentRepository.findAllByDentist(dentist) != null) {
+        try {
+            Dentist dentist1 = findById(dentist.getId());
             return false;
+        } catch (RuntimeException ex) {
+            return true;
         }
-        return true;
+
+      /*  if (appointmentRepository.findAllByDentist(dentist) != null) {
+            return false;
+        }*/
+        //  return true;
 
     }
-}
+ }

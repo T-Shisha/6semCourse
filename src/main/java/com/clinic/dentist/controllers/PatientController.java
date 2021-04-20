@@ -39,7 +39,7 @@ public class PatientController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Patient patient = patientService.findUserByUsername(name);
-        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
         model.addAttribute("orders", appointments);
         return "user";
@@ -59,7 +59,7 @@ public class PatientController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Patient patient = patientService.findUserByUsername(name);
-        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
         model.addAttribute("orders", appointments);
         return "choiceOfMaintenance";
@@ -80,7 +80,7 @@ public class PatientController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Patient patient = patientService.findUserByUsername(name);
-        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
         model.addAttribute("orders", appointments);
         return "choiceOfDentist";
@@ -103,7 +103,7 @@ public class PatientController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Patient patient = patientService.findUserByUsername(name);
-        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
         model.addAttribute("orders", appointments);
         return "choiceOfDate";
@@ -156,7 +156,7 @@ public class PatientController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Patient patient = patientService.findUserByUsername(name);
-        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
         model.addAttribute("orders", appointments);
         return ("choiceOfTime");
@@ -181,7 +181,7 @@ public class PatientController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Patient patient = patientService.findUserByUsername(name);
-        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
         model.addAttribute("orders", appointments);
         return ("orderPatient");
@@ -208,7 +208,7 @@ public class PatientController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Patient patient = patientService.findUserByUsername(name);
-        List<Appointment> appointments = appointmentService.getAppointmentsWithActive(patient.getId());
+        List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
         model.addAttribute("orders", appointments);
         return "user";

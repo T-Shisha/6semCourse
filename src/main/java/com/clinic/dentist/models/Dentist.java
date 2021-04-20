@@ -59,6 +59,9 @@ public class Dentist {
         return orders;
     }
 
+    public Dentist() {
+    }
+
     public Long getId() {
         return id;
     }
