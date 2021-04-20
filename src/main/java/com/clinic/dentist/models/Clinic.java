@@ -34,6 +34,10 @@ public class Clinic {
         return address;
     }
 
+    public List<Dentist> getDentists() {
+        return dentists;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

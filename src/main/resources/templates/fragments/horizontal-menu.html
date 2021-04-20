@@ -9,12 +9,12 @@
             <li class="funct"><a th:href="'/service'">Отзывы</a></li>
             <li sec:authorize="hasAuthority('PATIENT')" class="funct"><a th:href="'/user'">Профиль</a></li>
             <li sec:authorize="hasAuthority('ADMIN')" class="funct"><a th:href="'/admin'">Администрирование</a></li>
-            <li sec:authorize="isAuthenticated()" class="funct">
+            <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')" class="funct">
                 <form th:action="@{/logout}" method="post">
                     <input type="submit" value="Sign Out"/>
                 </form>
             </li>
-            <li sec:authorize="!isAuthenticated()" class="funct">
+            <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')"  class="funct">
                 <form th:action="@{/login}" method="post">
                     <input type="submit" value="Sign in"/>
                 </form>

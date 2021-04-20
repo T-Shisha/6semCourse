@@ -3,8 +3,11 @@ package com.clinic.dentist.services;
 
 import com.clinic.dentist.comparators.dentists.DentistAlphabetComparator;
 import com.clinic.dentist.comparators.maintenances.MaintenanceAlphabetComparator;
+import com.clinic.dentist.converters.ListConverter;
+import com.clinic.dentist.converters.SetConverter;
 import com.clinic.dentist.date.TimeSystem;
 import com.clinic.dentist.models.Appointment;
+import com.clinic.dentist.models.Clinic;
 import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.repositories.AppointmentRepository;
 import com.clinic.dentist.repositories.DentistRepository;
@@ -13,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -184,4 +189,36 @@ public class DentistService {
         return true;
     } //////влезает ли услуга в расписание врача
 
+    public boolean checkExist(long id) {
+        return dentistRepository.existsById(id);
+    }
+
+    public boolean deleteEntity(long id) {
+        Dentist dentist = dentistRepository.findById(id).orElseThrow();
+
+        if (dentist.getOrders() != null) {
+            List<Appointment> list = ListConverter.getList(dentist.getOrders());
+            for (Appointment appointment : list) {
+
+                appointmentService.deleteAppointment(appointment.getId());
+
+            }
+        }
+
+        Set<Maintenance> serviceSet = SetConverter.getSet(dentist.getMaintenances());
+        Iterator<Maintenance> iterator = serviceSet.iterator();
+        while (iterator.hasNext()) {
+            Maintenance item = iterator.next();
+            dentist.deleteService(item);
+        }
+
+        dentistRepository.delete(dentist);
+        Clinic clinic = dentist.getClinic();
+        clinic.getDentists().remove(dentist);
+        if (appointmentRepository.findAllByDentist(dentist) != null) {
+            return false;
+        }
+        return true;
+
+    }
 }

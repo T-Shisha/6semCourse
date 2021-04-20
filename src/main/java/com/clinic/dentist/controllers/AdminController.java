@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -95,4 +97,17 @@ public class AdminController {
         return ("doctors");
     }
 
+    @GetMapping("/admin/dentists/{id}/remove")
+    public String removeDentist(@PathVariable(value = "id") long id, Model model) {
+        if (!dentistService.checkExist(id)) {
+            return "redirect:/admin/dentists";
+        }
+        boolean delete = dentistService.deleteEntity(id);
+        if (!delete) {
+            return "redirect:/admin/dentists/" + id + "/remove";
+        }
+
+        return "redirect:/admin/dentists";
+
+    }
 }

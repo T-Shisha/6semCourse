@@ -8,9 +8,9 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String password;
+
     private String username;
-    private String h;
+    private String password;
     private boolean active;
     @Transient
     private String passwordConfirm;
@@ -27,13 +27,6 @@ public class Admin {
         return username;
     }
 
-    public String getH() {
-        return h;
-    }
-
-    public void setH(String h) {
-        this.h = h;
-    }
 
     public void setUsername(String username) {
         this.username = username;
