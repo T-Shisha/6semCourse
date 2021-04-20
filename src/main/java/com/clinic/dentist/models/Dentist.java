@@ -13,11 +13,10 @@ public class Dentist {
     private String lastName;
     private String patronymic;
     private String phoneNumber;
-    private String position;
 
     @OneToMany(mappedBy = "dentist", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<Appointment> orders;
-     @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "dentist_maintenance",
             joinColumns = @JoinColumn(name = "Dentist"),
             inverseJoinColumns = @JoinColumn(name = "Maintenance")
@@ -52,9 +51,24 @@ public class Dentist {
         return phoneNumber;
     }
 
+    public Set<Maintenance> getMaintenances() {
+        return maintenances;
+    }
+
+    public List<Appointment> getOrders() {
+        return orders;
+    }
+
     public Long getId() {
         return id;
     }
+
+    public void deleteService(Maintenance maintenance) {
+        this.maintenances.remove(maintenance);
+        maintenance.getDentists().remove(this);
+    }
+
+
 
     public String getPatronymic() {
         return patronymic;

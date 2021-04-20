@@ -18,9 +18,9 @@ public class Patient {
     @SuppressWarnings("JpaAttributeTypeInspection")
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private Set<Appointment> orders;
-    @SuppressWarnings("JpaAttributeTypeInspection")
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient", cascade = {CascadeType.ALL}, orphanRemoval = true)
-    private Set<Review> reviews;
+    /* @SuppressWarnings("JpaAttributeTypeInspection")
+     @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient", cascade = {CascadeType.ALL}, orphanRemoval = true)
+     private Set<Review> reviews;*/
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "patient_role", joinColumns = @JoinColumn(name = "patient_id"))
     @Enumerated(EnumType.STRING)
@@ -86,9 +86,9 @@ public class Patient {
         this.passwordConfirm = passwordConfirm;
     }
 
-    public void setReviews(Set<Review> reviews) {
+   /* public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
-    }
+    }*/
 
     public void setOrders(Set<Appointment> orders) {
         this.orders = orders;

@@ -1,0 +1,40 @@
+<div class="table-admin">
+
+
+    <div class="block-table">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ФИО</th>
+                <th scope="col">Мобильный телефон</th>
+                <th scope="col">Услуги</th>
+                <th scope="col">Клиника</th>
+
+                <th scope="col"></th>
+                <th scope="col"></th>
+
+            </tr>
+            </thead>
+            <tbody th:each="t:${dentists}">
+            <tr>
+                <td th:text="${t.getLastName()}+' '+${t.getFirstName()}+' '+${t.getPatronymic()}"></td>
+
+                <td th:text="'+'+${t.getPhoneNumber()}"></td>
+
+                <td>
+                    <div th:each="s:${t.getMaintenances()}"
+                         th:text="${s.getName()}"></div>
+                </td>
+                <td th:text="${t.getClinic().getAddress()}"></td>
+
+                <td><a th:href="'/admin/dentists/'+${t.getId()}+'/appointments'">Расписание</a>
+                </td>
+                <td><a th:href="'/admin/dentists/'+${t.getId()}+'/remove'">Удалить врача из системы</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

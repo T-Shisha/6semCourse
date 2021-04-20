@@ -1,9 +1,11 @@
 package com.clinic.dentist.controllers;
 
 import com.clinic.dentist.models.Appointment;
+import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.models.Patient;
 import com.clinic.dentist.services.AppointmentService;
+import com.clinic.dentist.services.DentistService;
 import com.clinic.dentist.services.MaintenanceService;
 import com.clinic.dentist.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -23,6 +27,8 @@ public class AdminController {
     private AppointmentService appointmentService;
     @Autowired
     private MaintenanceService maintenanceService;
+    @Autowired
+    private DentistService dentistService;
 
     @GetMapping("/admin")
     public String greeting(Model model) {
@@ -78,9 +84,30 @@ public class AdminController {
 
     @GetMapping("/admin/services")
     public String getService(Model model) {
-        List<Maintenance> maintenances=maintenanceService.sortByName();
-         model.addAttribute("services", maintenances);
+        List<Maintenance> maintenances = maintenanceService.sortByName();
+        model.addAttribute("services", maintenances);
         return ("servicesAdmin");
+
+    }
+
+    @GetMapping("/admin/dentists")
+    public String showDentists(Model model) {
+        List<Dentist> dentists = dentistService.sortbyAlphabet();
+        model.addAttribute("dentists", dentists);
+        return ("doctors");
+    }
+
+    @GetMapping("/admin/dentists/{id}/remove")
+    public String removeDentist(@PathVariable(value = "id") long id, Model model) {
+        if (!dentistService.checkExist(id)) {
+            return "redirect:/admin/dentists";
+        }
+        boolean delete = dentistService.deleteEntity(id);
+        if (!delete) {
+            return "redirect:/admin/dentists/" + id + "/remove";
+        }
+
+        return "redirect:/admin/dentists";
 
     }
 }

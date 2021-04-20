@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html   xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
@@ -7,7 +7,10 @@
     <title>Title</title>
 </head>
 <body>
-<div  th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
+<div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
+<div sec:authorize="hasAuthority('UNREGISTERED')">
+ Ваш запрос на регистрацию расматривается
+</div>
 <!-- >hbhg
 <span sec:authorize="isAuthenticated()">| Logged user:  |
                 Roles: <span sec:authentication="principal.authorities"></span> |
