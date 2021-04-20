@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
+<div class="otstup">
+    <div class="name-tabled" th:text="'Расписание на  ' +${norm_date} +' : '+${dentist.getLastName()}
++' '+${dentist.getFirstName()}+' '+${dentist.getPatronymic()}"></div>
+    <div  th:replace="fragments/appointment-for-dentist :: div.table-dentist"></div>
+
+    <form   action="#" th:action="@{'/admin/dentists/'+${dentist.getId()}+'/appointments'}"   method="post">
+        <div class="choice-date">
+            Посмотреть расписание на другую дату  :
+            <input    type="date" name="Date"  th:value="${dates}" >
+            <input class="next" type="submit" value="Выбрать"  />
+
+        </div>
+    </form>
+</div>
+</body>
+</html>

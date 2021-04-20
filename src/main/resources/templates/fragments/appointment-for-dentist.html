@@ -1,0 +1,32 @@
+<div class="table-dentist">
+
+    <div class="block-table">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Услуга</th>
+
+
+                <th scope="col">Время</th>
+                <th scope="col">Пациент</th>
+                <th scope="col"></th>
+
+            </tr>
+            </thead>
+            <tbody th:each="t:${orders}">
+            <tr>
+
+                <td th:text="${t.getMaintenance().getName()}"></td>
+                <td th:text="${t.getTime()}"></td>
+                <td th:text="${t.getPatient().getLastName()}+'  '+${t.getPatient().getFirstName()}"></td>
+                <td th:if="${t.isActive()}"><a th:href="'/dentist/'+${dentist.getId()}+'/remove/'+${t.getId()}"
+                                               class="btn btn-warning">Отменить</a>
+                </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>

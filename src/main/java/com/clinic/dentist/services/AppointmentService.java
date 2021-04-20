@@ -26,21 +26,30 @@ public class AppointmentService {
     private ClinicRepository clinicRepository;
     @Autowired
     private MaintenanceRepository maintenanceRepository;
+    @Autowired
+    private DentistService dentistService;
 
     public List<Appointment> findByDentistAndDate(Dentist dentist, String date) {
         return appointmentRepository.findAllByDentistAndDate(dentist, date);
 
     }
 
-    public ArrayList<Appointment> getAppointmentsWithActive(Long id_patient) {
+    public ArrayList<Appointment> getAppointmentsWithActiveForPatient(Long id_patient) {
+
+        Patient patient = patientRepository.findById(id_patient).orElseThrow(RuntimeException::new);
+        ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentRepository.findAllByPatient(patient);
+        return getAppointmentsWithActive(allAppointment);
+
+    }
+
+    public ArrayList<Appointment> getAppointmentsWithActive(List<Appointment> allAppointment) {
         Date thisDay = new Date();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat formatForTimeNow = new SimpleDateFormat("HH:mm");
         String dat = formatForDateNow.format(thisDay);
         String time = formatForTimeNow.format(thisDay);
         Date date1 = TimeConverter.getDateFromString(dat);
-        Patient patient = patientRepository.findById(id_patient).orElseThrow(RuntimeException::new);
-        ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentRepository.findAllByPatient(patient);
+
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
         for (Appointment appointment : allAppointment) {
             if (TimeConverter.getDateFromString(appointment.getDate()).after(date1)) {
@@ -84,5 +93,39 @@ public class AppointmentService {
         Appointment appointment = findById(id);
         appointmentRepository.delete(appointment);
 
+    }
+
+    public void changeDentistStatusInAppointment(Long id) {
+        Appointment appointment = findById(id);
+        long id_dentist = 0;
+        appointment.setDentist(dentistService.findById(id_dentist));
+    }
+
+    public List<Appointment> getAppointmentsWithActiveForDentist(Long id) {
+        Dentist dentist = dentistService.findById(id);
+        ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentRepository.findAllByDentist(dentist);
+        return getAppointmentsWithActive(allAppointment);
+    }
+
+    public ArrayList<Appointment> getActualAppointmentsForDoctor(Dentist dentist, String date) {
+        Date thisDay = new Date();
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
+
+        String dat = formatForDateNow.format(thisDay);
+        Date date1 = TimeConverter.getDateFromString(dat);
+        ArrayList<Appointment> allAppointmeintsInThisDay = (ArrayList<Appointment>) appointmentRepository.findAllByDentistAndDate(dentist, date);
+        SimpleDateFormat formatForTimeNow = new SimpleDateFormat("HH:mm");
+        String time = formatForTimeNow.format(thisDay);
+        for (Appointment appointment : allAppointmeintsInThisDay) {
+            if (TimeConverter.getDateFromString(appointment.getDate()).after((date1))) {
+                appointment.setActive(true);
+            } else if (TimeConverter.getDateFromString(appointment.getDate()).equals(date1)) {
+                if (TimeComparator.compare(appointment.getTime(), time) == 1) {
+                    appointment.setActive(true);
+                } else appointment.setActive(false);
+
+            }
+        }
+        return allAppointmeintsInThisDay;
     }
 }

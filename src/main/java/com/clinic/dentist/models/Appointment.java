@@ -86,6 +86,10 @@ public class Appointment implements Comparable<Appointment> {
         return patient;
     }
 
+    public void setDentist(Dentist dentist) {
+        this.dentist = dentist;
+    }
+
     public Appointment(Clinic clinic, Maintenance maintenance, Dentist dentist, Patient patient, String date, String time) {
         this.dentist = dentist;
         this.maintenance = maintenance;
