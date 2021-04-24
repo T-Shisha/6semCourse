@@ -6,12 +6,9 @@ import com.clinic.dentist.comparators.maintenances.MaintenanceAlphabetComparator
 import com.clinic.dentist.converters.ListConverter;
 import com.clinic.dentist.converters.SetConverter;
 import com.clinic.dentist.date.TimeSystem;
-import com.clinic.dentist.models.Appointment;
-import com.clinic.dentist.models.Clinic;
-import com.clinic.dentist.models.Maintenance;
+import com.clinic.dentist.models.*;
 import com.clinic.dentist.repositories.AppointmentRepository;
 import com.clinic.dentist.repositories.DentistRepository;
-import com.clinic.dentist.models.Dentist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -224,4 +221,20 @@ public class DentistService {
         //  return true;
 
     }
- }
+
+    public void addEntity(Dentist entity) {
+        dentistRepository.save(entity);
+    }
+
+    public boolean checkDentistHaveMaintenance(Long id, Maintenance maintenance) {
+        Dentist dentist = findById(id);
+        return dentist.getMaintenances().contains(maintenance);
+    }
+
+    public boolean findDentistByPhoneNumber(String phoneNumber) {
+        return dentistRepository.findByPhoneNumber(phoneNumber).isPresent();
+    }
+    
+
+
+}

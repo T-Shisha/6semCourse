@@ -20,6 +20,10 @@ public class MaintenanceService {
     private MaintenanceRepository maintenanceRepository;
     @Autowired
     private ClinicRepository clinicRepository;
+    @Autowired
+    private ClinicService clinicService;
+    @Autowired
+    private DentistService dentistService;
 
     public Maintenance findByName(String name) {
         return maintenanceRepository.findByName(name).orElseThrow(RuntimeException::new);
@@ -35,7 +39,7 @@ public class MaintenanceService {
         List<Dentist> necessaryDentists = new ArrayList<>();
         Clinic clinic = clinicRepository.findById(ClinicId).orElseThrow();
         for (Dentist dentist : dentistsByMaintenance) {
-            Long i=dentist.getClinic().getId();
+            Long i = dentist.getClinic().getId();
             if (i.equals(ClinicId)) {
                 necessaryDentists.add(dentist);
             }
@@ -46,15 +50,27 @@ public class MaintenanceService {
     public Maintenance findById(Long id) {
         return maintenanceRepository.findById(id).orElseThrow(RuntimeException::new);
     }
-    public List<Maintenance> findAll(){
+
+    public List<Maintenance> findAll() {
         return maintenanceRepository.findAll();
     }
-    public List<Maintenance> sortByName(){
-        List<Maintenance> maintenances=findAll();
+
+    public List<Maintenance> sortByName() {
+        List<Maintenance> maintenances = findAll();
         return maintenances
                 .stream()
                 .sorted(new MaintenanceAlphabetComparator())
                 .collect(Collectors.toList());
     }
 
+    public List<Maintenance> findMaintenanceForAddingForDentist(Long dentistId, Long clinicId) {
+        Iterable<Maintenance> clinicMaintenances = clinicService.findMaintenancesByClinic(clinicId);
+        List<Maintenance> necessaryList = new ArrayList<>();
+        for (Maintenance maintenance : clinicMaintenances) {
+            if (!dentistService.checkDentistHaveMaintenance(dentistId, maintenance)) {
+                necessaryList.add(maintenance);
+            }
+        }
+        return necessaryList;
+    }
 }
