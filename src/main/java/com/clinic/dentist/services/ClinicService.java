@@ -1,6 +1,7 @@
 package com.clinic.dentist.services;
 
 import com.clinic.dentist.models.Clinic;
+import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.repositories.ClinicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,9 @@ public class ClinicService {
 
     public Clinic findById(Long id) {
         return clinicRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+    public List<Dentist> findDentistsByClinic(Long clinicId){
+        Clinic clinic=findById(clinicId);
+        return clinic.getDentists();
     }
 }

@@ -234,7 +234,7 @@ public class DentistService {
     public boolean findDentistByPhoneNumber(String phoneNumber) {
         return dentistRepository.findByPhoneNumber(phoneNumber).isPresent();
     }
-    
+
 
 
 }

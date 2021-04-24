@@ -73,4 +73,12 @@ public class MaintenanceService {
         }
         return necessaryList;
     }
+
+    public void addMaintenance(Maintenance maintenance) {
+        maintenanceRepository.save(maintenance);
+    }
+    public boolean checkHaveThisMaintenance(Maintenance maintenance){
+        return maintenanceRepository.findByName(maintenance.getName()).isPresent();
+    }
+
 }
