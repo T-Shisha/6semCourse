@@ -108,24 +108,32 @@ public class AppointmentService {
     }
 
     public ArrayList<Appointment> getActualAppointmentsForDoctor(Dentist dentist, String date) {
-        Date thisDay = new Date();
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
-
-        String dat = formatForDateNow.format(thisDay);
-        Date date1 = TimeConverter.getDateFromString(dat);
+//        Date thisDay = new Date();
+//        SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        String dat = formatForDateNow.format(thisDay);
+//        Date date1 = TimeConverter.getDateFromString(dat);
         ArrayList<Appointment> allAppointmeintsInThisDay = (ArrayList<Appointment>) appointmentRepository.findAllByDentistAndDate(dentist, date);
-        SimpleDateFormat formatForTimeNow = new SimpleDateFormat("HH:mm");
-        String time = formatForTimeNow.format(thisDay);
-        for (Appointment appointment : allAppointmeintsInThisDay) {
-            if (TimeConverter.getDateFromString(appointment.getDate()).after((date1))) {
-                appointment.setActive(true);
-            } else if (TimeConverter.getDateFromString(appointment.getDate()).equals(date1)) {
-                if (TimeComparator.compare(appointment.getTime(), time) == 1) {
-                    appointment.setActive(true);
-                } else appointment.setActive(false);
+        return getAppointmentsWithActive(allAppointmeintsInThisDay);
+//        SimpleDateFormat formatForTimeNow = new SimpleDateFormat("HH:mm");
+//        String time = formatForTimeNow.format(thisDay);
+//        for (Appointment appointment : allAppointmeintsInThisDay) {
+//            if (TimeConverter.getDateFromString(appointment.getDate()).after((date1))) {
+//                appointment.setActive(true);
+//            } else if (TimeConverter.getDateFromString(appointment.getDate()).equals(date1)) {
+//                if (TimeComparator.compare(appointment.getTime(), time) == 1) {
+//                    appointment.setActive(true);
+//                } else appointment.setActive(false);
+//
+//            }
+//        }
+//        return allAppointmeintsInThisDay;
+    }
 
-            }
-        }
-        return allAppointmeintsInThisDay;
+    public List<Appointment> getActualAppointmentsForClinic(Clinic clinic, String date) {
+
+        ArrayList<Appointment> allAppointmeintsInThisDay = (ArrayList<Appointment>) appointmentRepository.findAllByClinicAAndDate(clinic, date);
+        return getAppointmentsWithActive(allAppointmeintsInThisDay);
+
     }
 }
