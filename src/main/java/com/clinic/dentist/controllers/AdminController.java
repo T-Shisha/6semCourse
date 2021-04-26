@@ -26,6 +26,8 @@ public class AdminController {
     private DentistService dentistService;
     @Autowired
     private ClinicService clinicService;
+    @Autowired
+    private TypeServicesService typeService;
 
     @GetMapping("/admin")
     public String greeting(Model model) {
@@ -251,6 +253,117 @@ public class AdminController {
         dentistService.addEntity(den);
         den = null;
         return "redirect:/admin/dentists";
+
+    }
+
+    @GetMapping("/admin/services/add")
+    public String createService(Model model) {
+        List<Clinic> clinics = clinicService.findAll();
+        List<TypeServices> typeServices = typeService.getAll();
+        model.addAttribute("service", new Maintenance());
+        return "createMaintenance";
+    }
+
+    @PostMapping("/admin/services/add")
+    public String getService(@ModelAttribute(name = "service") Maintenance service, Model model) {
+
+        if (service.getName().trim().equals("")) {
+            model.addAttribute("nameError", "Название не введено");
+
+            return "createService";
+        } else if (service.getDescription().trim().equals("")) {
+
+            model.addAttribute("descriptionError", "Описание не введено");
+
+            return "createService";
+        }
+        service.setName(service.getName().trim());
+        service.setDescription(service.getDescription().trim());
+
+        if (maintenanceService.checkHaveThisMaintenance(service)) {
+            model.addAttribute("nameError", "Услуга с таким названием уже существует");
+        }
+        maintenanceService.addMaintenance(service);
+        return "redirect:/admin/services";
+    }
+
+    @GetMapping("/admin/clinics")
+    public String getClinics(Model model) {
+        List<Clinic> clinics = clinicService.findAll();
+        model.addAttribute("clinics", clinics);
+        return "clinics";
+    }
+
+    @GetMapping("/admin/clinics/{id}/dentists")
+    public String getDentistsClinics(@PathVariable(value = "id") long id, Model model) {
+        List<Dentist> dentists = clinicService.findDentistsByClinic(id);
+        model.addAttribute("dentists", dentists);
+        return "clinicDentists";
+    }
+
+    @GetMapping("/admin/clinics/{id}/services")
+    public String getServicesClinics(@PathVariable(value = "id") long id, Model model) {
+        Iterable<Maintenance> services = clinicService.findMaintenancesByClinic(id);
+        model.addAttribute("services", services);
+        return "clinicDentists";
+    }
+
+    @PostMapping("/admin/clinics/{id}/appointments")
+    public String getAppointmentClinicDate(@PathVariable(value = "id") long id, Model model, @RequestParam String Date) {
+        if (!clinicService.checkExist(id)) {
+            return "redirect:/admin/clinics";
+        }
+
+        List<Appointment> appointments = null;
+        Clinic clinic = clinicService.findById(id);
+        model.addAttribute(clinic);
+
+        if (DateSystem.checkWeekend(Date)) {
+            appointments = appointmentService.getActualAppointmentsForClinic(clinic, DateSystem.NextDay());
+            model.addAttribute("dates", DateSystem.NextDay());
+            model.addAttribute("norm_date", TimeConverter.getDate2(DateSystem.NextDay()));
+
+        } else {
+            appointments = appointmentService.getActualAppointmentsForClinic(clinic, Date);
+            model.addAttribute("dates", Date);
+            model.addAttribute("norm_date", Date);
+
+
+        }
+        Collections.sort(appointments);
+
+        model.addAttribute("orders", appointments);
+        return "clinicAppointment";
+
+    }
+
+
+    @GetMapping("/admin/clinics/{id}/appointments")
+    public String getAppointmentForClinic(@PathVariable(value = "id") long id, Model model) {
+        if (!clinicService.checkExist(id)) {
+            return "redirect:/admin/clinics";
+        }
+        Date thisDay = new Date();
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
+        String dat = formatForDateNow.format(thisDay);
+        List<Appointment> appointments;
+        Clinic clinic = clinicService.findById(id);
+        model.addAttribute(clinic);
+        if (DateSystem.checkWeekend(dat)) {
+            appointments = appointmentService.getActualAppointmentsForClinic(clinic, DateSystem.NextDay());
+            model.addAttribute("dates", DateSystem.NextDay());
+            model.addAttribute("norm_date", TimeConverter.getDate2(DateSystem.NextDay()));
+
+        } else {
+            appointments = appointmentService.getActualAppointmentsForClinic(clinic, dat);
+            model.addAttribute("dates", dat);
+            model.addAttribute("norm_date", dat);
+
+        }
+        Collections.sort(appointments);
+        model.addAttribute("orders", appointments);
+
+        return "clinicAppointment";
 
     }
 

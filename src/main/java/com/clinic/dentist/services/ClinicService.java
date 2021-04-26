@@ -26,7 +26,9 @@ public class ClinicService {
     public Iterable<Maintenance> findMaintenancesByClinic(Long ClinicId) {
         return clinicRepository.findById(ClinicId).orElseThrow().getMaintenances();
     }
-
+    public boolean checkExist(long id) {
+        return clinicRepository.existsById(id);
+    }
     public Clinic findById(Long id) {
         return clinicRepository.findById(id).orElseThrow(RuntimeException::new);
     }
