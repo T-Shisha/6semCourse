@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,8 +79,20 @@ public class MaintenanceService {
     public void addMaintenance(Maintenance maintenance) {
         maintenanceRepository.save(maintenance);
     }
-    public boolean checkHaveThisMaintenance(Maintenance maintenance){
+
+    public boolean checkHaveThisMaintenance(Maintenance maintenance) {
         return maintenanceRepository.findByName(maintenance.getName()).isPresent();
+    }
+
+    public Set<Maintenance> getSetFromArrayMaintenance(String[] array) {
+        Set<Maintenance> s = new HashSet<>();
+        for (String a : array) {
+            Maintenance service = maintenanceRepository.findByName(a).orElseThrow(RuntimeException::new);
+            s.add(service);
+
+
+        }
+        return s;
     }
 
 }

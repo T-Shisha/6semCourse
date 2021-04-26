@@ -39,4 +39,5 @@ public class MainController {
         model.addAttribute("services", services);
         return "services";
     }
+
 }

@@ -71,7 +71,17 @@ public class Dentist {
         maintenance.getDentists().remove(this);
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public void setMaintenances(Set<Maintenance> maintenances) {
+        this.maintenances = maintenances;
+    }
 
     public String getPatronymic() {
         return patronymic;
