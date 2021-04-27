@@ -1,8 +1,8 @@
 package com.clinic.dentist.services;
 
+import com.clinic.dentist.api.dao.IAppointmentDao;
 import com.clinic.dentist.api.service.IAppointmentService;
 import com.clinic.dentist.comparators.time.TimeComparator;
-import com.clinic.dentist.date.DateSystem;
 import com.clinic.dentist.date.TimeConverter;
 import com.clinic.dentist.models.*;
 import com.clinic.dentist.repositories.*;
@@ -21,7 +21,9 @@ import java.util.List;
 @Component("appointmentService")
 public class AppointmentService implements IAppointmentService {
     @Autowired
-    private AppointmentRepository appointmentRepository;
+    @Qualifier("appointmentDao")
+    private IAppointmentDao appointmentDao;
+
     @Autowired
     private PatientRepository patientRepository;
     @Autowired
@@ -34,15 +36,20 @@ public class AppointmentService implements IAppointmentService {
     @Qualifier("dentistService")
     private DentistService dentistService;
 
-    public List<Appointment> findByDentistAndDate(Dentist dentist, String date) {
-        return appointmentRepository.findAllByDentistAndDate(dentist, date);
 
+//    public List<Appointment> findByDentistAndDate(Dentist dentist, String date) {
+//        return appointmentRepository.findAllByDentistAndDate(dentist, date);
+//
+//    }
+
+    public List<Appointment> getAll() {
+        return appointmentDao.getAll();
     }
 
     public ArrayList<Appointment> getAppointmentsWithActiveForPatient(Long id_patient) {
 
         Patient patient = patientRepository.findById(id_patient).orElseThrow(RuntimeException::new);
-        ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentRepository.findAllByPatient(patient);
+        ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentDao.findAllByPatient(patient);
         return getAppointmentsWithActive(allAppointment);
 
     }
@@ -87,16 +94,16 @@ public class AppointmentService implements IAppointmentService {
         Clinic clinic = clinicRepository.findById(clinicId).orElseThrow(RuntimeException::new);
         Maintenance maintenance = maintenanceRepository.findById(maintenanceId).orElseThrow(RuntimeException::new);
         Appointment appointment = new Appointment(clinic, maintenance, dentist, patient, date, time);
-        appointmentRepository.save(appointment);
+        appointmentDao.save(appointment);
     }
 
     public Appointment findById(Long id) {
-        return appointmentRepository.findById(id).orElseThrow(RuntimeException::new);
+        return appointmentDao.findById(id);
     }
 
     public void deleteAppointment(Long id) {
         Appointment appointment = findById(id);
-        appointmentRepository.delete(appointment);
+        appointmentDao.deleteAppointment(appointment);
 
     }
 
@@ -108,20 +115,20 @@ public class AppointmentService implements IAppointmentService {
 
     public List<Appointment> getAppointmentsWithActiveForDentist(Long id) {
         Dentist dentist = dentistService.findById(id);
-        ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentRepository.findAllByDentist(dentist);
+        ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentDao.findAllByDentist(dentist);
         return getAppointmentsWithActive(allAppointment);
     }
 
-    public ArrayList<Appointment> getActualAppointmentsForDoctor(Dentist dentist, String date) {
+    public List<Appointment> getActualAppointmentsForDoctor(Dentist dentist, String date) {
 
-        ArrayList<Appointment> allAppointmeintsInThisDay = (ArrayList<Appointment>) appointmentRepository.findAllByDentistAndDate(dentist, date);
+        ArrayList<Appointment> allAppointmeintsInThisDay = (ArrayList<Appointment>) appointmentDao.findByDentistAndDate(dentist, date);
         return getAppointmentsWithActive(allAppointmeintsInThisDay);
 
     }
 
     public List<Appointment> getActualAppointmentsForClinic(Clinic clinic, String date) {
 
-        ArrayList<Appointment> allAppointmeintsInThisDay = (ArrayList<Appointment>) appointmentRepository.findAllByClinicAndDate(clinic, date);
+        ArrayList<Appointment> allAppointmeintsInThisDay = (ArrayList<Appointment>) appointmentDao.findAllByClinicAndDate(clinic, date);
         return getAppointmentsWithActive(allAppointmeintsInThisDay);
 
     }

@@ -1,11 +1,13 @@
 package com.clinic.dentist.services;
 
 
+import com.clinic.dentist.api.service.IAppointmentService;
 import com.clinic.dentist.api.service.IDentistService;
 import com.clinic.dentist.comparators.dentists.DentistAlphabetComparator;
 import com.clinic.dentist.comparators.maintenances.MaintenanceAlphabetComparator;
 import com.clinic.dentist.converters.ListConverter;
 import com.clinic.dentist.converters.SetConverter;
+import com.clinic.dentist.dao.AppointmentDao;
 import com.clinic.dentist.date.TimeSystem;
 import com.clinic.dentist.models.*;
 import com.clinic.dentist.repositories.AppointmentRepository;
@@ -25,12 +27,15 @@ public class DentistService implements IDentistService {
     private DentistRepository dentistRepository;
     @Autowired
     @Qualifier("appointmentService")
-    private AppointmentService appointmentService;
-    @Autowired
-    private AppointmentRepository appointmentRepository;
+    private IAppointmentService appointmentService;
+//    @Autowired
+//    private AppointmentRepository appointmentRepository;
     @Autowired
     @Qualifier("maintenanceService")
     private MaintenanceService maintenanceService;
+    @Autowired
+    @Qualifier("appointmentDao")
+    private AppointmentDao appointmentDao;
 
     public List<Dentist> getAll() {
         return dentistRepository.findAll();
@@ -65,7 +70,7 @@ public class DentistService implements IDentistService {
     {
         int h = 2;
         Dentist dentist = findById(id_dentist);
-        List<Appointment> orders = appointmentService.findByDentistAndDate(dentist, date);
+        List<Appointment> orders = appointmentDao.findByDentistAndDate(dentist, date);
         if (orders.size() != 0) {
             return false;
         }
@@ -78,7 +83,7 @@ public class DentistService implements IDentistService {
 
         int kol_min_priem;
         // ArrayList<Appointment> list = orderService.getScheduleDentistThisDay(dentist, date);
-        List<Appointment> list = appointmentRepository.findAllByDentistAndDate(dentist, date);
+        List<Appointment> list = appointmentDao.findByDentistAndDate(dentist, date);
         ArrayList<String> busy_time = new ArrayList<String>();
         ArrayList<String> time = new ArrayList<String>();
         ArrayList<String> time_day = TimeSystem.getAllWorkTime();
