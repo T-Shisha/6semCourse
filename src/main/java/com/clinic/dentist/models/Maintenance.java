@@ -40,6 +40,22 @@ public class Maintenance {
         return time;
     }
 
+    public List<Clinic> getClinics() {
+        return clinics;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public TypeServices getType() {
+        return type;
+    }
+
     public Long getId() {
         return id;
     }

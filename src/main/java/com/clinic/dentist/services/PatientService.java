@@ -1,11 +1,13 @@
 package com.clinic.dentist.services;
 
+import com.clinic.dentist.api.service.IPatientService;
 import com.clinic.dentist.models.Patient;
 import com.clinic.dentist.models.Role;
 import com.clinic.dentist.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -16,7 +18,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class PatientService {
+@Component("patientService")
+public class PatientService  implements IPatientService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired

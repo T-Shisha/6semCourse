@@ -1,10 +1,12 @@
 package com.clinic.dentist.controllers;
 
+import com.clinic.dentist.api.service.IPatientService;
 import com.clinic.dentist.date.DateSystem;
 import com.clinic.dentist.date.TimeSystem;
 import com.clinic.dentist.models.*;
 import com.clinic.dentist.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -22,14 +24,19 @@ import java.util.List;
 @Controller
 public class PatientController {
     @Autowired
+    @Qualifier("clinicService")
     private ClinicService clinicService;
     @Autowired
+    @Qualifier("dentistService")
     private DentistService dentistService;
     @Autowired
+    @Qualifier("maintenanceService")
     private MaintenanceService maintenanceService;
     @Autowired
-    private PatientService patientService;
+    @Qualifier("patientService")
+    private IPatientService patientService;
     @Autowired
+    @Qualifier("appointmentService")
     private AppointmentService appointmentService;
 
     @GetMapping("/user")

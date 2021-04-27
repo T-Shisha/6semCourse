@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
+<form action="#" th:action="@{/admin/dentist/add/services}" method="post">
+    <p th:each="t:${services}" class="check"><input type="checkbox" class="box" name="services"
+                                                    th:value="${t.getName()}" th:text="${t.getName()}"/>
+    </p>
+<!--    <td th:if="${not #strings.isEmpty(servicesError)}">-->
+<!--        <p style="color: #e90707" th:text="${servicesError} "></p></td>-->
+<!--    <a class="previous" th:href="'/admin/dentist/create'">« Назад</a>-->
+<!--    <input type="submit" value="Дальше" class="next"/>-->
+<!--    <a class="previous" style="margin-left:70px" th:href="'/admin/dentist'">Отмена</a>-->
+
+</form>
+</body>
+</html>
