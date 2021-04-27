@@ -1,11 +1,14 @@
 package com.clinic.dentist.services;
 
+import com.clinic.dentist.api.service.IAppointmentService;
 import com.clinic.dentist.comparators.time.TimeComparator;
 import com.clinic.dentist.date.DateSystem;
 import com.clinic.dentist.date.TimeConverter;
 import com.clinic.dentist.models.*;
 import com.clinic.dentist.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -15,7 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class AppointmentService {
+@Component("appointmentService")
+public class AppointmentService implements IAppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
     @Autowired
@@ -27,6 +31,7 @@ public class AppointmentService {
     @Autowired
     private MaintenanceRepository maintenanceRepository;
     @Autowired
+    @Qualifier("dentistService")
     private DentistService dentistService;
 
     public List<Appointment> findByDentistAndDate(Dentist dentist, String date) {

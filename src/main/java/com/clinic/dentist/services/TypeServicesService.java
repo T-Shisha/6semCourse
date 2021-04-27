@@ -1,10 +1,12 @@
 package com.clinic.dentist.services;
 
+import com.clinic.dentist.api.service.ITypeServicesService;
 import com.clinic.dentist.comparators.maintenances.MaintenancePriceComparator;
 import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.models.TypeServices;
 import com.clinic.dentist.repositories.TypeServicesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -13,7 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TypeServicesService {
+@Component("typeServicesService")
+public class TypeServicesService implements ITypeServicesService {
     @Autowired
     private TypeServicesRepository typeServicesRepository;
 

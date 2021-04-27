@@ -1,10 +1,12 @@
 package com.clinic.dentist.controllers;
 
+import com.clinic.dentist.api.service.IPatientService;
 import com.clinic.dentist.date.DateSystem;
 import com.clinic.dentist.date.TimeConverter;
 import com.clinic.dentist.models.*;
 import com.clinic.dentist.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +19,23 @@ import java.util.regex.Pattern;
 @Controller
 public class AdminController {
     @Autowired
-    private PatientService patientService;
+    @Qualifier("patientService")
+    private IPatientService patientService;
     @Autowired
+    @Qualifier("appointmentService")
     private AppointmentService appointmentService;
     @Autowired
+    @Qualifier("maintenanceService")
     private MaintenanceService maintenanceService;
     @Autowired
+    @Qualifier("dentistService")
     private DentistService dentistService;
     @Autowired
+    @Qualifier("clinicService")
     private ClinicService clinicService;
     @Autowired
-    private TypeServicesService typeService;
+    @Qualifier("typeServicesService")
+    private TypeServicesService typeServicesService;
 
     @GetMapping("/admin")
     public String greeting(Model model) {
@@ -182,32 +190,32 @@ public class AdminController {
     @PostMapping("/admin/dentists/add")
     public String getDentist(@ModelAttribute(name = "dentist") Dentist dentist, Model model) {
         den = null;
-        if (dentist.getFirstName().trim().equals("")) {
-            model.addAttribute("firstNameError", "Имя не введено");
-
-            return "createDentist";
-        } else if (dentist.getLastName().trim().equals("")) {
-
-            model.addAttribute("lastNameError", "Фамилия не введена");
-
-            return "createDentist";
-        } else if (dentist.getPatronymic().trim().equals("")) {
-
-            model.addAttribute("patronymicError", "Отчество не введено");
-
-            return "createDentist";
-        } else if (dentist.getPhoneNumber().trim().equals("")) {
-
-            model.addAttribute("phoneNumberError", "Номер телефона не введен");
-
-
-            return "createDentist";
-        } else if (dentist.getClinic().equals("")) {
-
-            model.addAttribute("clinicError", "Клиника не выбрана");
-
-            return "createDentist";
-        }
+//        if (dentist.getFirstName().trim().equals("")) {
+//            model.addAttribute("firstNameError", "Имя не введено");
+//
+//            return "createDentist";
+//        } else if (dentist.getLastName().trim().equals("")) {
+//
+//            model.addAttribute("lastNameError", "Фамилия не введена");
+//
+//            return "createDentist";
+//        } else if (dentist.getPatronymic().trim().equals("")) {
+//
+//            model.addAttribute("patronymicError", "Отчество не введено");
+//
+//            return "createDentist";
+//        } else if (dentist.getPhoneNumber().trim().equals("")) {
+//
+//            model.addAttribute("phoneNumberError", "Номер телефона не введен");
+//
+//
+//            return "createDentist";
+//        } else if (dentist.getClinic().equals("")) {
+//
+//            model.addAttribute("clinicError", "Клиника не выбрана");
+//
+//            return "createDentist";
+//        }
         Pattern pattern = Pattern.compile("^(375)[0-9]{9}$");
         Matcher matcher = pattern.matcher(dentist.getPhoneNumber());
         if (!matcher.matches()) {
@@ -237,7 +245,7 @@ public class AdminController {
         if (den != null) {
             model.addAttribute("dentist", den);
         }
-        return "choiceServicesForDentist";
+        return "chooseServicesForDentist";
 
     }
 
@@ -260,7 +268,7 @@ public class AdminController {
     @GetMapping("/admin/services/add")
     public String createService(Model model) {
         List<Clinic> clinics = clinicService.findAll();
-        List<TypeServices> typeServices = typeService.getAll();
+        List<TypeServices> typeServices = typeServicesService.getAll();
         model.addAttribute("service", new Maintenance());
         return "createMaintenance";
     }
@@ -268,16 +276,16 @@ public class AdminController {
     @PostMapping("/admin/services/add")
     public String getService(@ModelAttribute(name = "service") Maintenance service, Model model) {
 
-        if (service.getName().trim().equals("")) {
-            model.addAttribute("nameError", "Название не введено");
-
-            return "createService";
-        } else if (service.getDescription().trim().equals("")) {
-
-            model.addAttribute("descriptionError", "Описание не введено");
-
-            return "createService";
-        }
+//        if (service.getName().trim().equals("")) {
+//            model.addAttribute("nameError", "Название не введено");
+//
+//            return "createService";
+//        } else if (service.getDescription().trim().equals("")) {
+//
+//            model.addAttribute("descriptionError", "Описание не введено");
+//
+//            return "createService";
+//        }
         service.setName(service.getName().trim());
         service.setDescription(service.getDescription().trim());
 

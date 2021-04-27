@@ -1,5 +1,6 @@
 package com.clinic.dentist.services;
 
+import com.clinic.dentist.api.service.IMaintenanceService;
 import com.clinic.dentist.comparators.maintenances.MaintenanceAlphabetComparator;
 import com.clinic.dentist.comparators.maintenances.MaintenancePriceComparator;
 import com.clinic.dentist.models.Clinic;
@@ -8,6 +9,8 @@ import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.repositories.ClinicRepository;
 import com.clinic.dentist.repositories.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,14 +20,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class MaintenanceService {
+@Component("maintenanceService")
+public class MaintenanceService implements IMaintenanceService {
     @Autowired
     private MaintenanceRepository maintenanceRepository;
     @Autowired
     private ClinicRepository clinicRepository;
     @Autowired
+    @Qualifier("clinicService")
     private ClinicService clinicService;
     @Autowired
+    @Qualifier("dentistService")
     private DentistService dentistService;
 
     public Maintenance findByName(String name) {
