@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
+<form action="#" th:action="@{/admin/dentists/add}" th:object="${dentist}" method="post">
+
+    <p>Введите имя: <input type="text" th:field="*{firstName}" required class="form-control"/></p>
+    <td th:if="${not #strings.isEmpty(firstNameError)}">
+        <p style="color: #e90707" th:text="${firstNameError} "></p></td>
+    <p>Введите фамилию: <input type="text" th:field="*{lastName}" required class="form-control"/></p>
+    <td th:if="${not #strings.isEmpty(lastNameError)}">
+        <p style="color: #e90707" th:text="${lastNameError} "></p></td>
+    <p>Введите отчество: <input type="text" th:field="*{patronymic}" required class="form-control"/></p>
+    <td th:if="${not #strings.isEmpty(patronymicError)}">
+        <p style="color: #e90707" th:text="${patronymicError} "></p></td>
+    <p>Введите номер телефона: <input type="tel" class="form-control" name="phoneNumber" th:field="*{phoneNumber}"
+                                      pattern="+375([0-9]{2})[0-9]{7}" required/></p>
+    <td th:if="${not #strings.isEmpty(phoneNumberError)}">
+        <p style="color: #e90707" th:text="${phoneNumberError} "></p></td>
+    <p><select class="choice" required name="clinicId">
+
+
+        <option disabled selected="selected">Выберите клинику</option>
+        <option th:each="clinic:${clinics}" th:field="*{clinic}"
+                th:text="${clinic.getAddress()}"></option>
+
+    </select></p>
+    <td th:if="${not #strings.isEmpty(clinicError)}">
+        <p style="color: #e90707" th:text="${clinicError} "></p></td>
+
+    <p><input type="submit" class="next1" value="Дальше"/>
+    </p>
+
+
+</form>
+
+</body>
+</html>

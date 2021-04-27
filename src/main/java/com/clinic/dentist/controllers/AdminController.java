@@ -174,6 +174,7 @@ public class AdminController {
     @GetMapping("/admin/dentists/add")
     public String createDentist(Model model) {
         List<Clinic> clinics = clinicService.findAll();
+        model.addAttribute("clinics", clinics);
         model.addAttribute("dentist", new Dentist());
         return "createDentist";
     }

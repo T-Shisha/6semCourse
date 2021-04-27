@@ -132,7 +132,7 @@ public class AppointmentService {
 
     public List<Appointment> getActualAppointmentsForClinic(Clinic clinic, String date) {
 
-        ArrayList<Appointment> allAppointmeintsInThisDay = (ArrayList<Appointment>) appointmentRepository.findAllByClinicAAndDate(clinic, date);
+        ArrayList<Appointment> allAppointmeintsInThisDay = (ArrayList<Appointment>) appointmentRepository.findAllByClinicAndDate(clinic, date);
         return getAppointmentsWithActive(allAppointmeintsInThisDay);
 
     }
