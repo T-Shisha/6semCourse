@@ -1,5 +1,6 @@
 package com.clinic.dentist.services;
 
+import com.clinic.dentist.api.dao.IClinicDao;
 import com.clinic.dentist.api.service.IMaintenanceService;
 import com.clinic.dentist.comparators.maintenances.MaintenanceAlphabetComparator;
 import com.clinic.dentist.comparators.maintenances.MaintenancePriceComparator;
@@ -27,8 +28,8 @@ public class MaintenanceService implements IMaintenanceService {
     @Autowired
     private ClinicRepository clinicRepository;
     @Autowired
-    @Qualifier("clinicService")
-    private ClinicService clinicService;
+    @Qualifier("clinicDao")
+    private IClinicDao clinicDao;
     @Autowired
     @Qualifier("dentistService")
     private DentistService dentistService;
@@ -72,7 +73,7 @@ public class MaintenanceService implements IMaintenanceService {
     }
 
     public List<Maintenance> findMaintenanceForAddingForDentist(Long dentistId, Long clinicId) {
-        Iterable<Maintenance> clinicMaintenances = clinicService.findMaintenancesByClinic(clinicId);
+        Iterable<Maintenance> clinicMaintenances = clinicDao.findMaintenancesByClinic(clinicId);
         List<Maintenance> necessaryList = new ArrayList<>();
         for (Maintenance maintenance : clinicMaintenances) {
             if (!dentistService.checkDentistHaveMaintenance(dentistId, maintenance)) {

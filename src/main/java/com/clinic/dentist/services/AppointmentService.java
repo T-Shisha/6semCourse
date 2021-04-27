@@ -1,6 +1,7 @@
 package com.clinic.dentist.services;
 
 import com.clinic.dentist.api.dao.IAppointmentDao;
+import com.clinic.dentist.api.dao.IClinicDao;
 import com.clinic.dentist.api.service.IAppointmentService;
 import com.clinic.dentist.comparators.time.TimeComparator;
 import com.clinic.dentist.date.TimeConverter;
@@ -29,7 +30,8 @@ public class AppointmentService implements IAppointmentService {
     @Autowired
     private DentistRepository dentistRepository;
     @Autowired
-    private ClinicRepository clinicRepository;
+    @Qualifier("clinicDao")
+    private IClinicDao clinicDao;
     @Autowired
     private MaintenanceRepository maintenanceRepository;
     @Autowired
@@ -91,7 +93,7 @@ public class AppointmentService implements IAppointmentService {
     public void saveAppointment(Long clinicId, Long maintenanceId, Long dentistId, Long patientId, String date, String time) {
         Patient patient = patientRepository.findById(patientId).orElseThrow(RuntimeException::new);
         Dentist dentist = dentistRepository.findById(dentistId).orElseThrow(RuntimeException::new);
-        Clinic clinic = clinicRepository.findById(clinicId).orElseThrow(RuntimeException::new);
+        Clinic clinic = clinicDao.findById(clinicId);
         Maintenance maintenance = maintenanceRepository.findById(maintenanceId).orElseThrow(RuntimeException::new);
         Appointment appointment = new Appointment(clinic, maintenance, dentist, patient, date, time);
         appointmentDao.save(appointment);
