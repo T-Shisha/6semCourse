@@ -3,6 +3,7 @@ package com.clinic.dentist.services;
 
 import com.clinic.dentist.api.dao.IClinicDao;
 import com.clinic.dentist.api.dao.IDentistDao;
+import com.clinic.dentist.api.dao.IMaintenanceDao;
 import com.clinic.dentist.api.service.IAppointmentService;
 import com.clinic.dentist.api.service.IDentistService;
 import com.clinic.dentist.comparators.dentists.DentistAlphabetComparator;
@@ -29,10 +30,10 @@ public class DentistService implements IDentistService {
     @Autowired
     @Qualifier("appointmentService")
     private IAppointmentService appointmentService;
-
     @Autowired
-    @Qualifier("maintenanceService")
-    private MaintenanceService maintenanceService;
+    @Qualifier("maintenanceDao")
+    private IMaintenanceDao maintenanceDao;
+
     @Autowired
     @Qualifier("appointmentDao")
     private AppointmentDao appointmentDao;
@@ -126,7 +127,7 @@ public class DentistService implements IDentistService {
     public ArrayList<String> getFreeTimeForService(String date, Long dentistId, Long maintenanceId)////время для записи определенной услуги
     {
         Dentist dentist = findById(dentistId);
-        Maintenance maintenance = maintenanceService.findById(maintenanceId);
+        Maintenance maintenance = maintenanceDao.findById(maintenanceId);
         ArrayList<String> time = new ArrayList<String>();
         if (!checkFreeDay(date, dentist.getId())) {
             time = getFreeTimesDentistWithPatients(date, dentist);
