@@ -1,11 +1,14 @@
 package com.clinic.dentist.services;
 
+import com.clinic.dentist.api.dao.IClinicDao;
+import com.clinic.dentist.api.dao.ITypeServicesDao;
 import com.clinic.dentist.api.service.ITypeServicesService;
 import com.clinic.dentist.comparators.maintenances.MaintenancePriceComparator;
 import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.models.TypeServices;
 import com.clinic.dentist.repositories.TypeServicesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -18,28 +21,24 @@ import java.util.stream.Collectors;
 @Component("typeServicesService")
 public class TypeServicesService implements ITypeServicesService {
     @Autowired
-    private TypeServicesRepository typeServicesRepository;
+    @Qualifier("typeServicesDao")
+    private ITypeServicesDao typeServicesDao;
 
     public List<TypeServices> getAll() {
-        return typeServicesRepository.findAll();
+        return typeServicesDao.getAll();
     }
 
     public TypeServices findById(Long id) {
-        return typeServicesRepository.findById(id).orElseThrow(RuntimeException::new);
+        return typeServicesDao.findById(id);
     }
 
     public List<Maintenance> getSortedAscendingMaintenancesByPrice(TypeServices typeServices) {
-        List<Maintenance> maintenancesByTypeServices = typeServices.getMaintenances().stream().collect(Collectors.toList());
-        return maintenancesByTypeServices
-                .stream()
-                .sorted(new MaintenancePriceComparator())
-                .collect(Collectors.toList());
+        return typeServicesDao.getSortedAscendingMaintenancesByPrice(typeServices);
     }
 
     public List<Maintenance> getSortedDecreasingMaintenancesByPrice(TypeServices typeServices) {
-        List<Maintenance> maintenancesByTypeServices = getSortedAscendingMaintenancesByPrice(typeServices);
-        Collections.reverse(maintenancesByTypeServices);
-        return maintenancesByTypeServices;
+
+        return typeServicesDao.getSortedDecreasingMaintenancesByPrice(typeServices);
 
     }
 }
