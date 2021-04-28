@@ -76,9 +76,10 @@ public class AppointmentService implements IAppointmentService {
                 if (TimeComparator.compare(appointment.getTime(), time) == 1) {
                     appointment.setActive(true);
                     appointments.add(appointment);
+                    continue;
 
                 }
-
+                
 
             }
             appointment.setActive(false);
