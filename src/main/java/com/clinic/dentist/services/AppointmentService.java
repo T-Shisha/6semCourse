@@ -2,6 +2,7 @@ package com.clinic.dentist.services;
 
 import com.clinic.dentist.api.dao.IAppointmentDao;
 import com.clinic.dentist.api.dao.IClinicDao;
+import com.clinic.dentist.api.dao.IDentistDao;
 import com.clinic.dentist.api.service.IAppointmentService;
 import com.clinic.dentist.comparators.time.TimeComparator;
 import com.clinic.dentist.date.TimeConverter;
@@ -27,16 +28,16 @@ public class AppointmentService implements IAppointmentService {
 
     @Autowired
     private PatientRepository patientRepository;
-    @Autowired
-    private DentistRepository dentistRepository;
+
     @Autowired
     @Qualifier("clinicDao")
     private IClinicDao clinicDao;
     @Autowired
     private MaintenanceRepository maintenanceRepository;
+
     @Autowired
-    @Qualifier("dentistService")
-    private DentistService dentistService;
+    @Qualifier("dentistDao")
+    private IDentistDao dentistDao;
 
 
 //    public List<Appointment> findByDentistAndDate(Dentist dentist, String date) {
@@ -92,7 +93,7 @@ public class AppointmentService implements IAppointmentService {
 
     public void saveAppointment(Long clinicId, Long maintenanceId, Long dentistId, Long patientId, String date, String time) {
         Patient patient = patientRepository.findById(patientId).orElseThrow(RuntimeException::new);
-        Dentist dentist = dentistRepository.findById(dentistId).orElseThrow(RuntimeException::new);
+        Dentist dentist = dentistDao.findById(dentistId);
         Clinic clinic = clinicDao.findById(clinicId);
         Maintenance maintenance = maintenanceRepository.findById(maintenanceId).orElseThrow(RuntimeException::new);
         Appointment appointment = new Appointment(clinic, maintenance, dentist, patient, date, time);
@@ -112,11 +113,11 @@ public class AppointmentService implements IAppointmentService {
     public void changeDentistStatusInAppointment(Long id) {
         Appointment appointment = findById(id);
         long id_dentist = 0;
-        appointment.setDentist(dentistService.findById(id_dentist));
+        appointment.setDentist(dentistDao.findById(id));
     }
 
     public List<Appointment> getAppointmentsWithActiveForDentist(Long id) {
-        Dentist dentist = dentistService.findById(id);
+        Dentist dentist = dentistDao.findById(id);
         ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentDao.findAllByDentist(dentist);
         return getAppointmentsWithActive(allAppointment);
     }

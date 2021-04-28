@@ -25,8 +25,6 @@ public class RegistrationController {
     @Autowired
     @Qualifier("patientService")
     private IPatientService patientService;
-//    @Autowired
-//    private PatientRepository patientRepository;
 
 
     @GetMapping("/registration")

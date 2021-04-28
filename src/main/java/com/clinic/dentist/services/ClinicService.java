@@ -17,8 +17,7 @@ import java.util.List;
 @Service
 @Component("clinicService")
 public class ClinicService implements IClinicServices {
-    //    @Autowired
-//    private ClinicRepository clinicRepository;
+
     @Autowired
     @Qualifier("clinicDao")
     private IClinicDao clinicDao;
@@ -45,6 +44,6 @@ public class ClinicService implements IClinicServices {
     }
 
     public List<Dentist> findDentistsByClinic(Long clinicId) {
-      return  clinicDao.findDentistsByClinic(clinicId);
+        return clinicDao.findDentistsByClinic(clinicId);
     }
 }
