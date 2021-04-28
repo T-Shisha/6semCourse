@@ -1,9 +1,13 @@
 package com.clinic.dentist.services;
 
 import com.clinic.dentist.api.dao.IClinicDao;
+import com.clinic.dentist.api.dao.IDentistDao;
+import com.clinic.dentist.api.dao.IMaintenanceDao;
 import com.clinic.dentist.api.service.IMaintenanceService;
 import com.clinic.dentist.comparators.maintenances.MaintenanceAlphabetComparator;
 import com.clinic.dentist.comparators.maintenances.MaintenancePriceComparator;
+import com.clinic.dentist.dao.AppointmentDao;
+import com.clinic.dentist.dao.MaintenanceDao;
 import com.clinic.dentist.models.Clinic;
 import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
@@ -24,29 +28,28 @@ import java.util.stream.Collectors;
 @Component("maintenanceService")
 public class MaintenanceService implements IMaintenanceService {
     @Autowired
-    private MaintenanceRepository maintenanceRepository;
-    @Autowired
-    private ClinicRepository clinicRepository;
+    @Qualifier("maintenanceDao")
+    private IMaintenanceDao maintenanceDao;
+
     @Autowired
     @Qualifier("clinicDao")
     private IClinicDao clinicDao;
     @Autowired
-    @Qualifier("dentistService")
-    private DentistService dentistService;
+    @Qualifier("dentistDao")
+    private IDentistDao dentistDao;
 
     public Maintenance findByName(String name) {
-        return maintenanceRepository.findByName(name).orElseThrow(RuntimeException::new);
+        return maintenanceDao.findByName(name);
     }
 
     public List<Dentist> findDentistsByMaintenance(Long Id) {
-        List<Dentist> dentists = maintenanceRepository.findById(Id).orElseThrow().getDentists();
-        return dentists;
+        return maintenanceDao.findDentistsByMaintenance(Id);
     }
 
     public List<Dentist> findDentistsByMaintenanceAndClinic(Long MaintenanceId, Long ClinicId) {
         List<Dentist> dentistsByMaintenance = findDentistsByMaintenance(MaintenanceId);
         List<Dentist> necessaryDentists = new ArrayList<>();
-        Clinic clinic = clinicRepository.findById(ClinicId).orElseThrow();
+        Clinic clinic = clinicDao.findById(ClinicId);
         for (Dentist dentist : dentistsByMaintenance) {
             Long i = dentist.getClinic().getId();
             if (i.equals(ClinicId)) {
@@ -57,26 +60,22 @@ public class MaintenanceService implements IMaintenanceService {
     }
 
     public Maintenance findById(Long id) {
-        return maintenanceRepository.findById(id).orElseThrow(RuntimeException::new);
+        return maintenanceDao.findById(id);
     }
 
     public List<Maintenance> findAll() {
-        return maintenanceRepository.findAll();
+        return maintenanceDao.getAll();
     }
 
     public List<Maintenance> sortByName() {
-        List<Maintenance> maintenances = findAll();
-        return maintenances
-                .stream()
-                .sorted(new MaintenanceAlphabetComparator())
-                .collect(Collectors.toList());
+        return maintenanceDao.sortByName();
     }
 
     public List<Maintenance> findMaintenanceForAddingForDentist(Long dentistId, Long clinicId) {
         Iterable<Maintenance> clinicMaintenances = clinicDao.findMaintenancesByClinic(clinicId);
         List<Maintenance> necessaryList = new ArrayList<>();
         for (Maintenance maintenance : clinicMaintenances) {
-            if (!dentistService.checkDentistHaveMaintenance(dentistId, maintenance)) {
+            if (!dentistDao.checkDentistHaveMaintenance(dentistId, maintenance)) {
                 necessaryList.add(maintenance);
             }
         }
@@ -84,17 +83,17 @@ public class MaintenanceService implements IMaintenanceService {
     }
 
     public void addMaintenance(Maintenance maintenance) {
-        maintenanceRepository.save(maintenance);
+        maintenanceDao.save(maintenance);
     }
 
     public boolean checkHaveThisMaintenance(Maintenance maintenance) {
-        return maintenanceRepository.findByName(maintenance.getName()).isPresent();
+        return maintenanceDao.checkHaveThisMaintenance(maintenance);
     }
 
     public Set<Maintenance> getSetFromArrayMaintenance(String[] array) {
         Set<Maintenance> s = new HashSet<>();
         for (String a : array) {
-            Maintenance service = maintenanceRepository.findByName(a).orElseThrow(RuntimeException::new);
+            Maintenance service = maintenanceDao.findByName(a);
             s.add(service);
 
 

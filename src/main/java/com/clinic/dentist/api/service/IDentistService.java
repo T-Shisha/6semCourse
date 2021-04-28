@@ -38,7 +38,6 @@ public interface IDentistService {
 
     void addEntity(Dentist entity);
 
-    boolean checkDentistHaveMaintenance(Long id, Maintenance maintenance);
 
     boolean findDentistByPhoneNumber(String phoneNumber);
 }

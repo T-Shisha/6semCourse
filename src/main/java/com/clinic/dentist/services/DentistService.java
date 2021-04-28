@@ -1,6 +1,9 @@
 package com.clinic.dentist.services;
 
 
+import com.clinic.dentist.api.dao.IClinicDao;
+import com.clinic.dentist.api.dao.IDentistDao;
+import com.clinic.dentist.api.dao.IMaintenanceDao;
 import com.clinic.dentist.api.service.IAppointmentService;
 import com.clinic.dentist.api.service.IDentistService;
 import com.clinic.dentist.comparators.dentists.DentistAlphabetComparator;
@@ -23,41 +26,37 @@ import java.util.stream.Collectors;
 @Service
 @Component("dentistService")
 public class DentistService implements IDentistService {
+
+
     @Autowired
-    private DentistRepository dentistRepository;
-    @Autowired
-    @Qualifier("appointmentService")
-    private IAppointmentService appointmentService;
-//    @Autowired
-//    private AppointmentRepository appointmentRepository;
-    @Autowired
-    @Qualifier("maintenanceService")
-    private MaintenanceService maintenanceService;
+    @Qualifier("maintenanceDao")
+    private IMaintenanceDao maintenanceDao;
+
     @Autowired
     @Qualifier("appointmentDao")
     private AppointmentDao appointmentDao;
+    @Autowired
+    @Qualifier("dentistDao")
+    private IDentistDao dentistDao;
 
     public List<Dentist> getAll() {
-        return dentistRepository.findAll();
+        return dentistDao.getAll();
     }
 
     public List<Dentist> sortbyAlphabet() {
-        List<Dentist> dentists = getAll();
-        return dentists
-                .stream()
-                .sorted(new DentistAlphabetComparator())
-                .collect(Collectors.toList());
+
+        return dentistDao.sortbyAlphabet();
     }
 
     public Dentist findById(Long id) {
-        Dentist dentist = dentistRepository.findById(id).orElseThrow(RuntimeException::new);
-        return dentist;
+
+        return dentistDao.findById(id);
 
     }
 
     public boolean checkFreeTime(String date, Long id_dentist)////не занят ли весь день у доктора
     {
-        Dentist dentist = dentistRepository.findById(id_dentist).orElseThrow(RuntimeException::new);
+        Dentist dentist = dentistDao.findById(id_dentist);
         ArrayList<String> time = getFreeTimesDentistWithPatients(date, dentist);
 
         if (time.size() == 0) {
@@ -126,7 +125,7 @@ public class DentistService implements IDentistService {
     public ArrayList<String> getFreeTimeForService(String date, Long dentistId, Long maintenanceId)////время для записи определенной услуги
     {
         Dentist dentist = findById(dentistId);
-        Maintenance maintenance = maintenanceService.findById(maintenanceId);
+        Maintenance maintenance = maintenanceDao.findById(maintenanceId);
         ArrayList<String> time = new ArrayList<String>();
         if (!checkFreeDay(date, dentist.getId())) {
             time = getFreeTimesDentistWithPatients(date, dentist);
@@ -195,17 +194,16 @@ public class DentistService implements IDentistService {
     } //////влезает ли услуга в расписание врача
 
     public boolean checkExist(long id) {
-        return dentistRepository.existsById(id);
+        return dentistDao.checkExist(id);
     }
 
     public boolean deleteEntity(long id) {
-        Dentist dentist = dentistRepository.findById(id).orElseThrow();
+        Dentist dentist = dentistDao.findById(id);
 
         if (dentist.getOrders() != null) {
             List<Appointment> list = ListConverter.getList(dentist.getOrders());
             for (Appointment appointment : list) {
-                appointmentService.changeDentistStatusInAppointment(appointment.getId());
-                // appointmentService.deleteAppointment(appointment.getId());
+                appointmentDao.deleteAppointment(appointment);
 
             }
         }
@@ -216,7 +214,7 @@ public class DentistService implements IDentistService {
             dentist.deleteService(item);
         }
 
-        dentistRepository.delete(dentist);
+        dentistDao.deleteEntity(dentist);
         Clinic clinic = dentist.getClinic();
         clinic.getDentists().remove(dentist);
         try {
@@ -226,24 +224,16 @@ public class DentistService implements IDentistService {
             return true;
         }
 
-      /*  if (appointmentRepository.findAllByDentist(dentist) != null) {
-            return false;
-        }*/
-        //  return true;
 
     }
 
     public void addEntity(Dentist entity) {
-        dentistRepository.save(entity);
+        dentistDao.save(entity);
     }
 
-    public boolean checkDentistHaveMaintenance(Long id, Maintenance maintenance) {
-        Dentist dentist = findById(id);
-        return dentist.getMaintenances().contains(maintenance);
-    }
 
     public boolean findDentistByPhoneNumber(String phoneNumber) {
-        return dentistRepository.findByPhoneNumber(phoneNumber).isPresent();
+        return dentistDao.findDentistByPhoneNumber(phoneNumber);
     }
 
 

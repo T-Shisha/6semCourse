@@ -1,7 +1,6 @@
 package com.clinic.dentist.services;
 
-import com.clinic.dentist.api.dao.IAppointmentDao;
-import com.clinic.dentist.api.dao.IClinicDao;
+import com.clinic.dentist.api.dao.*;
 import com.clinic.dentist.api.service.IAppointmentService;
 import com.clinic.dentist.comparators.time.TimeComparator;
 import com.clinic.dentist.date.TimeConverter;
@@ -24,19 +23,21 @@ public class AppointmentService implements IAppointmentService {
     @Autowired
     @Qualifier("appointmentDao")
     private IAppointmentDao appointmentDao;
+    @Autowired
+    @Qualifier("patientDao")
+    private IPatientDao patientDao;
 
     @Autowired
-    private PatientRepository patientRepository;
-    @Autowired
-    private DentistRepository dentistRepository;
+    @Qualifier("maintenanceDao")
+    private IMaintenanceDao maintenanceDao;
     @Autowired
     @Qualifier("clinicDao")
     private IClinicDao clinicDao;
+
+
     @Autowired
-    private MaintenanceRepository maintenanceRepository;
-    @Autowired
-    @Qualifier("dentistService")
-    private DentistService dentistService;
+    @Qualifier("dentistDao")
+    private IDentistDao dentistDao;
 
 
 //    public List<Appointment> findByDentistAndDate(Dentist dentist, String date) {
@@ -50,7 +51,7 @@ public class AppointmentService implements IAppointmentService {
 
     public ArrayList<Appointment> getAppointmentsWithActiveForPatient(Long id_patient) {
 
-        Patient patient = patientRepository.findById(id_patient).orElseThrow(RuntimeException::new);
+        Patient patient = patientDao.findById(id_patient);
         ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentDao.findAllByPatient(patient);
         return getAppointmentsWithActive(allAppointment);
 
@@ -75,9 +76,10 @@ public class AppointmentService implements IAppointmentService {
                 if (TimeComparator.compare(appointment.getTime(), time) == 1) {
                     appointment.setActive(true);
                     appointments.add(appointment);
+                    continue;
 
                 }
-
+                
 
             }
             appointment.setActive(false);
@@ -91,12 +93,16 @@ public class AppointmentService implements IAppointmentService {
     }
 
     public void saveAppointment(Long clinicId, Long maintenanceId, Long dentistId, Long patientId, String date, String time) {
-        Patient patient = patientRepository.findById(patientId).orElseThrow(RuntimeException::new);
-        Dentist dentist = dentistRepository.findById(dentistId).orElseThrow(RuntimeException::new);
-        Clinic clinic = clinicDao.findById(clinicId);
-        Maintenance maintenance = maintenanceRepository.findById(maintenanceId).orElseThrow(RuntimeException::new);
-        Appointment appointment = new Appointment(clinic, maintenance, dentist, patient, date, time);
-        appointmentDao.save(appointment);
+       try {
+           Patient patient = patientDao.findById(patientId);
+           Dentist dentist = dentistDao.findById(dentistId);
+           Clinic clinic = clinicDao.findById(clinicId);
+           Maintenance maintenance = maintenanceDao.findById(maintenanceId);
+           Appointment appointment = new Appointment(clinic, maintenance, dentist, patient, date, time);
+           appointmentDao.save(appointment);
+       }catch (RuntimeException ex){
+           ex.printStackTrace();
+       }
     }
 
     public Appointment findById(Long id) {
@@ -109,14 +115,10 @@ public class AppointmentService implements IAppointmentService {
 
     }
 
-    public void changeDentistStatusInAppointment(Long id) {
-        Appointment appointment = findById(id);
-        long id_dentist = 0;
-        appointment.setDentist(dentistService.findById(id_dentist));
-    }
+
 
     public List<Appointment> getAppointmentsWithActiveForDentist(Long id) {
-        Dentist dentist = dentistService.findById(id);
+        Dentist dentist = dentistDao.findById(id);
         ArrayList<Appointment> allAppointment = (ArrayList<Appointment>) appointmentDao.findAllByDentist(dentist);
         return getAppointmentsWithActive(allAppointment);
     }
