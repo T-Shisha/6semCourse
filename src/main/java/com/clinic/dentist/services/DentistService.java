@@ -27,9 +27,7 @@ import java.util.stream.Collectors;
 @Component("dentistService")
 public class DentistService implements IDentistService {
 
-    @Autowired
-    @Qualifier("appointmentService")
-    private IAppointmentService appointmentService;
+
     @Autowired
     @Qualifier("maintenanceDao")
     private IMaintenanceDao maintenanceDao;
@@ -205,8 +203,7 @@ public class DentistService implements IDentistService {
         if (dentist.getOrders() != null) {
             List<Appointment> list = ListConverter.getList(dentist.getOrders());
             for (Appointment appointment : list) {
-                appointmentService.changeDentistStatusInAppointment(appointment.getId());
-                // appointmentService.deleteAppointment(appointment.getId());
+                appointmentDao.deleteAppointment(appointment);
 
             }
         }

@@ -17,7 +17,6 @@ public interface IAppointmentService {
 
     void deleteAppointment(Long id);
 
-    void changeDentistStatusInAppointment(Long id);
 
     List<Appointment> getAppointmentsWithActiveForDentist(Long id);
 
