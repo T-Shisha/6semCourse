@@ -79,7 +79,7 @@ public class AppointmentService implements IAppointmentService {
                     continue;
 
                 }
-                
+
 
             }
             appointment.setActive(false);

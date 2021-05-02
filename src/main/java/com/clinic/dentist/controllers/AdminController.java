@@ -190,32 +190,28 @@ public class AdminController {
     @PostMapping("/admin/dentists/add")
     public String getDentist(@ModelAttribute(name = "dentist") Dentist dentist, Model model) {
         den = null;
-//        if (dentist.getFirstName().trim().equals("")) {
-//            model.addAttribute("firstNameError", "Имя не введено");
-//
-//            return "createDentist";
-//        } else if (dentist.getLastName().trim().equals("")) {
-//
-//            model.addAttribute("lastNameError", "Фамилия не введена");
-//
-//            return "createDentist";
-//        } else if (dentist.getPatronymic().trim().equals("")) {
-//
-//            model.addAttribute("patronymicError", "Отчество не введено");
-//
-//            return "createDentist";
-//        } else if (dentist.getPhoneNumber().trim().equals("")) {
-//
-//            model.addAttribute("phoneNumberError", "Номер телефона не введен");
-//
-//
-//            return "createDentist";
-//        } else if (dentist.getClinic().equals("")) {
-//
-//            model.addAttribute("clinicError", "Клиника не выбрана");
-//
-//            return "createDentist";
-//        }
+        if (dentist.getFirstName().trim().equals("")) {
+            model.addAttribute("firstNameError", "Имя не введено");
+
+            return "createDentist";
+        } else if (dentist.getLastName().trim().equals("")) {
+
+            model.addAttribute("lastNameError", "Фамилия не введена");
+            return "createDentist";
+        } else if (dentist.getPatronymic().trim().equals("")) {
+            model.addAttribute("patronymicError", "Отчество не введено");
+
+            return "createDentist";
+        } else if (dentist.getPhoneNumber().trim().equals("")) {
+
+            model.addAttribute("phoneNumberError", "Номер телефона не введен");
+            return "createDentist";
+        } else if (dentist.getClinic().equals("")) {
+
+            model.addAttribute("clinicError", "Клиника не выбрана");
+
+            return "createDentist";
+        }
         Pattern pattern = Pattern.compile("^(375)[0-9]{9}$");
         Matcher matcher = pattern.matcher(dentist.getPhoneNumber());
         if (!matcher.matches()) {

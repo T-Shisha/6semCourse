@@ -9,7 +9,7 @@
 <body>
 <div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
 <form action="#" th:action="@{/admin/dentist/add/services}" method="post">
-    <p th:each="t:${services}" class="check"><input type="checkbox" class="box" name="services"
+    <p th:each="t:${services}" class="check"><input type="checkbox" class="box" name="services[]"
                                                     th:value="${t.getName()}" th:text="${t.getName()}"/>
     </p>
 <!--    <td th:if="${not #strings.isEmpty(servicesError)}">-->
