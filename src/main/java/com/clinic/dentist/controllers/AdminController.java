@@ -303,7 +303,7 @@ public class AdminController {
     public String getDentistsClinics(@PathVariable(value = "id") long id, Model model) {
         List<Dentist> dentists = clinicService.findDentistsByClinic(id);
         model.addAttribute("dentists", dentists);
-        return "clinicDentists";
+         return ("clinicDentists");
     }
 
     @GetMapping("/admin/clinics/{id}/services")
