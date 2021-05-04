@@ -8,7 +8,7 @@
 </head>
 <body>
 <div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
-<form action="#" th:action="@{/admin/dentists/add}" th:object="${dentist}" method="post">
+<form action="#" th:action="@{'/admin/clinics/'+${clinicId}+'/dentist/add'}" th:object="${dentist}" method="post">
 
     <p>Введите имя: <input type="text" th:field="*{firstName}" required class="form-control"/></p>
     <td th:if="${not #strings.isEmpty(firstNameError)}">
@@ -25,12 +25,7 @@
         <p style="color: #e90707" th:text="${phoneNumberError} "></p></td>
 
 
-   <p>Выберите клинику <select required th:field="*{clinic}">
-         <option th:each="i : ${clinics}" th:value="${i}" th:text="${i.getAddress()}">
-        </option>
-   </select></p>
-    <td th:if="${not #strings.isEmpty(clinicError)}">
-        <p style="color: #e90707" th:text="${clinicError} "></p></td>
+
 
     <p><input type="submit" class="next1" value="Дальше"/>
     </p>

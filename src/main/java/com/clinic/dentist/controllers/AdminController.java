@@ -179,16 +179,16 @@ public class AdminController {
 
     }
 
-    @GetMapping("/admin/dentists/add")
-    public String createDentist(Model model) {
-        List<Clinic> clinics = clinicService.findAll();
-        model.addAttribute("clinics", clinics);
+    @GetMapping("/admin/clinics/{id}/dentist/add")
+    public String createDentist(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("dentist", new Dentist());
+        model.addAttribute("clinicId", id);
+
         return "createDentist";
     }
 
-    @PostMapping("/admin/dentists/add")
-    public String getDentist(@ModelAttribute(name = "dentist") Dentist dentist, Model model) {
+    @PostMapping("/admin/clinics/{id}/dentist/add")
+    public String getDentist(@ModelAttribute(name = "dentist") Dentist dentist, @PathVariable(value = "id") long id, Model model) {
         den = null;
         if (dentist.getFirstName().trim().equals("")) {
             model.addAttribute("firstNameError", "Имя не введено");
@@ -197,6 +197,7 @@ public class AdminController {
         } else if (dentist.getLastName().trim().equals("")) {
 
             model.addAttribute("lastNameError", "Фамилия не введена");
+
             return "createDentist";
         } else if (dentist.getPatronymic().trim().equals("")) {
             model.addAttribute("patronymicError", "Отчество не введено");
@@ -206,17 +207,14 @@ public class AdminController {
 
             model.addAttribute("phoneNumberError", "Номер телефона не введен");
             return "createDentist";
-        } else if (dentist.getClinic().equals("")) {
-
-            model.addAttribute("clinicError", "Клиника не выбрана");
-
-            return "createDentist";
         }
+
         Pattern pattern = Pattern.compile("^(375)[0-9]{9}$");
-        Matcher matcher = pattern.matcher(dentist.getPhoneNumber());
+        Matcher matcher = pattern.matcher(dentist.getPhoneNumber().trim());
         if (!matcher.matches()) {
 
             model.addAttribute("phoneNumberError", "Номер телефона введен не корректно");
+
             return "createDentist";
         } else if (dentistService.findDentistByPhoneNumber(dentist.getPhoneNumber().trim())) {
 
@@ -224,18 +222,24 @@ public class AdminController {
 
             return "createDentist";
         }
-        dentist.setFirstName(dentist.getFirstName().trim());
-        dentist.setLastName(dentist.getLastName().trim());
-        dentist.setPhoneNumber(dentist.getPhoneNumber().trim());
-        dentist.setPatronymic(dentist.getPatronymic().trim());
+        try {
 
+            dentist.setFirstName(dentist.getFirstName().trim());
+            dentist.setLastName(dentist.getLastName().trim());
+            dentist.setPhoneNumber(dentist.getPhoneNumber().trim());
+            dentist.setPatronymic(dentist.getPatronymic().trim());
+            dentist.setClinic(clinicService.findById(id));
+        } catch (RuntimeException ex) {
+            return "createDentist";
+
+        }
 
         den = dentist;
-        return "redirect:/admin/dentists/add/services";
+        return "redirect://admin/clinics/{id}/dentist/add/services";
     }
 
-    @GetMapping("/admin/dentists/add/services")
-    public String getServices(Model model) {
+    @GetMapping("/admin/clinics/{id}/dentist/add/services")
+    public String getServices(Model model,@PathVariable(value = "id") long id) {
         Iterable<Maintenance> maintenanceList = clinicService.findMaintenancesByClinic(den.getClinic().getId());
         model.addAttribute("services", maintenanceList);
         if (den != null) {
@@ -245,8 +249,8 @@ public class AdminController {
 
     }
 
-    @PostMapping("/admin/dentist/services")
-    public String finishCreateDentist1(@RequestParam(required = false) String[] services, Model model) {
+    @PostMapping("/admin/clinics/{id}/dentist/add/services")
+    public String finishCreateDentist1(@RequestParam(required = false) String[] services,@PathVariable(value = "id") long id, Model model) {
         if (services == null) {
             Iterable<Maintenance> maintenanceList = clinicService.findMaintenancesByClinic(den.getClinic().getId());
             model.addAttribute("services", maintenanceList);
