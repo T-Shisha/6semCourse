@@ -8,15 +8,29 @@
 </head>
 <body>
 <div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
-<form action="#" th:action="@{/admin/dentist/add/services}" method="post">
-    <p th:each="t:${services}" class="check"><input type="checkbox" class="box" name="services[]"
+<!--<form action="#" th:action="@{'/admin/clinics/'+${clinicId}+'/dentist/add/services'}" method="post">-->
+<!--    <p th:each="t:${services}" class="check"><input type="checkbox" class="box" name="services"-->
+<!--                                                    th:value="${t.getName()}" th:text="${t.getName()}"/>-->
+
+<!--    </p>-->
+<!--    <input type="submit" value="Дальше" class="next"/>-->
+
+<!--    &lt;!&ndash;    <td th:if="${not #strings.isEmpty(servicesError)}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <p style="color: #e90707" th:text="${servicesError} "></p></td>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a class="previous" th:href="'/admin/dentist/create'">« Назад</a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="submit" value="Дальше" class="next"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a class="previous" style="margin-left:70px" th:href="'/admin/dentist'">Отмена</a>&ndash;&gt;-->
+
+<!--</form>-->
+<form action="#" th:action="@{'/admin/clinics/'+${clinicId}+'/dentist/add/services'}" method="post">
+    <p th:each="t:${services}" class="check"><input type="checkbox" class="box" name="services"
                                                     th:value="${t.getName()}" th:text="${t.getName()}"/>
     </p>
-<!--    <td th:if="${not #strings.isEmpty(servicesError)}">-->
-<!--        <p style="color: #e90707" th:text="${servicesError} "></p></td>-->
-<!--    <a class="previous" th:href="'/admin/dentist/create'">« Назад</a>-->
-<!--    <input type="submit" value="Дальше" class="next"/>-->
-<!--    <a class="previous" style="margin-left:70px" th:href="'/admin/dentist'">Отмена</a>-->
+    <td th:if="${not #strings.isEmpty(servicesError)}">
+        <p style="color: #e90707" th:text="${servicesError} "></p></td>
+    <a class="previous" th:href="'/admin/clinics/'+${clinicId}+'/dentist/add'">« Назад</a>
+    <input type="submit" value="Дальше" class="next"/>
+    <a class="previous" style="margin-left:70px" th:href="'/admin/clinics/'">Отмена</a>
 
 </form>
 </body>

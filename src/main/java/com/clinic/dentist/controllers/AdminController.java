@@ -192,18 +192,22 @@ public class AdminController {
         den = null;
         if (dentist.getFirstName().trim().equals("")) {
             model.addAttribute("firstNameError", "Имя не введено");
+            model.addAttribute("clinicId", id);
 
             return "createDentist";
         } else if (dentist.getLastName().trim().equals("")) {
 
             model.addAttribute("lastNameError", "Фамилия не введена");
+            model.addAttribute("clinicId", id);
 
             return "createDentist";
         } else if (dentist.getPatronymic().trim().equals("")) {
             model.addAttribute("patronymicError", "Отчество не введено");
+            model.addAttribute("clinicId", id);
 
             return "createDentist";
         } else if (dentist.getPhoneNumber().trim().equals("")) {
+            model.addAttribute("clinicId", id);
 
             model.addAttribute("phoneNumberError", "Номер телефона не введен");
             return "createDentist";
@@ -212,6 +216,7 @@ public class AdminController {
         Pattern pattern = Pattern.compile("^(375)[0-9]{9}$");
         Matcher matcher = pattern.matcher(dentist.getPhoneNumber().trim());
         if (!matcher.matches()) {
+            model.addAttribute("clinicId", id);
 
             model.addAttribute("phoneNumberError", "Номер телефона введен не корректно");
 
@@ -219,6 +224,7 @@ public class AdminController {
         } else if (dentistService.findDentistByPhoneNumber(dentist.getPhoneNumber().trim())) {
 
             model.addAttribute("phoneNumberError", "Врач с данным номером телефона зарегистрирован");
+            model.addAttribute("clinicId", id);
 
             return "createDentist";
         }
@@ -230,18 +236,22 @@ public class AdminController {
             dentist.setPatronymic(dentist.getPatronymic().trim());
             dentist.setClinic(clinicService.findById(id));
         } catch (RuntimeException ex) {
+            model.addAttribute("clinicId", id);
+
             return "createDentist";
 
         }
 
         den = dentist;
-        return "redirect://admin/clinics/{id}/dentist/add/services";
+        return "redirect:/admin/clinics/{id}/dentist/add/services";
     }
 
     @GetMapping("/admin/clinics/{id}/dentist/add/services")
-    public String getServices(Model model,@PathVariable(value = "id") long id) {
+    public String getServices(Model model, @PathVariable(value = "id") long id) {
         Iterable<Maintenance> maintenanceList = clinicService.findMaintenancesByClinic(den.getClinic().getId());
         model.addAttribute("services", maintenanceList);
+        model.addAttribute("clinicId", id);
+
         if (den != null) {
             model.addAttribute("dentist", den);
         }
@@ -250,18 +260,20 @@ public class AdminController {
     }
 
     @PostMapping("/admin/clinics/{id}/dentist/add/services")
-    public String finishCreateDentist1(@RequestParam(required = false) String[] services,@PathVariable(value = "id") long id, Model model) {
+    public String finishCreateDentist1(@RequestParam(required = false) String[] services, @PathVariable(value = "id") long id, Model model) {
         if (services == null) {
             Iterable<Maintenance> maintenanceList = clinicService.findMaintenancesByClinic(den.getClinic().getId());
             model.addAttribute("services", maintenanceList);
             model.addAttribute("servicesError", "Услуги не выбраны");
             model.addAttribute("dentist", den);
-            return "createDentistEnd";
+            model.addAttribute("clinicId", id);
+
+            return "chooseServicesForDentist";
         }
         den.setMaintenances(maintenanceService.getSetFromArrayMaintenance(services));
         dentistService.addEntity(den);
         den = null;
-        return "redirect:/admin/dentists";
+        return "redirect:/admin/clinics";
 
     }
 
