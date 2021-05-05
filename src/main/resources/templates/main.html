@@ -96,25 +96,32 @@
         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
         <nav id="navbar" class="navbar order-last order-lg-0">
-                        <ul>
-                            <li><a class="nav-link scrollto " href="#hero">Главная</a></li>
+            <ul>
+                <li><a class="nav-link scrollto " href='/'>Главная</a></li>
 
-                            <li><a class="nav-link scrollto " th:href="'/types'">Услуги</a></li>
-                            <li><a class="nav-link scrollto" href="#about">Про нас</a></li>
-                            <li><a class="nav-link scrollto" href="#contact">Контакты</a></li>
-                            <li  sec:authorize="hasAuthority('PATIENT')"  ><a   class="appointment-btn scrollto" th:href="'/user'">Профиль</a></li>
-                            <li sec:authorize="hasAuthority('ADMIN')"  ><a class="appointment-btn scrollto" th:href="'/admin'">Администрирование</a></li>
+                <li><a class="nav-link scrollto " th:href="'/types'">Услуги</a></li>
+                <li><a class="nav-link scrollto" href="/about">Про нас</a></li>
+                <li><a class="nav-link scrollto" href="/contacts">Контакты</a></li>
+                <!--                            <li  sec:authorize="hasAuthority('PATIENT')"  ><a   class="appointment-btn scrollto" th:href="'/user'">Профиль</a></li>-->
+                <!--                            <li sec:authorize="hasAuthority('ADMIN')"  ><a class="appointment-btn scrollto" th:href="'/admin'">Администрирование</a></li>-->
+                <li sec:authorize="hasAuthority('PATIENT')"   >
+                    <form th:action="@{/user}" method="get">
+                        <input type="submit" class="appointment-btn scrollto" value="Профиль"/>
+                    </form></li>
+                <li sec:authorize="hasAuthority('ADMIN')"   >
+                    <form th:action="@{/admin}" method="get">
+                        <input type="submit" class="appointment-btn scrollto" value="Администрирование"/>
+                    </form></li>
+                <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')"  >
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
+                    </form></li>
 
-                            <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')"  >
-                            <form th:action="@{/logout}" method="post">
-                                <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
-                            </form></li>
-
-                            <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')"   >
-                                <form th:action="@{/login}" method="post">
-                                    <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
-                                </form></li>
-                        </ul>
+                <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')"   >
+                    <form th:action="@{/login}" method="post">
+                        <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
+                    </form></li>
+            </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
@@ -134,7 +141,7 @@
 
             <!-- Slide 1 -->
             <div class="carousel-item active"
-                 style="background-image: url(http://localhost:8080/img/slide/slide-1.jpg)">
+                 style="background-image: url(http://localhost:8080/img/gallery/front1.jpg)">
                 <div class="container">
                     <h2>Добро пожаловать в <span>"Happy smile"</span></h2>
                     <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut
@@ -156,7 +163,7 @@
             </div>
 
             <!-- Slide 3 -->
-            <div class="carousel-item" style="background-image: url(http://localhost:8080/img/slide/slide-3.jpg)">
+            <div class="carousel-item" style="background-image: url(http://localhost:8080/img/gallery/font3.jpg)">
                 <div class="container">
                     <h2>Sequi ea ut et est quaerat</h2>
                     <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut
@@ -243,50 +250,6 @@
     </section><!-- End Cta Section -->
 
     <!-- ======= About Us Section ======= -->
-    <section id="about" class="about">
-        <div class="container" data-aos="fade-up">
-
-            <div class="section-title">
-                <h2>About Us</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit in iste officiis commodi quidem hic quas.</p>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <img src="http://localhost:8080/img/about.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
-                    <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-                    <p class="fst-italic">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore
-                        magna aliqua.
-                    </p>
-                    <ul>
-                        <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </li>
-                        <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate
-                            velit.
-                        </li>
-                        <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                            fugiat nulla pariatur.
-                        </li>
-                    </ul>
-                    <p>
-                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                        in voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </section><!-- End About Us Section -->
 
     <!-- ======= Counts Section ======= -->
 
@@ -408,60 +371,6 @@
     </section><!-- End Frequently Asked Questioins Section -->
 
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Contact</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit in iste officiis commodi quidem hic quas.</p>
-            </div>
-
-        </div>
-
-        <div>
-            <iframe style="border:0; width: 100%; height: 350px;"
-                    src="https://maps.google.com/maps?q=%D0%93%D1%80%D0%BE%D0%B4%D0%BD%D0%BE%2C%20%D0%94%D1%83%D0%B1%D0%BA%D0%BE%2020&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
-        </div>
-
-        <div class="container">
-
-            <div class="row mt-5">
-
-                <div class="col-lg-6">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="info-box">
-                                <i class="bx bx-map"></i>
-                                <h3>Наш главный офис</h3>
-                                <p>г.Гродно, ул. Дубко 20</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="info-box mt-4">
-                                <i class="bx bx-envelope"></i>
-                                <h3>Email </h3>
-                                <p>happy.smile@2020.com<br>happy.smile@contact.com</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="info-box mt-4">
-                                <i class="bx bx-phone-call"></i>
-                                <h3>Номера телефонов</h3>
-                                <p>+375(33)87 12 456 <br>+375(29)27 13 486 </p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-    </section><!-- End Contact Section -->
 
 </main><!-- End #main -->
 
