@@ -1,0 +1,47 @@
+.container {
+
+    right: 0;
+
+    margin-right: 90px;
+    margin-top:60px;
+    max-width: 400px;
+    padding: 16px;
+    background-color: white;
+}
+.container-1 {
+
+    right: 0;
+
+    margin-right: 90px;
+    margin-top:30px;
+    margin-left: 390px;
+
+    max-height: 400px;
+    padding: 16px;
+    background-color: white;
+}
+/* Full-width input fields */
+.choice {
+    font-family: "Roboto", sans-serif;
+    font-size: 12pt;
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+
+    background: #f1f1f1;
+}
+.texx{
+    font-family: "Roboto", sans-serif;
+
+    font-size: 12pt;
+}
+.choice:focus {
+    background-color: #ddd;
+    outline: none;
+}
+.title-order{
+    text-align: center;
+}
+
+

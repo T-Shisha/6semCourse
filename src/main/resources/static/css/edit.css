@@ -1,0 +1,82 @@
+.bg-img {
+    /* The image used */
+    padding-top: 10px;
+
+    background-image: url(http://localhost:8080/photo/work_place.jpg) ;
+
+    margin-top: 85px;
+    min-height: 700px;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bg-img1 {
+    /* The image used */
+    padding-top: 10px;
+
+    background-image: url(http://localhost:8080/photo/work_place.jpg) ;
+
+    margin-top: 85px;
+    min-height: 800px;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.container {
+
+
+    margin-top:18px;
+    max-width: 450px;
+    padding: 16px;
+    background-color: white;
+}
+.previous:hover {
+    background-color: #ddd;
+    color: black;
+}
+.next {
+    background-color: #B0C4DE;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    margin-left:45px;
+    border:1px solid #B0C4DE;
+}
+.next1 {
+    background-color: #B0C4DE;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    margin-left:0px;
+    border:1px solid #B0C4DE;
+}
+.next:hover{
+    background-color: #ddd;
+    color: black;
+}
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+.ots{
+    margin-top: 15px;
+}
+.check{
+
+    text-align: left;
+    margin-left: 20px;
+    font-size: 20px;
+}
+.box{
+    margin-right: 5px;
+
+}

@@ -48,6 +48,8 @@ public class PatientController {
         Patient patient = patientService.findUserByUsername(name);
         List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
+
+        model.addAttribute("patient", patient);
         model.addAttribute("orders", appointments);
         return "user";
     }
@@ -68,6 +70,8 @@ public class PatientController {
         Patient patient = patientService.findUserByUsername(name);
         List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
+
+        model.addAttribute("patient", patient);
         model.addAttribute("orders", appointments);
         return "choiceOfMaintenance";
     }
@@ -89,6 +93,8 @@ public class PatientController {
         Patient patient = patientService.findUserByUsername(name);
         List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
+
+        model.addAttribute("patient", patient);
         model.addAttribute("orders", appointments);
         return "choiceOfDentist";
     }
@@ -112,6 +118,8 @@ public class PatientController {
         Patient patient = patientService.findUserByUsername(name);
         List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
+
+        model.addAttribute("patient", patient);
         model.addAttribute("orders", appointments);
         return "choiceOfDate";
 
@@ -123,7 +131,10 @@ public class PatientController {
         model.addAttribute("serviceId", id1);
         model.addAttribute("dentistId", id2);
         model.addAttribute("clinicId", id);
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        Patient patient = patientService.findUserByUsername(name);
+        model.addAttribute("patient", patient);
         if (DateSystem.checkWeekend(Date.trim())) {
 
             model.addAttribute("dates", DateSystem.NextDay());
@@ -163,6 +174,8 @@ public class PatientController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Patient patient = patientService.findUserByUsername(name);
+
+        model.addAttribute("patient", patient);
         List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
         model.addAttribute("orders", appointments);
@@ -191,6 +204,8 @@ public class PatientController {
         List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
         model.addAttribute("orders", appointments);
+
+        model.addAttribute("patient", patient);
         return ("orderPatient");
 
     }
@@ -202,10 +217,13 @@ public class PatientController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Patient patient = patientService.findUserByUsername(name);
+        model.addAttribute("patient", patient);
+
         appointmentService.saveAppointment(id, id1, id2, patient.getId(), date, time);
         return "redirect:/user";
 
     }
+
     @GetMapping("/client/orders/{id}/remove")
     public String getUnregisteredPatientView(@PathVariable(value = "id") long id, Model model) {
 
@@ -217,6 +235,7 @@ public class PatientController {
         Patient patient = patientService.findUserByUsername(name);
         List<Appointment> appointments = appointmentService.getAppointmentsWithActiveForPatient(patient.getId());
         Collections.reverse(appointments);
+        model.addAttribute("patient", patient);
         model.addAttribute("orders", appointments);
         return "user";
 

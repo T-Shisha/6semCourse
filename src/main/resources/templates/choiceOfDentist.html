@@ -5,25 +5,121 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+        <title>Happy smile</title>
+
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+
+        <!-- Favicons -->
+        <link href="http://localhost:8080/img/favicon.png" rel="icon">
+        <link href="http://localhost:8080/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+              rel="stylesheet">
+
+        <!-- Vendor CSS Files -->
+        <link href="http://localhost:8080/vendor/animate.css/animate.min.css" rel="stylesheet">
+        <link href="http://localhost:8080/vendor/aos/aos.css" rel="stylesheet">
+        <link href="http://localhost:8080/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://localhost:8080/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="http://localhost:8080/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="http://localhost:8080/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+        <link href="http://localhost:8080/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="http://localhost:8080/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+        <!-- Template Main CSS File -->
+        <link href="http://localhost:8080/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="http://localhost:8080/css/person_account.css">
+        <link rel="stylesheet" href="http://localhost:8080/css/form-for-order.css">
+
+        <link rel="stylesheet" href="http://localhost:8080/css/table-appointment-client.css">
+
+
+        <!-- =======================================================
+        * Template Name: Medicio - v4.1.0
+        * Template URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
+        * Author: BootstrapMade.com
+        * License: https://bootstrapmade.com/license/
+        ======================================================== -->
+
+    </head>
+
 <body>
-<div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
-PATIENTTT
-<table width="100%" class="table-cl">
+
+<!-- ======= Top Bar ======= -->
+<div id="topbar" class="d-flex align-items-center fixed-top">
+    <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
+        <div class="align-items-center d-none d-md-flex">
+            <i class="bi bi-clock"></i> Понедельник - Пятница, 9:00 - 18:00 (Обед 13:00 - 14:00)
+        </div>
+        <!--        <div class="d-flex align-items-center">-->
+        <!--            <i class="bi bi-phone"></i> Call us now +1 5589 55488 55-->
+        <!--        </div>-->
+    </div>
+</div>
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+        <a href="main.html" class="logo me-auto"><img src="http://localhost:8080/img/logo.png" alt=""></a>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto " href='/'>Главная</a></li>
+
+                <li><a class="nav-link scrollto " th:href="'/types'">Услуги</a></li>
+                <li><a class="nav-link scrollto" href="/about">Про нас</a></li>
+                <li><a class="nav-link scrollto" href="/contacts">Контакты</a></li>
+                <!--                            <li  sec:authorize="hasAuthority('PATIENT')"  ><a   class="appointment-btn scrollto" th:href="'/user'">Профиль</a></li>-->
+                <!--                            <li sec:authorize="hasAuthority('ADMIN')"  ><a class="appointment-btn scrollto" th:href="'/admin'">Администрирование</a></li>-->
+                <li sec:authorize="hasAuthority('PATIENT')">
+                    <form th:action="@{/user}" method="get">
+                        <input type="submit" class="appointment-btn scrollto" value="Профиль"/>
+                    </form>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')">
+                    <form th:action="@{/admin}" method="get">
+                        <input type="submit" class="appointment-btn scrollto" value="Администрирование"/>
+                    </form>
+                </li>
+                <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
+                    </form>
+                </li>
+
+                <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')">
+                    <form th:action="@{/login}" method="post">
+                        <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
+                    </form>
+                </li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        <!--        <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>-->
+
+    </div>
+</header><!-- End Header -->
+
+<table width="100%" class="table-cl" style="margin-top: 100px">
     <tr>
-        <td width="35%">
-
-
-        </td>
         <td width="65%">
 
             <div class="bg-img">
                 <form action="#" th:action="@{'/user/'+${clinicId}+'/clinic/'+${serviceId}+'/maintenance'}"
                       method="post">
-                    <div class="container">
-                        <div class="title-order"><h2>Записаться к врачу</h2><br>
-                            <h3>Шаг 2</h3></div>
-                        <p><select class="choice" onchange='this.form.submit()' name="dentistId">
+                    <div class="container_">
+                        <div class="title-order_"><h2>Записаться к врачу</h2><br>
+                            <h3>Шаг 3</h3></div>
+                        <p><select class="choice_" onchange='this.form.submit()' name="dentistId">
 
 
                             <option disabled selected="selected">Выберите врача</option>
@@ -45,9 +141,101 @@ PATIENTTT
 
 
         </td>
+
+        <td width="35%">
+
+            <div th:replace="fragments/account :: div.account"></div>
+
+        </td>
     </tr>
 </table>
-<div  th:replace="fragments/appointment-for-patient :: div.table-client"></div>
+<div th:replace="fragments/appointment-for-patient :: div.table-client"></div>
+<footer style="margin-top: 30px" id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
 
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-info">
+                        <h3>Medicio</h3>
+                        <p>
+                            A108 Adam Street <br>
+                            NY 535022, USA<br><br>
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6 footer-newsletter">
+                    <h4>Our Newsletter</h4>
+                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                    <form action="" method="post">
+                        <input type="email" name="email"><input type="submit" value="Subscribe">
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Medicio</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/medicio-free-bootstrap-theme/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="http://localhost:8080/vendor/aos/aos.js"></script>
+<script src="http://localhost:8080/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="http://localhost:8080/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="http://localhost:8080/vendor/php-email-form/validate.js"></script>
+<script src="http://localhost:8080/vendor/purecounter/purecounter.js"></script>
+<script src="http://localhost:8080/vendor/swiper/swiper-bundle.min.js"></script>
+
+<!-- Template Main JS File -->
+<script src="http://localhost:8080/js/main.js"></script>
 </body>
 </html>
