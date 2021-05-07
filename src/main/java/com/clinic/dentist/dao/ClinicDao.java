@@ -5,6 +5,7 @@ import com.clinic.dentist.models.Clinic;
 import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
 import com.clinic.dentist.repositories.ClinicRepository;
+import com.clinic.dentist.repositories.DentistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public class ClinicDao implements IClinicDao {
     @Autowired
     private ClinicRepository clinicRepository;
+    @Autowired
+    private DentistRepository dentistRepository;
 
     @Override
     public void save(Clinic entity) {
@@ -40,7 +43,7 @@ public class ClinicDao implements IClinicDao {
     }
     public List<Dentist> findDentistsByClinic(Long clinicId) {
         Clinic clinic = findById(clinicId);
-        return clinic.getDentists();
+        return dentistRepository.findDentistByClinic(clinic);
     }
     @Override
     public List<Clinic> getAll() {

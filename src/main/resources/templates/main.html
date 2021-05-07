@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>
-<div sec:authorize="hasAuthority('UNREGISTERED')">
- Ваш запрос на регистрацию расматривается
-</div>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:replace="fragments/horizontal-menu :: div.horizontal-menu"></div>-->
+<!--<div sec:authorize="hasAuthority('UNREGISTERED')">-->
+<!-- Ваш запрос на регистрацию расматривается-->
+<!--</div>-->
 <!-- >hbhg
 <span sec:authorize="isAuthenticated()">| Logged user:  |
                 Roles: <span sec:authentication="principal.authorities"></span> |
@@ -30,5 +30,385 @@
     Text visible only to authenticated users.
 </div>
 <-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Happy smile</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="http://localhost:8080/img/favicon.png" rel="icon">
+    <link href="http://localhost:8080/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="http://localhost:8080/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/aos/aos.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="http://localhost:8080/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Medicio - v4.1.0
+    * Template URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+
+</head>
+
+<body>
+
+<!-- ======= Top Bar ======= -->
+<div id="topbar" class="d-flex align-items-center fixed-top">
+    <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
+        <div class="align-items-center d-none d-md-flex">
+            <i class="bi bi-clock"></i> Понедельник - Пятница, 9:00 - 18:00 (Обед 13:00 - 14:00)
+        </div>
+        <!--        <div class="d-flex align-items-center">-->
+        <!--            <i class="bi bi-phone"></i> Call us now +1 5589 55488 55-->
+        <!--        </div>-->
+    </div>
+</div>
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+        <a href="main.html" class="logo me-auto"><img src="http://localhost:8080/img/logo.png" alt=""></a>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto " href='/'>Главная</a></li>
+
+                <li><a class="nav-link scrollto " th:href="'/types'">Услуги</a></li>
+                <li><a class="nav-link scrollto" href="/about">Про нас</a></li>
+                <li><a class="nav-link scrollto" href="/contacts">Контакты</a></li>
+                <!--                            <li  sec:authorize="hasAuthority('PATIENT')"  ><a   class="appointment-btn scrollto" th:href="'/user'">Профиль</a></li>-->
+                <!--                            <li sec:authorize="hasAuthority('ADMIN')"  ><a class="appointment-btn scrollto" th:href="'/admin'">Администрирование</a></li>-->
+                <li sec:authorize="hasAuthority('PATIENT')">
+                    <form th:action="@{/user}" method="get">
+                        <input type="submit" class="appointment-btn scrollto" value="Профиль"/>
+                    </form>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')">
+                    <form th:action="@{/admin}" method="get">
+                        <input type="submit" class="appointment-btn scrollto" value="Администрирование"/>
+                    </form>
+                </li>
+                <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
+                    </form>
+                </li>
+
+                <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')">
+                    <form th:action="@{/login}" method="post">
+                        <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
+                    </form>
+                </li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        <!--        <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>-->
+
+    </div>
+</header><!-- End Header -->
+
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+    <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+        <div class="carousel-inner" role="listbox">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active"
+                 style="background-image: url(http://localhost:8080/img/gallery/front1.jpg)">
+                <div class="container">
+                    <h2>Добро пожаловать в <span>"Happy smile"</span></h2>
+                    <p>Интересный текст</p>
+                    <a href="#about" class="btn-get-started scrollto">Читать больше</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item" style="background-image: url(http://localhost:8080/img/slide/slide-2.jpg)">
+                <div class="container">
+                    <h2>Текст</h2>
+                    <p>Очеень интересный текст</p>
+                    <a href="#about" class="btn-get-started scrollto">Читать больше</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item" style="background-image: url(http://localhost:8080/img/gallery/font3.jpg)">
+                <div class="container">
+                    <h2>Текст</h2>
+                    <p>Ещё более интересный текст</p>
+                    <a href="#about" class="btn-get-started scrollto">Читать больше</a>
+                </div>
+            </div>
+
+        </div>
+
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
+    </div>
+</section><!-- End Hero -->
+
+<main id="main">
+
+    <!-- ======= Featured Services Section ======= -->
+    <section id="featured-services" class="featured-services">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                        <h4 class="title"><a href="">Текст</a></h4>
+                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
+                            ТекстТекстТекстТекстТекстТекстТекст</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon"><i class="fas fa-pills"></i></div>
+                        <h4 class="title"><a href="">Текст</a></h4>
+                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
+                            ТекстТекстТекстТекстТекстТекстТекст</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+                        <div class="icon"><i class="fas fa-thermometer"></i></div>
+                        <h4 class="title"><a href="">Текст</a></h4>
+                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
+                            ТекстТекстТекстТекстТекстТекстТекст</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+                        <div class="icon"><i class="fas fa-dna"></i></div>
+                        <h4 class="title"><a href="">Текст</a></h4>
+                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
+                            ТекстТекстТекстТекстТекстТекстТекст</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Featured Services Section -->
+
+    <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+        <div class="container" data-aos="zoom-in">
+
+            <div class="text-center">
+                <h3>Текст</h3>
+                <p> Призыв к записи</p>
+                <a class="cta-btn scrollto" th:href="@{'/user'}">Записаться в клинику</a>
+            </div>
+
+        </div>
+    </section><!-- End Cta Section -->
+
+
+    <!-- ======= Gallery Section ======= -->
+
+    <!-- ======= Pricing Section ======= -->
+
+    <!-- ======= Frequently Asked Questioins Section ======= -->
+    <section id="faq" class="faq section-bg">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Вопросики</h2>
+                <p>Текст</p>
+            </div>
+
+            <ul class="faq-list">
+
+                <li>
+                    <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">
+                        Вопрос2 <i class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
+                    <div id="faq1" class="collapse" data-bs-parent=".faq-list">
+                        <p>Шикарный ответ
+                        </p>
+                    </div>
+                </li>
+
+                <li>
+                    <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">Вопрос3<i
+                            class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
+                    <div id="faq2" class="collapse" data-bs-parent=".faq-list">
+                        <p>
+                            Шикарный ответ
+                        </p>
+                    </div>
+                </li>
+
+                <li>
+                    <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Вопрос4<i
+                            class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
+                    <div id="faq3" class="collapse" data-bs-parent=".faq-list">
+                        <p>
+                            Шикарный ответ
+                        </p>
+                    </div>
+                </li>
+
+                <li>
+                    <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">Вопрос5 <i
+                            class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
+                    <div id="faq4" class="collapse" data-bs-parent=".faq-list">
+                        <p>
+                            шикарный ответ
+                        </p>
+                    </div>
+                </li>
+
+                <li>
+                    <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">Вопрос5 <i
+                            class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
+                    <div id="faq5" class="collapse" data-bs-parent=".faq-list">
+                        <p>
+                            Шикарныйй ответ
+                        </p>
+                    </div>
+                </li>
+
+                <li>
+                    <div data-bs-toggle="collapse" href="#faq6" class="collapsed question">Вопрос6 <i
+                            class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i>
+                    </div>
+                    <div id="faq6" class="collapse" data-bs-parent=".faq-list">
+                        <p>
+                            Ещё один шикарный ответ
+                        </p>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </section><!-- End Frequently Asked Questioins Section -->
+
+    <!-- ======= Contact Section ======= -->
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-info">
+                        <h3>Happy smile</h3>
+                        <p>
+                            Дубко 20 <br>
+                            г. Гродно<br><br>
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Главная</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Про нас</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Услуги</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <!--                    <h4>Our Services</h4>-->
+                    <!--                    <ul>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>-->
+                    <!--                    </ul>-->
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Shisha</span></strong>. All Rights Reserved
+        </div>
+
+    </div>
+</footer><!-- End Footer -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="http://localhost:8080/vendor/aos/aos.js"></script>
+<script src="http://localhost:8080/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="http://localhost:8080/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="http://localhost:8080/vendor/php-email-form/validate.js"></script>
+<script src="http://localhost:8080/vendor/purecounter/purecounter.js"></script>
+<script src="http://localhost:8080/vendor/swiper/swiper-bundle.min.js"></script>
+
+<!-- Template Main JS File -->
+<script src="http://localhost:8080/js/main.js"></script>
+
 </body>
+
 </html>

@@ -34,7 +34,15 @@ public class MainController {
         model.addAttribute("types", types);
         return "servicesType";
     }
+    @GetMapping("/contacts")
+    public String getContacts(Model model) {
 
+        return "contacts";
+    }
+    @GetMapping("/about")
+    public String getAbout(Model model) {
+         return "about";
+    }
     @GetMapping("/types/{id}")
     public String getServices(@PathVariable(value = "id") long id, Model model) {
         TypeServices typeServices= typeServicesService.findById(id);

@@ -4,12 +4,22 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/css/column.css">
+    <link rel="stylesheet" href="http://localhost:8080/css/patient.css">
+    <link rel="stylesheet"   href="http://localhost:8080/css/person_account.css">
+    <link rel="stylesheet" href="http://localhost:8080/css/form-for-order.css">
+    <link rel="stylesheet" href="http://localhost:8080/css/table-appointment-client.css">
+    <link rel="stylesheet" href="css/styleStart.css">
 </head>
-<body>
+<body style="background:#3fbbc0; ">
 <div class="login-page">
     <div class="form">
         <h2 class="name">Регистрация</h2>
+        <div style="color:#3fbbc0; " th:if="${success}"   role="alert" th:text="${success}" ></div>
+
         <form class="registr" action="#" th:action="@{/registration}" th:object="${patient}" method="post">
             <p> Введите имя: <input type="text" th:field="*{firstName}"  /></p>
             <td th:if="${not #strings.isEmpty(firstNameError)}">

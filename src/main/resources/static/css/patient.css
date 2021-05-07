@@ -1,0 +1,60 @@
+body{
+    margin:0;
+}
+.menu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 85px;
+    overflow: hidden;
+    background: #B0C4DE;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.name_clinik{
+    color: white;
+    font-size: 30pt;
+    font-family: "Harlow Solid Italic";
+
+}
+.icon{
+    padding-left: 10px;
+    float:left;
+}
+.menu li {
+    display: inline-block;
+    vertical-align: top;
+    background: #B0C4DE;
+}
+
+.funct{
+    float: right;
+
+}
+li a{
+    font-family: "Roboto", sans-serif;
+
+    display: block;
+width: 100%;
+
+    padding: 25px 17px;
+    text-decoration: none;
+
+    color: white;
+    text-align: center;
+
+
+    font-size: 18pt;
+}
+
+.funct :hover {
+    background: #FFFFFF;
+    color:#B0C4DE ;
+}
+.table-cl{
+    margin-top: 85px;
+}
+.otstup{
+    margin-top: 90px;
+}

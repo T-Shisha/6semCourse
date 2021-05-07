@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="table-admin">
 
-</body>
-</html>
+
+    <div class="block-table">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Услуга</th>
+                <th scope="col">Врач</th>
+                <th scope="col">Пациент</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Время</th>
+
+            </tr>
+            </thead>
+            <tbody   th:each="t:${orders}">
+            <tr>
+
+                <td th:text="${t.getMaintenance().getName()}"></td>
+                <td th:text="${t.getDentist().getLastName()} +'  '+${t.getDentist().getFirstName()} +'   '+${t.getDentist().getPatronymic()}"></td>
+                <td th:text="${t.getPatient().getLastName()}+'  '+${t.getPatient().getFirstName()}"></td>
+
+                <td th:text="${t.getDate()}"></td>
+                <td th:text="${t.getTime()}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

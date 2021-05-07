@@ -2,8 +2,10 @@ package com.clinic.dentist.dao;
 
 import com.clinic.dentist.api.dao.IDentistDao;
 import com.clinic.dentist.comparators.dentists.DentistAlphabetComparator;
+import com.clinic.dentist.models.Clinic;
 import com.clinic.dentist.models.Dentist;
 import com.clinic.dentist.models.Maintenance;
+import com.clinic.dentist.repositories.ClinicRepository;
 import com.clinic.dentist.repositories.DentistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,10 +17,16 @@ import java.util.stream.Collectors;
 public class DentistDao implements IDentistDao {
     @Autowired
     private DentistRepository dentistRepository;
-
+    @Autowired
+    private ClinicRepository clinicRepository;
     @Override
     public void save(Dentist entity) {
+       Clinic clinic=entity.getClinic();
+       Clinic cl=clinicRepository.findById(clinic.getId()).orElseThrow();
+       entity.setClinic(cl);
+
         dentistRepository.save(entity);
+
 
     }
 

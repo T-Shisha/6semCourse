@@ -1,0 +1,43 @@
+
+<div class="navbar">
+        <div class="container d-flex align-items-center">
+
+            <a href="main.html" class="logo me-auto"><img src="http://localhost:8080/img/logo.png" alt=""></a>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                            <ul>
+                                <li><a class="nav-link scrollto " href="#hero">Главная</a></li>
+
+                                <li><a class="nav-link scrollto " th:href="'/types'">Услуги</a></li>
+                                <li><a class="nav-link scrollto" href="#about">Про нас</a></li>
+                                <li><a class="nav-link scrollto" href="#contact">Контакты</a></li>
+    <!--                            <li  sec:authorize="hasAuthority('PATIENT')"  ><a   class="appointment-btn scrollto" th:href="'/user'">Профиль</a></li>-->
+    <!--                            <li sec:authorize="hasAuthority('ADMIN')"  ><a class="appointment-btn scrollto" th:href="'/admin'">Администрирование</a></li>-->
+                                <li sec:authorize="hasAuthority('PATIENT')"   >
+                                    <form th:action="@{/user}" method="get">
+                                        <input type="submit" class="appointment-btn scrollto" value="Профиль"/>
+                                    </form></li>
+                                <li sec:authorize="hasAuthority('ADMIN')"   >
+                                    <form th:action="@{/admin}" method="get">
+                                        <input type="submit" class="appointment-btn scrollto" value="Администрирование"/>
+                                    </form></li>
+                                <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')"  >
+                                <form th:action="@{/logout}" method="post">
+                                    <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
+                                </form></li>
+
+                                <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')"   >
+                                    <form th:action="@{/login}" method="post">
+                                        <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
+                                    </form></li>
+                            </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+            <!--        <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>-->
+
+        </div>
+
+</div><!-- End Header -->

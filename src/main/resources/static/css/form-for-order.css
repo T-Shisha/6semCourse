@@ -1,0 +1,119 @@
+.bg-img {
+    /* The image used */
+    padding-top: 10px;
+
+    background-image: url(http://localhost:8080/photo/work_place.jpg);
+
+    margin-top: 70px;
+    min-height: 380px;
+    margin-right: 30px;
+    margin-left: 30px;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Add styles to the form container */
+.container_ {
+
+    right: 0;
+
+    margin-right: 20%;
+    margin-left: 25%;
+
+    margin-top: 60px;
+    max-width: 400px;
+    padding: 16px;
+    background-color: white;
+}
+
+.container-1_ {
+
+    right: 0;
+
+     margin-top: 10px;
+    margin-right: 20%;
+    margin-left: 25%;
+     max-height: 400px;
+    padding: 16px;
+    background-color: white;
+}
+
+/* Full-width input fields */
+.choice_ {
+    font-family: "Roboto", sans-serif;
+    font-size: 12pt;
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+
+    background: #f1f1f1;
+}
+
+.texx {
+    font-family: "Roboto", sans-serif;
+
+    font-size: 12pt;
+}
+
+.choice_:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+.title-order_ {
+    text-align: center;
+}
+
+
+.previous:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.next:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 10px;
+}
+
+.next {
+    background-color: #B0C4DE;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    margin-left: 45px;
+    border: 1px solid #B0C4DE;
+}
+
+.next-zap {
+    background-color: #3fbbc0;
+    color: white;
+    max-height: 35px;
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 10px;
+    margin-left: 37px;
+    border: 1px solid #3fbbc0;
+
+}
+
+.previous-otmena {
+    margin-left: 40px;
+    background-color: #f1f1f1;
+    color: black;
+
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 10px;
+}

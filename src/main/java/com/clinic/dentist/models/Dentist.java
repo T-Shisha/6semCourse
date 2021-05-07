@@ -71,6 +71,10 @@ public class Dentist {
         maintenance.getDentists().remove(this);
     }
 
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
