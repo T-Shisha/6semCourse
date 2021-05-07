@@ -37,10 +37,10 @@ public class AdminController {
     @Qualifier("typeServicesService")
     private TypeServicesService typeServicesService;
 
-    @GetMapping("/admin")
-    public String greeting(Model model) {
-        return "admin";
-    }
+//    @GetMapping("/admin")
+//    public String greeting(Model model) {
+//        return "admin";
+//    }
 
     @GetMapping("/admin/patients")
     public String getPatientView(Model model) {
@@ -179,7 +179,7 @@ public class AdminController {
 
     }
 
-    @GetMapping("/admin/clinics/{id}/dentist/add")
+    @GetMapping("/admin/{id}/dentist/add")
     public String createDentist(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("dentist", new Dentist());
         model.addAttribute("clinicId", id);
@@ -187,7 +187,7 @@ public class AdminController {
         return "createDentist";
     }
 
-    @PostMapping("/admin/clinics/{id}/dentist/add")
+    @PostMapping("/admin/{id}/dentist/add")
     public String getDentist(@ModelAttribute(name = "dentist") Dentist dentist, @PathVariable(value = "id") long id, Model model) {
         den = null;
         if (dentist.getFirstName().trim().equals("")) {
@@ -243,10 +243,10 @@ public class AdminController {
         }
 
         den = dentist;
-        return "redirect:/admin/clinics/{id}/dentist/add/services";
+        return "redirect:/admin/{id}/dentist/add/services";
     }
 
-    @GetMapping("/admin/clinics/{id}/dentist/add/services")
+    @GetMapping("/admin/{id}/dentist/add/services")
     public String getServices(Model model, @PathVariable(value = "id") long id) {
         Iterable<Maintenance> maintenanceList = clinicService.findMaintenancesByClinic(den.getClinic().getId());
         model.addAttribute("services", maintenanceList);
@@ -259,7 +259,7 @@ public class AdminController {
 
     }
 
-    @PostMapping("/admin/clinics/{id}/dentist/add/services")
+    @PostMapping("/admin/{id}/dentist/add/services")
     public String finishCreateDentist1(@RequestParam(required = false) String[] services, @PathVariable(value = "id") long id, Model model) {
         if (services == null) {
             Iterable<Maintenance> maintenanceList = clinicService.findMaintenancesByClinic(den.getClinic().getId());
@@ -273,7 +273,7 @@ public class AdminController {
         den.setMaintenances(maintenanceService.getSetFromArrayMaintenance(services));
         dentistService.addEntity(den);
         den = null;
-        return "redirect:/admin/clinics";
+        return "redirect:/admin";
 
     }
 
@@ -308,31 +308,31 @@ public class AdminController {
         return "redirect:/admin/services";
     }
 
-    @GetMapping("/admin/clinics")
+    @GetMapping("/admin")
     public String getClinics(Model model) {
         List<Clinic> clinics = clinicService.findAll();
         model.addAttribute("clinics", clinics);
-        return "clinics";
+        return "admin";
     }
 
-    @GetMapping("/admin/clinics/{id}/dentists")
+    @GetMapping("/admin/{id}/dentists")
     public String getDentistsClinics(@PathVariable(value = "id") long id, Model model) {
         List<Dentist> dentists = clinicService.findDentistsByClinic(id);
         model.addAttribute("dentists", dentists);
-        return ("clinicDentists");
+        return ("doctors");
     }
 
-    @GetMapping("/admin/clinics/{id}/services")
+    @GetMapping("/admin/{id}/services")
     public String getServicesClinics(@PathVariable(value = "id") long id, Model model) {
         Iterable<Maintenance> services = clinicService.findMaintenancesByClinic(id);
         model.addAttribute("services", services);
         return ("servicesAdmin");
     }
 
-    @PostMapping("/admin/clinics/{id}/appointments")
+    @PostMapping("/admin/{id}/appointments")
     public String getAppointmentClinicDate(@PathVariable(value = "id") long id, Model model, @RequestParam String Date) {
         if (!clinicService.checkExist(id)) {
-            return "redirect:/admin/clinics";
+            return "redirect:/admin";
         }
 
         List<Appointment> appointments = null;
@@ -352,17 +352,17 @@ public class AdminController {
 
         }
         Collections.sort(appointments);
-
+        model.addAttribute("id", id);
         model.addAttribute("orders", appointments);
         return "clinicAppointment";
 
     }
 
 
-    @GetMapping("/admin/clinics/{id}/appointments")
+    @GetMapping("/admin/{id}/appointments")
     public String getAppointmentForClinic(@PathVariable(value = "id") long id, Model model) {
         if (!clinicService.checkExist(id)) {
-            return "redirect:/admin/clinics";
+            return "redirect:/admin";
         }
         Date thisDay = new Date();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
@@ -382,6 +382,8 @@ public class AdminController {
 
         }
         Collections.sort(appointments);
+        model.addAttribute("id", id);
+
         model.addAttribute("orders", appointments);
 
         return "clinicAppointment";

@@ -1,11 +1,14 @@
 <div class="table-clinic">
+    <div class="name-table">Клиники</div>
+
     <div class="block-table">
 
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">Адрес клиники</th>
-                <th scope="col">Услуги клиники</th>
+                <th scope="col">Адрес </th>
+                <th scope="col">Расписание</th>
+                <th scope="col">Услуги </th>
                 <th scope="col">Врачи</th>
                 <th scope="col"></th>
 
@@ -15,9 +18,11 @@
             <tr>
 
                 <td th:text="${t.getAddress()}"></td>
-                <td>  <a th:href="'/admin/clinics/'+${t.getId()}+'/services'" >Услуги</a></td>
-                <td><a th:href="'/admin/clinics/'+${t.getId()}+'/dentists'">Врачи</a></td>
-                <td><a th:href="'/admin/clinics/'+${t.getId()}+'/dentist/add'">Добавить врача</a></td>
+                <td>  <a th:href="'/admin/'+${t.getId()}+'/appointments'" >Посмотреть</a></td>
+
+                <td>  <a th:href="'/admin/'+${t.getId()}+'/services'" >Посмотреть</a></td>
+                <td><a th:href="'/admin/'+${t.getId()}+'/dentists'">Посмотреть</a></td>
+                <td><a th:href="'/admin/'+${t.getId()}+'/dentist/add'">Добавить врача</a></td>
 
             </tr>
 

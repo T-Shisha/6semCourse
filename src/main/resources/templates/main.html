@@ -104,23 +104,27 @@
                 <li><a class="nav-link scrollto" href="/contacts">Контакты</a></li>
                 <!--                            <li  sec:authorize="hasAuthority('PATIENT')"  ><a   class="appointment-btn scrollto" th:href="'/user'">Профиль</a></li>-->
                 <!--                            <li sec:authorize="hasAuthority('ADMIN')"  ><a class="appointment-btn scrollto" th:href="'/admin'">Администрирование</a></li>-->
-                <li sec:authorize="hasAuthority('PATIENT')"   >
+                <li sec:authorize="hasAuthority('PATIENT')">
                     <form th:action="@{/user}" method="get">
                         <input type="submit" class="appointment-btn scrollto" value="Профиль"/>
-                    </form></li>
-                <li sec:authorize="hasAuthority('ADMIN')"   >
+                    </form>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/admin}" method="get">
                         <input type="submit" class="appointment-btn scrollto" value="Администрирование"/>
-                    </form></li>
-                <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')"  >
+                    </form>
+                </li>
+                <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')">
                     <form th:action="@{/logout}" method="post">
                         <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
-                    </form></li>
+                    </form>
+                </li>
 
-                <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')"   >
+                <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')">
                     <form th:action="@{/login}" method="post">
                         <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
-                    </form></li>
+                    </form>
+                </li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
@@ -144,9 +148,7 @@
                  style="background-image: url(http://localhost:8080/img/gallery/front1.jpg)">
                 <div class="container">
                     <h2>Добро пожаловать в <span>"Happy smile"</span></h2>
-                    <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut
-                        aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus
-                        repellendus deleniti vel.</p>
+                    <p>Интересный текст</p>
                     <a href="#about" class="btn-get-started scrollto">Читать больше</a>
                 </div>
             </div>
@@ -154,10 +156,8 @@
             <!-- Slide 2 -->
             <div class="carousel-item" style="background-image: url(http://localhost:8080/img/slide/slide-2.jpg)">
                 <div class="container">
-                    <h2>Lorem Ipsum Dolor</h2>
-                    <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut
-                        aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus
-                        repellendus deleniti vel.</p>
+                    <h2>Текст</h2>
+                    <p>Очеень интересный текст</p>
                     <a href="#about" class="btn-get-started scrollto">Читать больше</a>
                 </div>
             </div>
@@ -165,10 +165,8 @@
             <!-- Slide 3 -->
             <div class="carousel-item" style="background-image: url(http://localhost:8080/img/gallery/font3.jpg)">
                 <div class="container">
-                    <h2>Sequi ea ut et est quaerat</h2>
-                    <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut
-                        aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus
-                        repellendus deleniti vel.</p>
+                    <h2>Текст</h2>
+                    <p>Ещё более интересный текст</p>
                     <a href="#about" class="btn-get-started scrollto">Читать больше</a>
                 </div>
             </div>
@@ -196,36 +194,36 @@
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                         <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                        <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                            excepturi</p>
+                        <h4 class="title"><a href="">Текст</a></h4>
+                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
+                            ТекстТекстТекстТекстТекстТекстТекст</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
                         <div class="icon"><i class="fas fa-pills"></i></div>
-                        <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-                        <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                            dolore</p>
+                        <h4 class="title"><a href="">Текст</a></h4>
+                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
+                            ТекстТекстТекстТекстТекстТекстТекст</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
                         <div class="icon"><i class="fas fa-thermometer"></i></div>
-                        <h4 class="title"><a href="">Magni Dolores</a></h4>
-                        <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                            officia</p>
+                        <h4 class="title"><a href="">Текст</a></h4>
+                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
+                            ТекстТекстТекстТекстТекстТекстТекст</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
                         <div class="icon"><i class="fas fa-dna"></i></div>
-                        <h4 class="title"><a href="">Nemo Enim</a></h4>
-                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                            blanditiis</p>
+                        <h4 class="title"><a href="">Текст</a></h4>
+                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
+                            ТекстТекстТекстТекстТекстТекстТекст</p>
                     </div>
                 </div>
 
@@ -239,31 +237,14 @@
         <div class="container" data-aos="zoom-in">
 
             <div class="text-center">
-                <h3>In an emergency? Need help now?</h3>
-                <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                    anim id est laborum.</p>
+                <h3>Текст</h3>
+                <p> Призыв к записи</p>
                 <a class="cta-btn scrollto" th:href="@{'/user'}">Записаться в клинику</a>
             </div>
 
         </div>
     </section><!-- End Cta Section -->
 
-    <!-- ======= About Us Section ======= -->
-
-    <!-- ======= Counts Section ======= -->
-
-    <!-- ======= Features Section ======= -->
-
-    <!-- ======= Services Section ======= -->
-
-    <!-- ======= Appointment Section ======= -->
-
-    <!-- ======= Departments Section ======= -->
-
-    <!-- ======= Testimonials Section ======= -->
-
-    <!-- ======= Doctors Section ======= -->
 
     <!-- ======= Gallery Section ======= -->
 
@@ -274,93 +255,73 @@
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
-                <h2>Frequently Asked Questioins</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit in iste officiis commodi quidem hic quas.</p>
+                <h2>Вопросики</h2>
+                <p>Текст</p>
             </div>
 
             <ul class="faq-list">
 
                 <li>
-                    <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">Non consectetur a erat nam at
-                        lectus urna duis? <i class="bi bi-chevron-down icon-show"></i><i
-                                class="bi bi-chevron-up icon-close"></i></div>
+                    <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">
+                        Вопрос2 <i class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq1" class="collapse" data-bs-parent=".faq-list">
-                        <p>
-                            Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non
-                            curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                        <p>Шикарный ответ
                         </p>
                     </div>
                 </li>
 
                 <li>
-                    <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">Feugiat scelerisque varius
-                        morbi enim nunc faucibus a pellentesque? <i class="bi bi-chevron-down icon-show"></i><i
-                                class="bi bi-chevron-up icon-close"></i></div>
+                    <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">Вопрос3<i
+                            class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq2" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit
-                            laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium.
-                            Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa
-                            tincidunt dui.
+                            Шикарный ответ
                         </p>
                     </div>
                 </li>
 
                 <li>
-                    <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Dolor sit amet consectetur
-                        adipiscing elit pellentesque habitant morbi? <i class="bi bi-chevron-down icon-show"></i><i
-                                class="bi bi-chevron-up icon-close"></i></div>
+                    <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Вопрос4<i
+                            class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq3" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar
-                            elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus
-                            pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at
-                            elementum eu facilisis sed odio morbi quis
+                            Шикарный ответ
                         </p>
                     </div>
                 </li>
 
                 <li>
-                    <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">Ac odio tempor orci dapibus.
-                        Aliquam eleifend mi in nulla? <i class="bi bi-chevron-down icon-show"></i><i
-                                class="bi bi-chevron-up icon-close"></i></div>
+                    <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">Вопрос5 <i
+                            class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq4" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit
-                            laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium.
-                            Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa
-                            tincidunt dui.
+                            шикарный ответ
                         </p>
                     </div>
                 </li>
 
                 <li>
-                    <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">Tempus quam pellentesque nec
-                        nam aliquam sem et tortor consequat? <i class="bi bi-chevron-down icon-show"></i><i
-                                class="bi bi-chevron-up icon-close"></i></div>
+                    <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">Вопрос5 <i
+                            class="bi bi-chevron-down icon-show"></i><i
+                            class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq5" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est
-                            ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing
-                            bibendum est. Purus gravida quis blandit turpis cursus in
+                            Шикарныйй ответ
                         </p>
                     </div>
                 </li>
 
                 <li>
-                    <div data-bs-toggle="collapse" href="#faq6" class="collapsed question">Tortor vitae purus faucibus
-                        ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i
-                                class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i>
+                    <div data-bs-toggle="collapse" href="#faq6" class="collapsed question">Вопрос6 <i
+                            class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i>
                     </div>
                     <div id="faq6" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer
-                            malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem
-                            dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat
-                            commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non
-                            blandit massa enim nec.
+                            Ещё один шикарный ответ
                         </p>
                     </div>
                 </li>
@@ -382,10 +343,10 @@
 
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-info">
-                        <h3>Medicio</h3>
+                        <h3>Happy smile</h3>
                         <p>
-                            A108 Adam Street <br>
-                            NY 535022, USA<br><br>
+                            Дубко 20 <br>
+                            г. Гродно<br><br>
                             <strong>Phone:</strong> +1 5589 55488 55<br>
                             <strong>Email:</strong> info@example.com<br>
                         </p>
@@ -402,33 +363,24 @@
                 <div class="col-lg-2 col-md-6 footer-links">
                     <h4>Useful Links</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Главная</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Про нас</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Услуги</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Контакты</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Our Services</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                    </ul>
+                    <!--                    <h4>Our Services</h4>-->
+                    <!--                    <ul>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>-->
+                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>-->
+                    <!--                    </ul>-->
                 </div>
 
-                <div class="col-lg-4 col-md-6 footer-newsletter">
-                    <h4>Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                    <form action="" method="post">
-                        <input type="email" name="email"><input type="submit" value="Subscribe">
-                    </form>
-
-                </div>
 
             </div>
         </div>
@@ -436,15 +388,9 @@
 
     <div class="container">
         <div class="copyright">
-            &copy; Copyright <strong><span>Medicio</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>Shisha</span></strong>. All Rights Reserved
         </div>
-        <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/medicio-free-bootstrap-theme/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
+
     </div>
 </footer><!-- End Footer -->
 

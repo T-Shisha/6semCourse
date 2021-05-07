@@ -34,11 +34,11 @@
 
         <!-- Template Main CSS File -->
         <link href="http://localhost:8080/css/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="http://localhost:8080/css/person_account.css">
-        <link rel="stylesheet" href="http://localhost:8080/css/form-for-order.css">
+        <link href="http://localhost:8080/css/menu_admin.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="http://localhost:8080/css/table-appointment-client.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="http://localhost:8080/css/patient.css">
+        <link rel="stylesheet" href="http://localhost:8080/css/admin-table.css">
 
 
         <!-- =======================================================
@@ -108,105 +108,19 @@
 
     </div>
 </header><!-- End Header -->
+<div th:replace="fragments/menu-admin :: div.sidenav"></div>
+<div class="admin-cont">
+    <div class="name-tabled" th:text="'Расписание клиники на  ' +${norm_date}"></div>
+    <div th:replace="fragments/appointment-for-clinic :: div.table-admin"></div>
 
-<table width="100%" class="table-cl" style="margin-top: 100px">
-    <tr>
-        <td width="65%">
-
-            <div class="bg-img">
-                <form action="#" th:action="@{'/user/'+${clinicId}+'/clinic'}" method="post">
-                    <div class="container_">
-                        <div class="title-order_"><h2>Записаться к врачу</h2><br>
-                            <h3>Шаг 2</h3></div>
-                        <p><select class="choice_" onchange='this.form.submit()' name="maintenanceId">
-
-
-                            <option disabled selected="selected">Выберите услугу</option>
-                            <option th:each="t:${maintenances}" th:value="${t.getId()}"
-                                    th:text="${t.getName()}"></option>
-
-                        </select></p>
-                        <a class="previous"
-                           th:href="@{'/user'}">Назад</a>
-
-
-                    </div>
-
-
-                </form>
-
-            </div>
-
-
-        </td>
-
-        <td width="35%">
-
-            <div th:replace="fragments/account :: div.account"></div>
-
-        </td>
-     </tr>
-</table>
-<div  th:replace="fragments/appointment-for-patient :: div.table-client"></div>
-<footer id="footer">
-    <div class="footer-top">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-info">
-                        <h3>Happy smile</h3>
-                        <p>
-                            Дубко 20 <br>
-                            г. Гродно<br><br>
-                            <strong>Phone:</strong> +1 5589 55488 55<br>
-                            <strong>Email:</strong> info@example.com<br>
-                        </p>
-                        <div class="social-links mt-3">
-                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6 footer-links">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Главная</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Про нас</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Услуги</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Контакты</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-3 col-md-6 footer-links">
-                    <!--                    <h4>Our Services</h4>-->
-                    <!--                    <ul>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>-->
-                    <!--                    </ul>-->
-                </div>
-
-
-            </div>
+    <form action="#" th:action="@{'/admin/'+${id}+'/appointments'}" method="post">
+        <div class="choice-date">
+            Посмотреть расписание на другую дату :
+            <input type="date" name="Date" th:value="${dates}">
+            <input class="next" type="submit" value="Выбрать"/>
         </div>
-    </div>
-
-    <div class="container">
-        <div class="copyright">
-            &copy; Copyright <strong><span>Shisha</span></strong>. All Rights Reserved
-        </div>
-
-    </div>
-</footer><!-- End Footer -->
-
-<div id="preloader"></div>
+    </form>
+</div>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
 
