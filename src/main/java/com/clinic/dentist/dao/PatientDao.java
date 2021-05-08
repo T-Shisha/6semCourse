@@ -24,6 +24,14 @@ public class PatientDao implements IPatientDao {
         return patientRepository.findByUsername(name).orElseThrow(RuntimeException::new);
     }
 
+    public boolean checkExist(long id) {
+        return patientRepository.existsById(id);
+    }
+
+    public void delete(Patient patient) {
+        patientRepository.delete(patient);
+    }
+
     @Override
     public Patient findById(long id) {
         return patientRepository.findById(id).orElseThrow(RuntimeException::new);

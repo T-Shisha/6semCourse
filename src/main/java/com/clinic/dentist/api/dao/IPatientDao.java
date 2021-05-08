@@ -11,4 +11,8 @@ public interface IPatientDao extends GenericDao<Patient> {
     List<Patient> getRegisteredPatients();
 
     List<Patient> getUnregisteredPatients();
+
+    void delete(Patient patient);
+
+    boolean checkExist(long id);
 }

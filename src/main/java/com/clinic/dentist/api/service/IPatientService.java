@@ -12,10 +12,13 @@ import java.util.stream.Collectors;
 public interface IPatientService {
     void addPatient(Patient patient);
 
-    boolean checkPatient(Patient patient);
+    boolean checkPatient(String username);
 
     Patient findUserByUsername(String name);
 
+    void delete(Patient patient);
+
+    void save(Patient patient);
 
     Patient findUser(String login, String password);
 
@@ -28,5 +31,8 @@ public interface IPatientService {
     Patient findById(Long id);
 
     void registeredPatient(Long id);
+
+    boolean checkExist(long id);
+
     Patient correctData(Patient patient);
 }

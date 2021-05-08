@@ -358,6 +358,37 @@ public class AdminController {
 
     }
 
+    @PostMapping("/admin/patients/{id}/edit")
+    public String clientEdit2(@PathVariable(value = "id") long id, @RequestParam String Username, Model model) {
+
+        Patient patient = patientService.findById(id);
+
+
+        if (Username.trim().equals("")) {
+            model.addAttribute(patient);
+            model.addAttribute("phoneError", "Новый номер не введен");
+            return ("changeNumber");
+        }
+
+        Pattern pattern = Pattern.compile("^(375)[0-9]{9}$");
+        Matcher matcher = pattern.matcher(Username.trim());
+        if (!matcher.matches()) {
+            model.addAttribute(patient);
+            model.addAttribute("phoneError", "Номер телефона введен не корректно");
+            return ("changeNumber");
+
+        }
+        if (patientService.checkPatient(Username.trim())) {
+            model.addAttribute(patient);
+            model.addAttribute("phoneError", "Данный номер занят");
+            return ("changeNumber");
+        }
+        patient.setUsername(Username.trim());
+        patientService.save(patient);
+
+        return "redirect:/admin/patients";
+    }
+
 
     @GetMapping("/admin/{id}/appointments")
     public String getAppointmentForClinic(@PathVariable(value = "id") long id, Model model) {
@@ -388,6 +419,23 @@ public class AdminController {
 
         return "clinicAppointment";
 
+    }
+
+    @GetMapping("/admin/patients/{id}/edit")
+    public String showTemplateToEditPatientPhoneNumber(@PathVariable(value = "id") long id, Model model) {
+        Patient patient = patientService.findById(id);
+        model.addAttribute("patient", patient);
+        return "changeNumber";
+    }
+    @GetMapping("/admin/patients/register/{id}/delete")
+    public String deletePatient(@PathVariable(value = "id") long id, Model model) {
+        if (!patientService.checkExist(id)) {
+            return "redirect:/admin/patients/register";
+        }
+
+        Patient patient = patientService.findById(id);
+        patientService.delete(patient);
+         return "redirect:/admin/patients/register";
     }
 
 }

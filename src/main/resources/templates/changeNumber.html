@@ -39,7 +39,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="http://localhost:8080/css/patient.css">
         <link rel="stylesheet" href="http://localhost:8080/css/admin-table.css">
-
+        <link rel="stylesheet" href="http://localhost:8080/css/edit.css">
 
         <!-- =======================================================
         * Template Name: Medicio - v4.1.0
@@ -50,7 +50,7 @@
 
     </head>
 
-<body>
+<body style="  background-color: #e4ebf7;">
 
 <!-- ======= Top Bar ======= -->
 <div id="topbar" class="d-flex align-items-center fixed-top">
@@ -109,41 +109,32 @@
     </div>
 </header><!-- End Header -->
 <div th:replace="fragments/menu-admin :: div.sidenav"></div>
-<div class="table-clinic">
+<div style="margin-top: 150px;" class="bg-img1">
+    <div class="container__">
+        <div class="d-flex flex-column align-items-center text-center">
+            <div class="mt-3"><h3>Редактирование</h3>
+
+                <form method="post" action="#" th:action="@{'/admin/patients/'+${patient.getId()}+'/edit'}">
+                    <td th:text="${patient.getLastName()}+'  '+${patient.getFirstName()}"></td>
+
+                    <input type="text" required name="Username" th:value="${patient.getUsername()}"
+                           placeholder="Введите номер телефона" class="form-control">
+                    <td th:if="${not #strings.isEmpty(phoneError)}">
+                        <p style="color: #e90707" th:text="${phoneError} "></p></td>
+                    <br>
 
 
-    <div class="name-table">Пациенты</div>
-    <div class="block-table">
+                    <div class="ots">
+                        <a class="previous" th:href="'/admin/patients'">« Назад</a>
 
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Имя</th>
-                <th scope="col">Фамилия</th>
-                <th scope="col">Номер телефона</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody th:each="t:${patients}">
-            <tr>
-
-                <td th:text="${t.getFirstName()}"></td>
-                <td th:text="${t.getLastName()} "></td>
-                <td th:text="${t.getUsername()}"></td>
-                <td><a th:href="'/admin/patients/register/'+${t.getId()}">Зарегистрировать</a></td>
-                <td><a th:href="'/admin/patients/register/'+${t.getId()}+'/delete'">Удалить</a></td>
-
-            </tr>
-
-            </tbody>
-        </table>
+                        <button style="background: #3fbbc0;" class="next" type="submit">Сохранить</button>
+                        <br>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-<a style="margin-left: 188px; margin-top: 20px;" class="btn btn-warning" th:href="'/admin/patients/'">Назад</a>
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
 <script src="http://localhost:8080/vendor/aos/aos.js"></script>
