@@ -1,0 +1,6 @@
+<div class="sidenav">
+    <a th:href="@{'/services'}">Все</a>
+    <div th:each="t:${types}">
+        <a th:href="'/services/'+${t.getId()}" th:text="${t.getName()}"></a>
+    </div>
+</div>
