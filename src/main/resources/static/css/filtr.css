@@ -1,5 +1,5 @@
 .sidenav {
-    width: 130px;
+    width: 150px;
     position: fixed;
     z-index: 1;
     top: 20px;
@@ -15,7 +15,7 @@
 .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 15px;
     color: #3fbbc0; ;
     display: block;
 }

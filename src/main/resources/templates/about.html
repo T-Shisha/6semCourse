@@ -57,7 +57,7 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-        <a href="main.html" class="logo me-auto"><img src="http://localhost:8080/img/logo.png" alt=""></a>
+        <a href="/" class="logo me-auto"><img style="max-height: 70px;" src="http://localhost:8080/img/gallery/z.jpg" alt=""></a>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
@@ -70,23 +70,27 @@
                 <li><a class="nav-link scrollto" href="/contacts">Контакты</a></li>
                 <!--                            <li  sec:authorize="hasAuthority('PATIENT')"  ><a   class="appointment-btn scrollto" th:href="'/user'">Профиль</a></li>-->
                 <!--                            <li sec:authorize="hasAuthority('ADMIN')"  ><a class="appointment-btn scrollto" th:href="'/admin'">Администрирование</a></li>-->
-                <li sec:authorize="hasAuthority('PATIENT')"   >
+                <li sec:authorize="hasAuthority('PATIENT')">
                     <form th:action="@{/user}" method="get">
                         <input type="submit" class="appointment-btn scrollto" value="Профиль"/>
-                    </form></li>
-                <li sec:authorize="hasAuthority('ADMIN')"   >
+                    </form>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/admin}" method="get">
                         <input type="submit" class="appointment-btn scrollto" value="Администрирование"/>
-                    </form></li>
-                <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')"  >
+                    </form>
+                </li>
+                <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')">
                     <form th:action="@{/logout}" method="post">
-                        <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
-                    </form></li>
+                        <input type="submit" class="appointment-btn scrollto" value="Выйти"/>
+                    </form>
+                </li>
 
-                <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')"   >
+                <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')">
                     <form th:action="@{/login}" method="post">
-                        <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
-                    </form></li>
+                        <input type="submit" class="appointment-btn scrollto" value="Войти"/>
+                    </form>
+                </li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
@@ -103,6 +107,7 @@
     <br>
     <br>
     <br>
+    <br> <br>
     <!-- ======= Featured Services Section ======= -->
 
     <!-- ======= Cta Section ======= -->
@@ -113,30 +118,45 @@
 
             <div class="section-title">
                 <h2>Про нас</h2>
-                <p>Какой-то важный текст</p>
             </div>
 
             <div class="row">
                 <div class="col-lg-6" data-aos="fade-right">
-                    <img src="http://localhost:8080/img/about.jpg" class="img-fluid" alt="">
+                    <img src="http://localhost:8080/img/gallery/im.jpg" class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
-                    <h3>Ещё один важный текст</h3>
-                    <p class="fst-italic">
-                         Текст снова
-                    </p>
+                    <h3>Happy smile — это сеть современных стоматологических клиник для всей семьи.</h3>
+
+
                     <ul>
-                        <li><i class="bi bi-check-circle"></i> ТЕКСТЕКСТЕКСТЕКС
+
+
+                        <li><i class="bi bi-check-circle"></i> Мы очень ценим ваше спокойствие и уверены, что у нас вы
+                            поменяете свое отношение к стоматологам.
                         </li>
-                        <li><i class="bi bi-check-circle"></i> ТЕКСТЕКСТЕКСТЕКС
-                            ТЕКСТЕКСТЕКСТЕКС
+                        <li><i class="bi bi-check-circle"></i>Лечение без страха возможно, главное найти правильный
+                            подход и
+                            выбрать оптимальные средства.
                         </li>
-                        <li><i class="bi bi-check-circle"></i> ТЕКСТЕКСТЕКСТЕКС
+                        <li>
+                            <i class="bi bi-check-circle"></i> Комфорт пациента очень важен для нас, мы сделаем ваш
+                            визит
+                            максимально приятным: в нашей уютной зоне ожидания доступен Wi-Fi, игрушки и мультики для
+                            ваших
+                            детей, полезная информация о новинках в сфере стоматологии и ухода за зубами.
+                        </li>
+                        <li><i class="bi bi-check-circle"></i> Расслабляющая музыка или любимая передача — мы сделаем
+                            все,
+                            чтобы вам было комфортно в нашей компании.
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle"></i> Наша команда — опытные терапевты с опытом работы от 15 до
+                            30
+                            лет. Уровень мастерства наших стоматологов и высококлассное оснащение клиники — показатель
+                            нашего отношения к медицине. Вы получите самое лучшее — здоровые и крепкие зубы, качество,
+                            комфорт и сервис по доступным ценам .
                         </li>
                     </ul>
-                    <p>
-                        ТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКС
-                        ТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКСТЕКС
                 </div>
             </div>
 

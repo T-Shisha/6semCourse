@@ -59,7 +59,7 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-        <a href="main.html" class="logo me-auto"><img src="http://localhost:8080/img/logo.png" alt=""></a>
+        <a href="/" class="logo me-auto"><img style="max-height: 70px;" src="http://localhost:8080/img/gallery/z.jpg" alt=""></a>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
@@ -84,13 +84,13 @@
                 </li>
                 <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')">
                     <form th:action="@{/logout}" method="post">
-                        <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
+                        <input type="submit" class="appointment-btn scrollto" value="Выйти"/>
                     </form>
                 </li>
 
                 <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')">
                     <form th:action="@{/login}" method="post">
-                        <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
+                        <input type="submit" class="appointment-btn scrollto" value="Войти"/>
                     </form>
                 </li>
             </ul>
