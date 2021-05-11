@@ -76,7 +76,7 @@ public class RegistrationController {
             model.addAttribute("phoneNumberError", "Номер телефона введен не корректно");
             return "registration";
         }
-        if (patientService.checkPatient(patient)) {
+        if (patientService.checkPatient(patient.getUsername())) {
             model.addAttribute("phoneNumberError", "Данный номер уже зарегистрирован");
             return "registration";
         }

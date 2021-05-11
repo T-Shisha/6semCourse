@@ -3,52 +3,45 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <title>Happy smile</title>
+    <title>Happy smile</title>
 
-        <meta content="" name="description">
-        <meta content="" name="keywords">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-        <!-- Favicons -->
-        <link href="http://localhost:8080/img/favicon.png" rel="icon">
-        <link href="http://localhost:8080/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="http://localhost:8080/img/favicon.png" rel="icon">
+    <link href="http://localhost:8080/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-              rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
-        <!-- Vendor CSS Files -->
-        <link href="http://localhost:8080/vendor/animate.css/animate.min.css" rel="stylesheet">
-        <link href="http://localhost:8080/vendor/aos/aos.css" rel="stylesheet">
-        <link href="http://localhost:8080/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="http://localhost:8080/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-        <link href="http://localhost:8080/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-        <link href="http://localhost:8080/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-        <link href="http://localhost:8080/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-        <link href="http://localhost:8080/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="http://localhost:8080/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/aos/aos.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-        <!-- Template Main CSS File -->
-        <link href="http://localhost:8080/css/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="http://localhost:8080/css/person_account.css">
-        <link rel="stylesheet" href="http://localhost:8080/css/form-for-order.css">
+    <!-- Template Main CSS File -->
+    <link href="http://localhost:8080/css/style.css" rel="stylesheet">
+    <link href="http://localhost:8080/css/filtr.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost:8080/css/spisok-service.css">
 
-        <link rel="stylesheet" href="http://localhost:8080/css/table-appointment-client.css">
+    <!-- =======================================================
+    * Template Name: Medicio - v4.1.0
+    * Template URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
 
-
-        <!-- =======================================================
-        * Template Name: Medicio - v4.1.0
-        * Template URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
-        * Author: BootstrapMade.com
-        * License: https://bootstrapmade.com/license/
-        ======================================================== -->
-
-    </head>
+</head>
 
 <body>
 
@@ -66,8 +59,7 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-        <a href="/" class="logo me-auto"><img style="max-height: 70px;" src="http://localhost:8080/img/gallery/z.jpg"
-                                              alt=""></a>
+        <a href="/" class="logo me-auto"><img style="max-height: 70px;" src="http://localhost:8080/img/gallery/z.jpg" alt=""></a>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
@@ -110,49 +102,22 @@
     </div>
 </header><!-- End Header -->
 
-<table width="100%" class="table-cl" style="margin-top: 100px">
-    <tr>
-        <td width="65%">
 
-            <div class="bg-img">
-                <form action="#" th:action="@{'/user'}" method="post">
-                    <div class="container_">
-                        <div class="title-order_"><h2>Записаться к врачу</h2><br>
-                            <h3>Шаг 1</h3></div>
-                        <p><select class="choice_" onchange='this.form.submit()' name="clinicId">
+<!-- ======= Hero Section ======= -->
 
+<main id="main">
+    <div th:replace="fragments/menu-filtr :: div.sidenav"></div>
+    <div style="margin-top: 140px" class="name-table">Услуги</div>
 
-                            <option disabled selected="selected">Выберите клинику</option>
-                            <option th:each="t:${clinics}" th:value="${t.getId()}"
-                                    th:text="${t.getAddress()}"></option>
+    <div  th:replace="fragments/serv :: div.block-table"></div>
 
-                        </select></p>
+</main><!-- End #main -->
 
-
-                    </div>
-
-
-                </form>
-
-            </div>
-
-
-        </td>
-        <td width="35%">
-
-            <div th:replace="fragments/account :: div.account"></div>
-
-        </td>
-
-    </tr>
-</table>
-
-<div th:replace="fragments/appointment-for-patient :: div.table-client"></div>
-
-<footer id="footer">
-    <div class="footer-top">
-        <div class="container">
-            <div class="row">
+<!-- ======= Footer ======= -->
+<footer  id="footer">
+    <div style="padding-top:0; padding-bottom: 0;margin-bottom: 0; " class="footer-top">
+        <div style="padding-bottom: 0;margin-bottom: 0; " class="container">
+            <div style="padding-bottom: 0; margin-bottom: 0;" class="row">
 
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-info">
@@ -182,33 +147,16 @@
                         <li><i class="bx bx-chevron-right"></i> <a href="#">Контакты</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-6 footer-links">
-                    <!--                    <h4>Our Services</h4>-->
-                    <!--                    <ul>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>-->
-                    <!--                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>-->
-                    <!--                    </ul>-->
-                </div>
 
 
             </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="copyright">
-            &copy; Copyright <strong><span>Shisha</span></strong>. All Rights Reserved
-        </div>
 
-    </div>
 </footer><!-- End Footer -->
 
-<div id="preloader"></div>
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+
 
 <!-- Vendor JS Files -->
 <script src="http://localhost:8080/vendor/aos/aos.js"></script>
@@ -220,5 +168,7 @@
 
 <!-- Template Main JS File -->
 <script src="http://localhost:8080/js/main.js"></script>
+
 </body>
+
 </html>

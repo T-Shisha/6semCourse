@@ -9,6 +9,7 @@ import com.clinic.dentist.repositories.DentistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component("clinicDao")
@@ -41,12 +42,22 @@ public class ClinicDao implements IClinicDao {
         return clinicRepository.findById(id).orElseThrow(RuntimeException::new);
 
     }
+
     public List<Dentist> findDentistsByClinic(Long clinicId) {
         Clinic clinic = findById(clinicId);
         return dentistRepository.findDentistByClinic(clinic);
     }
+
     @Override
     public List<Clinic> getAll() {
-        return clinicRepository.findAll();
+        List<Clinic> clinics = clinicRepository.findAll();
+        List<Clinic> list = new ArrayList<>();
+        long id=5;
+        for (Clinic clinic : clinics) {
+            if (!clinic.getId().equals(id)) {
+                list.add(clinic);
+            }
+        }
+        return list;
     }
 }

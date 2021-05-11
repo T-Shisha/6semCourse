@@ -91,7 +91,8 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-        <a href="main.html" class="logo me-auto"><img src="http://localhost:8080/img/logo.png" alt=""></a>
+        <a href="/" class="logo me-auto"><img style="max-height: 70px;" src="http://localhost:8080/img/gallery/z.jpg"
+                                              alt=""></a>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
@@ -99,7 +100,7 @@
             <ul>
                 <li><a class="nav-link scrollto " href='/'>Главная</a></li>
 
-                <li><a class="nav-link scrollto " th:href="'/types'">Услуги</a></li>
+                <li><a class="nav-link scrollto " th:href="'/services'">Услуги</a></li>
                 <li><a class="nav-link scrollto" href="/about">Про нас</a></li>
                 <li><a class="nav-link scrollto" href="/contacts">Контакты</a></li>
                 <!--                            <li  sec:authorize="hasAuthority('PATIENT')"  ><a   class="appointment-btn scrollto" th:href="'/user'">Профиль</a></li>-->
@@ -116,13 +117,13 @@
                 </li>
                 <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')">
                     <form th:action="@{/logout}" method="post">
-                        <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
+                        <input type="submit" class="appointment-btn scrollto" value="Выйти"/>
                     </form>
                 </li>
 
                 <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')">
-                    <form th:action="@{/login}" method="post">
-                        <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
+                    <form th:action="@{/login}" method="get">
+                        <input type="submit" class="appointment-btn scrollto" value="Войти"/>
                     </form>
                 </li>
             </ul>
@@ -148,7 +149,7 @@
                  style="background-image: url(http://localhost:8080/img/gallery/front1.jpg)">
                 <div class="container">
                     <h2>Добро пожаловать в <span>"Happy smile"</span></h2>
-                    <p>Интересный текст</p>
+                    <p>Сеть стоматологических клиник по всей Беларуси</p>
                     <a href="#about" class="btn-get-started scrollto">Читать больше</a>
                 </div>
             </div>
@@ -156,8 +157,8 @@
             <!-- Slide 2 -->
             <div class="carousel-item" style="background-image: url(http://localhost:8080/img/slide/slide-2.jpg)">
                 <div class="container">
-                    <h2>Текст</h2>
-                    <p>Очеень интересный текст</p>
+                    <h2>Добро пожаловать в <span>"Happy smile"</span></h2>
+                    <p>Сеть стоматологических клиник по всей Беларуси</p>
                     <a href="#about" class="btn-get-started scrollto">Читать больше</a>
                 </div>
             </div>
@@ -165,8 +166,8 @@
             <!-- Slide 3 -->
             <div class="carousel-item" style="background-image: url(http://localhost:8080/img/gallery/font3.jpg)">
                 <div class="container">
-                    <h2>Текст</h2>
-                    <p>Ещё более интересный текст</p>
+                    <h2>Добро пожаловать в <span>"Happy smile"</span></h2>
+                    <p>Сеть стоматологических клиник по всей Беларуси</p>
                     <a href="#about" class="btn-get-started scrollto">Читать больше</a>
                 </div>
             </div>
@@ -194,36 +195,32 @@
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                         <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                        <h4 class="title"><a href="">Текст</a></h4>
-                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
-                            ТекстТекстТекстТекстТекстТекстТекст</p>
+                        <h4 class="title"><a href="">Опытные врачи</a></h4>
+                        <p class="description">Милые и опытные врачи, персональный подход к каждому клиенту</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
                         <div class="icon"><i class="fas fa-pills"></i></div>
-                        <h4 class="title"><a href="">Текст</a></h4>
-                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
-                            ТекстТекстТекстТекстТекстТекстТекст</p>
+                        <h4 class="title"><a href="">Решение проблемы</a></h4>
+                        <p class="description">Решаем сложные задачи быстро и максимально безболезненно</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
                         <div class="icon"><i class="fas fa-thermometer"></i></div>
-                        <h4 class="title"><a href="">Текст</a></h4>
-                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
-                            ТекстТекстТекстТекстТекстТекстТекст</p>
+                        <h4 class="title"><a href="">Новейшее оборудование</a></h4>
+                        <p class="description">Новейшее оборудование для здоровья ваших зубов</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
                         <div class="icon"><i class="fas fa-dna"></i></div>
-                        <h4 class="title"><a href="">Текст</a></h4>
-                        <p class="description">ТекстТекстТекстТекстТекстТекстТекст
-                            ТекстТекстТекстТекстТекстТекстТекст</p>
+                        <h4 class="title"><a href="">Уютные кабинеты</a></h4>
+                        <p class="description">Высокотехнологичный и уютный кабинет для вашего комфорта</p>
                     </div>
                 </div>
 
@@ -237,9 +234,9 @@
         <div class="container" data-aos="zoom-in">
 
             <div class="text-center">
-                <h3>Текст</h3>
-                <p> Призыв к записи</p>
-                <a class="cta-btn scrollto" th:href="@{'/user'}">Записаться в клинику</a>
+                <h3>Запишитесь на первый прием</h3>
+                <p></p>
+                <a class="cta-btn scrollto" th:href="@{'/user'}">Записаться на прием</a>
             </div>
 
         </div>
@@ -255,76 +252,136 @@
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
-                <h2>Вопросики</h2>
-                <p>Текст</p>
+                <h2>Вопросы</h2>
+                <p>В данном разделе приведены ответы на часто задаваемые вопросы:</p>
             </div>
 
             <ul class="faq-list">
 
                 <li>
                     <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">
-                        Вопрос2 <i class="bi bi-chevron-down icon-show"></i><i
+                        Можно ли лечить зубы без боли с анестезией?<i class="bi bi-chevron-down icon-show"></i><i
                             class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq1" class="collapse" data-bs-parent=".faq-list">
-                        <p>Шикарный ответ
+                        <p>У многих людей стоматология тесно ассоциируется с болью, так как долгое время все
+                            стоматологические процедуры действительно были связаны с неприятными, а иногда и сильными
+                            болевыми ощущениями. Кое-где это сохранилось и сейчас, однако во всех современных клиниках
+                            боль давно перестала быть обязательным атрибутом стоматологического лечения.
+                            <br>
+                            Самое главное, что помогает справиться с болью – это хорошая местная анестезия. Современные
+                            анестетики качественно «замораживают» все ткани в рабочей области так, что пациент
+                            совершенно не чувствует действий стоматолога. А различные местные анестетики в виде гелей
+                            позволяют сделать безболезненным даже сам укол обезболивающего вещества.
+                            <br>
+                            Если же анестетик на человека не действует, или ему просто некомфортно сидеть в
+                            стоматологическом кресле, то ему доступно лечение под седацией, или даже под общим наркозом.
+                            В этом случае не будет никакой тревоги, а болевые ощущения тем более не пробьются через
+                            наркоз.
+
+
                         </p>
                     </div>
                 </li>
 
                 <li>
-                    <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">Вопрос3<i
-                            class="bi bi-chevron-down icon-show"></i><i
-                            class="bi bi-chevron-up icon-close"></i></div>
+                    <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">Можно ли в стоматологии
+                        заразиться гепатитом?<i
+                                class="bi bi-chevron-down icon-show"></i><i
+                                class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq2" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            Шикарный ответ
+                            Теоретически, разумеется, через стоматологические инструменты от пациента, больного
+                            гепатитом, вирус может передаться к здоровому. Однако на практике это абсолютно невозможно.
+                            В любой клинике максимально используются одноразовые инструменты, а все многоразовые врач
+                            тщательно стерилизует после каждого пациента. Стерилизация проходит в несколько этапов – при
+                            помощи раствором, а затем горячим паром. Все это полностью уничтожает любые вирусы и
+                            бактерии. Так что опасаться заражения в стоматологической клинике не стоит.
                         </p>
                     </div>
                 </li>
 
                 <li>
-                    <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Вопрос4<i
-                            class="bi bi-chevron-down icon-show"></i><i
-                            class="bi bi-chevron-up icon-close"></i></div>
+                    <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Сколько зубов можно удалить
+                        одновременно?<i
+                                class="bi bi-chevron-down icon-show"></i><i
+                                class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq3" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            Шикарный ответ
+                            Однозначного ответа на этот вопрос дать, к сожалению, нельзя – все зависит от ситуации:
+                            <br>
+                            Чаще всего, разумеется, за один раз удаляется только один зуб. В некоторых стоматологиях
+                            больше одного зуба вам не удалят никогда;
+                            <br>
+
+                            Если зубы, которые нужно удалить, находятся достаточно близко друг к другу, то их можно
+                            удалить одновременно. Обычно речь идет об удалении не более чем двух зубов;
+                            Если зубы подвижные, шатаются и чуть ли не выпадают сами, то возможно удаление и большего
+                            количества зубов;
+                            Если удаление сложное, длительное, требуется удалить зуб с большим количеством корней – то
+                            опять же, удалят вам только один зуб, даже если рядом есть другие кандидаты на удаление.
+                            <br>
+
+                            Удалять сразу много зубов нельзя в основном потому, что удаление зуба – это стресс для
+                            организма. После удаления остается ранка, которая долго заживает, возникают болевые
+                            ощущения, возможно ухудшение общего самочувствия. Именно поэтому лучше посетить врача
+                            несколько раз. Кроме того, для удаления далеко стоящих друг от друга зубов придется два раза
+                            применять анестезию, что тоже не слишком хорошо сказывается на состоянии организма.
                         </p>
                     </div>
                 </li>
 
                 <li>
-                    <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">Вопрос5 <i
-                            class="bi bi-chevron-down icon-show"></i><i
-                            class="bi bi-chevron-up icon-close"></i></div>
+                    <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">Можно ли отбелить зубной
+                        протез или коронку?<i
+                                class="bi bi-chevron-down icon-show"></i><i
+                                class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq4" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            шикарный ответ
+                            Сегодня не существует технологии, позволяющей отбелить коронку или протез из любого
+                            материала. Это обусловлено самой структурой искусственных конструкций, которая отличается от
+                            структуры живой эмали. Поэтому перед тем, как подбирать цвет коронок, следует отбелить свои
+                            зубы, и затем уже изготавливать коронки под цвет отбеленных зубов.
+                            <br>
+                            Однако если коронка пожелтела или потемнела, сделать ее светлее можно – правда, речь здесь
+                            идет не об отбеливании, а о чистке. В клинике стоматолог при помощи специальных инструментов
+                            тщательно полирует коронку или протез, удаляя с нее налет и краску от таких продуктов, как
+                            чай, кофе и т.п. После полировки коронка приобретает свой первоначальный цвет.
+
+                            <br>
+                            А вот самостоятельно пытаться очистить коронку не стоит. Различные домашние методы
+                            отбеливания зубов не только не помогут, но и повредят искусственную конструкцию. Может дойти
+                            до того, что протез или коронку вообще придется полностью заменить.
                         </p>
                     </div>
                 </li>
 
                 <li>
-                    <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">Вопрос5 <i
-                            class="bi bi-chevron-down icon-show"></i><i
-                            class="bi bi-chevron-up icon-close"></i></div>
+                    <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">Сколько можно ходить с
+                        временной пломбой? <i
+                                class="bi bi-chevron-down icon-show"></i><i
+                                class="bi bi-chevron-up icon-close"></i></div>
                     <div id="faq5" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            Шикарныйй ответ
+                            На самом деле, ходить с временной пломбой можно не дольше срока, который определил
+                            стоматолог. Если не послушаться рекомендаций врача, то можно усугубить состояние своих зубов
+                            – и в дальнейшем потребуется более дорогое и затратное по времени лечение.
+                            <br>
+                            В целом временная пломба сделана из не слишком прочного материала, который достаточно легко
+                            начинает крошиться. В зависимости от размера дефекта, закрытого временной пломбой, она может
+                            продержаться от пары недель до полугода, но даже за такой срок она значительно раскрошиться,
+                            открывая полость зуба.
+                            <br>
+                            Сроки, указанные выше, совершенно не применимы к временной пломбе, закрывающей мышьяковую
+                            пасту, применяемую для депульпирования зуба. Такая пломба должна быть обязательно удалена не
+                            позже срока, указанного врачом. В зависимости от типа пасты этот срок может составлять от
+                            одного дня до двух недель. При более длительном ношении паста начинает отравлять весь
+                            организм, так что ее обязательно нужно удалить вовремя – вместе с временной пломбой.
+
+
                         </p>
                     </div>
                 </li>
 
-                <li>
-                    <div data-bs-toggle="collapse" href="#faq6" class="collapsed question">Вопрос6 <i
-                            class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i>
-                    </div>
-                    <div id="faq6" class="collapse" data-bs-parent=".faq-list">
-                        <p>
-                            Ещё один шикарный ответ
-                        </p>
-                    </div>
-                </li>
 
             </ul>
 
@@ -344,10 +401,10 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-info">
                         <h3>Happy smile</h3>
-                        <p>
+                        <p> Главный офис :
                             Дубко 20 <br>
                             г. Гродно<br><br>
-                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Телефон:</strong> +1 5589 55488 55<br>
                             <strong>Email:</strong> info@example.com<br>
                         </p>
                         <div class="social-links mt-3">
@@ -361,7 +418,7 @@
                 </div>
 
                 <div class="col-lg-2 col-md-6 footer-links">
-                    <h4>Useful Links</h4>
+                    <h4>Полезные ссылки</h4>
                     <ul>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">Главная</a></li>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">Про нас</a></li>

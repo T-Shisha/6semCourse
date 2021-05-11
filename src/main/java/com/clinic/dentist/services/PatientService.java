@@ -35,10 +35,17 @@ public class PatientService implements IPatientService {
         patient.setPassword(bCryptPasswordEncoder.encode(patient.getPassword()));
         patientDao.save(patient);
     }
+    public boolean checkExist(long id) {
+        return patientDao.checkExist(id);
+    }
+    public void save(Patient patient) {
+        patientDao.save(patient);
 
-    public boolean checkPatient(Patient patient) {
+    }
+
+    public boolean checkPatient(String username) {
         try {
-            findUserByUsername(patient.getUsername());
+            findUserByUsername(username);
             return true;
         } catch (RuntimeException ex) {
             return false;
@@ -50,58 +57,59 @@ public class PatientService implements IPatientService {
 
         }
     }
+    public void delete(Patient patient){
+        patientDao.delete(patient);
+    }
+    public Patient findUserByUsername(String name) {
+        return patientDao.findUserByUsername(name);
+    }
 
-        public Patient findUserByUsername(String name){
-            return patientDao.findUserByUsername(name);
-        }
+    public Patient correctData(Patient patient) {
+        patient.setFirstName(patient.getFirstName().trim());
+        patient.setLastName(patient.getLastName().trim());
+        patient.setUsername(patient.getUsername().trim());
+        return patient;
+    }
 
-        public Patient correctData (Patient patient){
-            patient.setFirstName(patient.getFirstName().trim());
-            patient.setLastName(patient.getLastName().trim());
-            patient.setUsername(patient.getUsername().trim());
-            return patient;
-        }
-
-        public Patient findUser (String login, String password){
-            try {
-                password = bCryptPasswordEncoder.encode(password);
-                Patient patient = patientDao.findUserByUsername(login);
-                patient.getPassword();
-                if (patient.getPassword().equals(password)) {
-                    return patient;
-                } else {
-                    throw new RuntimeException("Invalid password");
-                }
+    public Patient findUser(String login, String password) {
+        try {
+            password = bCryptPasswordEncoder.encode(password);
+            Patient patient = patientDao.findUserByUsername(login);
+            patient.getPassword();
+            if (patient.getPassword().equals(password)) {
+                return patient;
+            } else {
+                throw new RuntimeException("Invalid password");
             }
-            catch (RuntimeException ex){
-                ex.printStackTrace();
-                throw ex;
-              }
-         }
-
-        public List<Patient> getAll () {
-            return patientDao.getAll();
-        }
-
-        public List<Patient> getRegisteredPatients () {
-             return patientDao.getRegisteredPatients();
-        }
-
-        public List<Patient> getUnregisteredPatients () {
-            return patientDao.getUnregisteredPatients();
-        }
-
-        public Patient findById (Long id){
-            return patientDao.findById(id);
-        }
-
-        public void registeredPatient (Long id){
-            Patient patient = findById(id);
-            Set<Role> roles = new HashSet<>();
-            roles.add(Role.PATIENT);
-            patient.setRoles(roles);
-
-            patientDao.save(patient);
-
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+            throw ex;
         }
     }
+
+    public List<Patient> getAll() {
+        return patientDao.getAll();
+    }
+
+    public List<Patient> getRegisteredPatients() {
+        return patientDao.getRegisteredPatients();
+    }
+
+    public List<Patient> getUnregisteredPatients() {
+        return patientDao.getUnregisteredPatients();
+    }
+
+    public Patient findById(Long id) {
+        return patientDao.findById(id);
+    }
+
+    public void registeredPatient(Long id) {
+        Patient patient = findById(id);
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.PATIENT);
+        patient.setRoles(roles);
+
+        patientDao.save(patient);
+
+    }
+}

@@ -31,4 +31,6 @@ public interface IMaintenanceService {
     boolean checkHaveThisMaintenance(Maintenance maintenance);
 
     Set<Maintenance> getSetFromArrayMaintenance(String[] array);
+
+    List<Maintenance> sorted();
 }

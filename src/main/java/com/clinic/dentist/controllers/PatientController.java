@@ -32,7 +32,7 @@ public class PatientController {
     @Autowired
     @Qualifier("maintenanceService")
     private MaintenanceService maintenanceService;
-    @Autowired
+      @Autowired
     @Qualifier("patientService")
     private IPatientService patientService;
     @Autowired

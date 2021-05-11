@@ -66,7 +66,7 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-        <a href="main.html" class="logo me-auto"><img src="http://localhost:8080/img/logo.png" alt=""></a>
+        <a href="/" class="logo me-auto"><img style="max-height: 70px;" src="http://localhost:8080/img/gallery/z.jpg" alt=""></a>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
@@ -74,7 +74,7 @@
             <ul>
                 <li><a class="nav-link scrollto " href='/'>Главная</a></li>
 
-                <li><a class="nav-link scrollto " th:href="'/types'">Услуги</a></li>
+                <li><a class="nav-link scrollto " th:href="'/services'">Услуги</a></li>
                 <li><a class="nav-link scrollto" href="/about">Про нас</a></li>
                 <li><a class="nav-link scrollto" href="/contacts">Контакты</a></li>
                 <!--                            <li  sec:authorize="hasAuthority('PATIENT')"  ><a   class="appointment-btn scrollto" th:href="'/user'">Профиль</a></li>-->
@@ -91,13 +91,13 @@
                 </li>
                 <li sec:authorize="hasAuthority('PATIENT') || hasAuthority('ADMIN')">
                     <form th:action="@{/logout}" method="post">
-                        <input type="submit" class="appointment-btn scrollto" value="Sign Out"/>
+                        <input type="submit" class="appointment-btn scrollto" value="Выйти"/>
                     </form>
                 </li>
 
                 <li sec:authorize="!isAuthenticated() || hasAuthority('UNREGISTERED')">
                     <form th:action="@{/login}" method="post">
-                        <input type="submit" class="appointment-btn scrollto" value="Sign in"/>
+                        <input type="submit" class="appointment-btn scrollto" value="Войти"/>
                     </form>
                 </li>
             </ul>
@@ -158,10 +158,10 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-info">
                         <h3>Happy smile</h3>
-                        <p>
+                        <p> Главный офис :
                             Дубко 20 <br>
                             г. Гродно<br><br>
-                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Телефон:</strong> +1 5589 55488 55<br>
                             <strong>Email:</strong> info@example.com<br>
                         </p>
                         <div class="social-links mt-3">
@@ -175,7 +175,7 @@
                 </div>
 
                 <div class="col-lg-2 col-md-6 footer-links">
-                    <h4>Useful Links</h4>
+                    <h4>Полезные ссылки</h4>
                     <ul>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">Главная</a></li>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">Про нас</a></li>
@@ -183,7 +183,6 @@
                         <li><i class="bx bx-chevron-right"></i> <a href="#">Контакты</a></li>
                     </ul>
                 </div>
-
                 <div class="col-lg-3 col-md-6 footer-links">
                     <!--                    <h4>Our Services</h4>-->
                     <!--                    <ul>-->

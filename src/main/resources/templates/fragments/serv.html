@@ -1,0 +1,7 @@
+<div class="block-table" th:each="t:${services}" >
+
+    <div class="name-li" th:text="${t.getName()}"></div><br>
+    <h4 th:text="${t.getDescription()}"></h4>
+    <h4 th:text="'Цена : '+${t.getPrice()}+' BYN'"></h4>
+
+</div>

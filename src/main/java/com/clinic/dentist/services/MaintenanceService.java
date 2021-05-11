@@ -66,6 +66,12 @@ public class MaintenanceService implements IMaintenanceService {
     public List<Maintenance> findAll() {
         return maintenanceDao.getAll();
     }
+    public List<Maintenance> sorted(){
+        return findAll()
+                .stream()
+                .sorted(new MaintenancePriceComparator())
+                .collect(Collectors.toList());
+    }
 
     public List<Maintenance> sortByName() {
         return maintenanceDao.sortByName();
