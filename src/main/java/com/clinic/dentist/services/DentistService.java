@@ -203,7 +203,8 @@ public class DentistService implements IDentistService {
         if (dentist.getOrders() != null) {
             List<Appointment> list = ListConverter.getList(dentist.getOrders());
             for (Appointment appointment : list) {
-                appointmentDao.deleteAppointment(appointment);
+                appointment.setDentist(findById((long)2));
+                appointmentDao.save(appointment);
 
             }
         }
