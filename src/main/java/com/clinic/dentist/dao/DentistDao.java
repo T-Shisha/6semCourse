@@ -10,6 +10,7 @@ import com.clinic.dentist.repositories.DentistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,6 +61,14 @@ public class DentistDao implements IDentistDao {
     }
     @Override
     public List<Dentist> getAll() {
-        return dentistRepository.findAll();
+        List<Dentist> dentists=dentistRepository.findAll();
+        List<Dentist> dentists1=new ArrayList<>();
+        long id=2;
+        for(Dentist dentist: dentists){
+            if(!dentist.getId().equals(id)){
+                dentists1.add(dentist);
+            }
+        }
+        return dentists1;
     }
 }
